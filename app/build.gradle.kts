@@ -45,4 +45,24 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.swiperefreshlayout)
+    implementation (libs.kotlinx.coroutines.core)
+
+    implementation (libs.sdp.android)
+    implementation (libs.ssp.android)
+    implementation (libs.utilcodex)
+    implementation (libs.koin.android)
+
+    implementation (libs.dialogx)
+
+    //Retrofit configuration
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation (libs.logging.interceptor)
+    implementation (libs.gson)
 }
