@@ -2,6 +2,7 @@ package com.xdeveloperss.fourbrothers.xnetwork.config.server
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.xdeveloperss.fourbrothers.xnetwork.config.models.AuthResponse
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
@@ -16,7 +17,7 @@ import retrofit2.http.QueryMap
 interface ServerInterface {
 
     @POST("/api/auth/login")
-    suspend fun login(@Query("email") email: String, @Query("password") pas:String)
+    suspend fun login(@Query("username") email: String, @Query("password") pas:String):AuthResponse
 
     @POST("/api/auth/logout")
     suspend fun logout(): Boolean

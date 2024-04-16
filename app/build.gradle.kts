@@ -24,6 +24,13 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "API_URL", "\"https://docsgene.xdeveloperss.com\"")
+            signingConfig = signingConfigs.getByName("debug")
+        }
+        debug {
+            isMinifyEnabled = false
+            buildConfigField("String", "API_URL", "\"http://127.0.0.1:8000\"")
+            isDebuggable =  true
         }
     }
     compileOptions {
