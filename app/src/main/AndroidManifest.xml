@@ -16,11 +16,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FourBrothers"
-
         tools:targetApi="31">
+
         <activity
-            android:name=".ui.join.LoginActivity"
-            android:exported="true">
+            android:name=".SplashActivity"
+            android:launchMode="singleInstance"
+            android:exported="true"
+            android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,10 +30,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.join.LoginActivity"
+            android:exported="true"/>
+        <activity
             android:name=".MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"/>
     </application>
 
 </manifest>

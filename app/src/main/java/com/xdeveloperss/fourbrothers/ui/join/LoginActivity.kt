@@ -18,6 +18,7 @@ import com.xdeveloperss.fourbrothers.databinding.ActivityLoginBinding
 import com.xdeveloperss.fourbrothers.ui.join.data.AuthViewModel
 import com.xdeveloperss.fourbrothers.xbase.XBaseActivity
 import com.xdeveloperss.fourbrothers.xnetwork.config.response.getValueFromResponse
+import com.xdeveloperss.fourbrothers.xnetwork.config.utlis.Prefs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : XBaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate) {
@@ -42,6 +43,7 @@ class LoginActivity : XBaseActivity<ActivityLoginBinding>(ActivityLoginBinding::
             it.getValueFromResponse()?.let {
                 if (it.success){
                     startActivity(Intent(this, MainActivity::class.java))
+//                    Prefs.setToken(it.user?.token.toString())
                     finish()
                 }else{
                     MessageDialog.show("Error", it.message, "Ok")
