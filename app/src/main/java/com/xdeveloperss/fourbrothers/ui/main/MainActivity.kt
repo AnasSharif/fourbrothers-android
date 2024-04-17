@@ -41,13 +41,13 @@ class MainActivity : XBaseActivity<ActivityMainBinding>(ActivityMainBinding::inf
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.nav_home, R.id.nav_shop, R.id.nav_supplies
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        navView.menu.findItem(R.id.logout).setOnMenuItemClickListener { menuItem ->
+        navView.menu.findItem(R.id.logout).setOnMenuItemClickListener { _ ->
 
             MessageDialog.show(getString(R.string.warning),
                 getString(R.string.are_you_sure_to_delete_this_item),

@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_shop"
+        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.shop.ShopFragment"
+        android:label="@string/menu_shop"
+        tools:layout="@layout/fragment_shop" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_supplies"
+        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.supplie.SupplieFragment"
+        android:label="@string/menu_supplie"
+        tools:layout="@layout/fragment_supplie" />
 </navigation>

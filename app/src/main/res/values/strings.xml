@@ -11,9 +11,9 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_home">Dashboard</string>
+    <string name="menu_shop">Shop</string>
+    <string name="menu_supplie">Supplies</string>
     <string name="logout">Logout</string>
     <string name="warning">Warning</string>
     <string name="are_you_sure_to_delete_this_item">Are you sure to logout account?</string>
