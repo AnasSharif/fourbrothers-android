@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.xdeveloperss.fourbrothers.ui.join.LoginActivity
+import com.xdeveloperss.fourbrothers.ui.main.MainActivity
 import com.xdeveloperss.fourbrothers.xnetwork.config.utlis.Prefs
 
 class SplashActivity : AppCompatActivity() {

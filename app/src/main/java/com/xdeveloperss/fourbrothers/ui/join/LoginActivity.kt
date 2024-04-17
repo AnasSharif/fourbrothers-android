@@ -1,21 +1,13 @@
 package com.xdeveloperss.fourbrothers.ui.join
 
 import android.content.Intent
-import android.os.Bundle
-import android.text.TextUtils
-import android.util.Patterns
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.gson.Gson
 import com.kongzue.dialogx.dialogs.MessageDialog
 import com.kongzue.dialogx.dialogs.WaitDialog
 import com.xdeveloperss.fourbrothers.BuildConfig
-import com.xdeveloperss.fourbrothers.MainActivity
-import com.xdeveloperss.fourbrothers.R
 import com.xdeveloperss.fourbrothers.databinding.ActivityLoginBinding
 import com.xdeveloperss.fourbrothers.ui.join.data.AuthViewModel
+import com.xdeveloperss.fourbrothers.ui.main.MainActivity
 import com.xdeveloperss.fourbrothers.xbase.XBaseActivity
 import com.xdeveloperss.fourbrothers.xnetwork.config.response.getValueFromResponse
 import com.xdeveloperss.fourbrothers.xnetwork.config.utlis.Prefs
@@ -43,7 +35,8 @@ class LoginActivity : XBaseActivity<ActivityLoginBinding>(ActivityLoginBinding::
             it.getValueFromResponse()?.let {
                 if (it.success){
                     startActivity(Intent(this, MainActivity::class.java))
-//                    Prefs.setToken(it.user?.token.toString())
+                    Prefs.setToken(it.token.toString())
+                    Prefs.putString("userData", Gson().toJson(it.data))
                     finish()
                 }else{
                     MessageDialog.show("Error", it.message, "Ok")
