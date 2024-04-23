@@ -23,4 +23,7 @@
     <string name="detail">Show Detail</string>
     <string name="total">Total: %1$d</string>
     <string name="total_weight">Total Weight: %.1f <b>Kg</b></string>
+    <string name="edit">Edit\n</string>
+    <string name="delete">Delete</string>
+    <string name="select">Select</string>
 </resources>

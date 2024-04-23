@@ -21,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="false"
-            app:startIconDrawable="@drawable/baseline_calendar_today_24"
+            app:endIconCheckable="true"
+            app:endIconDrawable="@drawable/baseline_calendar_today_24"
             android:layout_weight="1"
             android:hint="Select Date">
             <com.google.android.material.textfield.TextInputEditText
@@ -79,11 +80,13 @@
 
     <com.google.android.material.card.MaterialCardView
         app:layout_constraintTop_toBottomOf="@+id/rates_container"
+        android:clickable="true"
         android:id="@+id/customer_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Widget.Material3.CardView.Elevated"
-        android:layout_margin="@dimen/_5sdp">
+        android:layout_margin="@dimen/_5sdp"
+        android:focusable="true">
 
         <LinearLayout
             android:layout_width="match_parent"

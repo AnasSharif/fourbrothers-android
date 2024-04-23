@@ -15,11 +15,61 @@
         android:id="@+id/nav_shop"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.shop.ShopFragment"
         android:label="@string/menu_shop"
-        tools:layout="@layout/fragment_shop" />
+        tools:layout="@layout/fragment_shop" >
+        <argument
+            android:name="customerList"
+            android:defaultValue="[]"
+            app:argType="string"/>
+        <action
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_in_pop"
+            app:popExitAnim="@anim/slide_out_pop"
+            android:id="@+id/action_nav_shop_to_customerFragment"
+            app:destination="@id/customerFragment" />
+        <action
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_in_pop"
+            app:popExitAnim="@anim/slide_out_pop"
+            android:id="@+id/action_nav_shop_to_buyerFragment"
+            app:destination="@id/buyerFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_supplies"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.supplie.SupplieFragment"
         android:label="@string/menu_supplie"
         tools:layout="@layout/fragment_supplie" />
+    <fragment
+        android:id="@+id/customerFragment"
+        tools:layout="@layout/fragment_customer"
+        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.shop.customers.CustomerFragment"
+        android:label="@string/customers" >
+        <action
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_in_pop"
+            app:popExitAnim="@anim/slide_out_pop"
+            android:id="@+id/action_customerFragment_to_shopEditorFragment"
+            app:destination="@id/shopEditorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/buyerFragment"
+        tools:layout="@layout/fragment_buyer"
+        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.shop.buyers.BuyerFragment"
+        android:label="@string/buyers" >
+        <action
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_in_pop"
+            app:popExitAnim="@anim/slide_out_pop"
+            android:id="@+id/action_buyerFragment_to_shopEditorFragment"
+            app:destination="@id/shopEditorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shopEditorFragment"
+        tools:layout="@layout/fragment_shop_editor"
+        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.shop.editor.ShopEditorFragment"
+        android:label="ShopEditor" />
 </navigation>
