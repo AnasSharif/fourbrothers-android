@@ -79,4 +79,5 @@ dependencies {
     implementation (libs.gson)
     implementation (libs.glide)
     annotationProcessor (libs.glide.compiler)
+    implementation (libs.cropper)
 }

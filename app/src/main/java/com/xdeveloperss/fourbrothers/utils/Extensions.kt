@@ -1,10 +1,14 @@
 package com.xdeveloperss.fourbrothers.utils
 
 import android.app.Activity
+import android.net.Uri
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
+import com.bumptech.glide.Glide
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputLayout
+import com.xdeveloperss.fourbrothers.R
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -34,4 +38,10 @@ fun TextInputLayout.text(text: String?){
 fun TextInputLayout.text(intValue: Int?){
     val stringValue = intValue ?: ""
     this.editText?.setText(stringValue.toString())
+}
+fun ImageView.glideLoad(uri: Uri?){
+    Glide.with(this)
+        .load(uri)
+        .placeholder(R.drawable.baseline_image_24)
+        .into(this)
 }
