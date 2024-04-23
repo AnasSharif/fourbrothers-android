@@ -6,17 +6,178 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.ui.shop.ShopFragment">
 
-    <TextView
-        android:id="@+id/text_gallery"
+    <LinearLayout
+        android:id="@+id/rates_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textFieldSaleDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="false"
+            app:startIconDrawable="@drawable/baseline_calendar_today_24"
+            android:layout_weight="1"
+            android:hint="Select Date">
+            <com.google.android.material.textfield.TextInputEditText
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:text="Today Rates"
+            android:textSize="@dimen/_13ssp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+       <androidx.appcompat.widget.LinearLayoutCompat
+           android:orientation="horizontal"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+           <com.google.android.material.textfield.TextInputLayout
+               android:id="@+id/zindaRateField"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:focusableInTouchMode="false"
+               android:layout_weight="1"
+               android:hint="Zinda Rate">
+               <com.google.android.material.textfield.TextInputEditText
+                   android:cursorVisible="false"
+                   android:focusable="false"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   />
+           </com.google.android.material.textfield.TextInputLayout>
+           <Space
+               android:layout_width="@dimen/_5sdp"
+               android:layout_height="match_parent"/>
+           <com.google.android.material.textfield.TextInputLayout
+               android:id="@+id/chickenRateField"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:focusableInTouchMode="false"
+               android:layout_weight="1"
+               android:hint="Chicke Rate">
+               <com.google.android.material.textfield.TextInputEditText
+                   android:cursorVisible="false"
+                   android:focusable="false"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   />
+           </com.google.android.material.textfield.TextInputLayout>
+       </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        app:layout_constraintTop_toBottomOf="@+id/rates_container"
+        android:id="@+id/customer_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.Material3.CardView.Elevated"
+        android:layout_margin="@dimen/_5sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/_13sdp">
+
+                <!-- Title, secondary and supporting text -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/customers"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:id="@+id/total_customer"
+                    android:text="@string/total"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?android:attr/textColorSecondary"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:id="@+id/customers_weight"
+                    android:text="@string/total_weight"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?android:attr/textColorSecondary"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        app:layout_constraintTop_toBottomOf="@+id/customer_detail"
+        android:id="@+id/buyers_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.Material3.CardView.Elevated"
+        android:layout_margin="@dimen/_5sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/_13sdp">
+
+                <!-- Title, secondary and supporting text -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/buyers"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:text="@string/total"
+                    android:id="@+id/total_buyers"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?android:attr/textColorSecondary"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:text="@string/total_weight"
+                    android:id="@+id/buyers_weight"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?android:attr/textColorSecondary"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

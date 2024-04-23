@@ -18,4 +18,9 @@
     <string name="warning">Warning</string>
     <string name="are_you_sure_to_delete_this_item">Are you sure to logout account?</string>
     <string name="yes_sure">Yes sure!</string>
+    <string name="customers">Customers Data</string>
+    <string name="buyers">Buyers Data</string>
+    <string name="detail">Show Detail</string>
+    <string name="total">Total: %1$d</string>
+    <string name="total_weight">Total Weight: %.1f <b>Kg</b></string>
 </resources>
