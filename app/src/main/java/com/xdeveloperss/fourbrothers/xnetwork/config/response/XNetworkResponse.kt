@@ -20,7 +20,7 @@ fun <T> XNetworkResponse<T>.getValueFromResponse():T?{
             this.value
         }
         is XNetworkResponse.Failure -> {
-            MessageDialog.show("Unknown Error",message,"Ok")
+            MessageDialog.show("Unknown Error",this.exception?.message,"Ok")
             null
         }
     }

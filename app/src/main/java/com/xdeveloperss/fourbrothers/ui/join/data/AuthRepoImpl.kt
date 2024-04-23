@@ -4,6 +4,7 @@ import com.blankj.utilcode.util.ToastUtils
 import com.xdeveloperss.fourbrothers.xnetwork.config.models.AuthResponse
 import com.xdeveloperss.fourbrothers.xnetwork.config.repository.XBaseApiRepo
 import com.xdeveloperss.fourbrothers.xnetwork.config.response.XNetworkResponse
+import com.xdeveloperss.fourbrothers.xnetwork.config.response.getValueFromResponse
 import com.xdeveloperss.fourbrothers.xnetwork.config.server.ServerInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -21,7 +22,7 @@ class AuthRepoImpl(private val api: ServerInterface): XBaseApiRepo(), AuthReposi
                     if (response is XNetworkResponse.Success){
                         response.value
                     }else{
-                        AuthResponse()
+                        response.getValueFromResponse() ?: AuthResponse()
                     }
                 }
                 val list = loginResponse.await()

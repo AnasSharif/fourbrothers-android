@@ -21,7 +21,7 @@ class LoginActivity : XBaseActivity<ActivityLoginBinding>(ActivityLoginBinding::
 
         if (BuildConfig.DEBUG) {
             binding.editTextTextEmailAddress.editText?.setText("waqaskhan")
-            binding.editTextTextPassword.editText?.setText("waqas#09091")
+            binding.editTextTextPassword.editText?.setText("waqas#09092")
         }
 
         binding.joinButton.setOnClickListener {
@@ -38,8 +38,6 @@ class LoginActivity : XBaseActivity<ActivityLoginBinding>(ActivityLoginBinding::
                     Prefs.setToken(it.token.toString())
                     Prefs.putString("userData", Gson().toJson(it.data))
                     finish()
-                }else{
-                    MessageDialog.show("Error", it.message, "Ok")
                 }
             }
         }
