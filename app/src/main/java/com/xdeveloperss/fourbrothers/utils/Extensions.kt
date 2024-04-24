@@ -39,7 +39,11 @@ fun TextInputLayout.text(intValue: Int?){
     val stringValue = intValue ?: ""
     this.editText?.setText(stringValue.toString())
 }
-fun ImageView.glideLoad(uri: Uri?){
+fun TextInputLayout.double(): Double{
+    val char = editText?.text ?: "0"
+    return char.toString().toDouble()
+}
+fun ImageView.glideLoad(uri: Uri?) {
     Glide.with(this)
         .load(uri)
         .placeholder(R.drawable.baseline_image_24)
