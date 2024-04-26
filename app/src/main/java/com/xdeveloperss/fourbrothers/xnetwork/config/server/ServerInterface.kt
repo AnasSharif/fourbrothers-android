@@ -2,7 +2,7 @@ package com.xdeveloperss.fourbrothers.xnetwork.config.server
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.xdeveloperss.fourbrothers.data.responses.ShopResponse
+import com.xdeveloperss.fourbrothers.data.BaseResponseRepo
 import com.xdeveloperss.fourbrothers.xnetwork.config.models.AuthResponse
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -24,8 +24,13 @@ interface ServerInterface {
     @POST("/api/auth/logout")
     suspend fun logout(): Boolean
 
-    @GET("/api/shopItems")
-    suspend fun shopData(@Query("date") date: String):ShopResponse
+    @GET("/api/getData")
+    suspend fun getData(@Query("created_at") date: String?=null,
+                        @Query("type[]") types: List<String>):BaseResponseRepo
+
+    @GET("/api/getData")
+    @JvmSuppressWildcards
+    suspend fun getData(@QueryMap param: Map<String,Any>):BaseResponseRepo
 
 
     companion object {

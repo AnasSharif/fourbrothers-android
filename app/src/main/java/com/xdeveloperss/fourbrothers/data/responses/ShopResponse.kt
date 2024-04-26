@@ -1,18 +1,10 @@
 package com.xdeveloperss.fourbrothers.data.responses
 
 import com.google.gson.annotations.SerializedName
-import com.xdeveloperss.fourbrothers.data.BaseResponse
+import com.xdeveloperss.fourbrothers.data.BaseResponseRepo
 import com.xdeveloperss.fourbrothers.data.models.Person
-import com.xdeveloperss.fourbrothers.data.models.PersonProduct
 import com.xdeveloperss.fourbrothers.data.models.PersonRate
 import com.xdeveloperss.fourbrothers.data.models.Product
-
-
-data class ShopResponse(override var success: Boolean = false,
-                        override var message: String? = null,
-                        val rate: DailyRates? = null,
-                        val orders: List<ShopItemData> = listOf(),
-                        val buyers: List<ShopItemData> = listOf()): BaseResponse()
 
 data class DailyRates(val zindarate:Int, val chickenrate: Int)
 

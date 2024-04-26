@@ -3,8 +3,8 @@ package com.xdeveloperss.fourbrothers.ui.main.ui.shop
 import androidx.navigation.fragment.findNavController
 import com.kongzue.dialogx.dialogs.WaitDialog
 import com.xdeveloperss.fourbrothers.R
-import com.xdeveloperss.fourbrothers.data.responses.ShopItemData
-import com.xdeveloperss.fourbrothers.data.responses.ShopResponse
+import com.xdeveloperss.fourbrothers.data.BaseResponseRepo
+import com.xdeveloperss.fourbrothers.data.responses.Data
 import com.xdeveloperss.fourbrothers.databinding.FragmentShopBinding
 import com.xdeveloperss.fourbrothers.ui.join.data.AuthViewModel
 import com.xdeveloperss.fourbrothers.utils.formattedDate
@@ -20,7 +20,7 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
 
     private val shopViewModel: ShopViewModel by sharedViewModel()
 
-    private lateinit var shopData: ShopResponse
+    private lateinit var shopData: Data
     override fun onViewCreated() {
 
         this.loadData(Date())
@@ -31,31 +31,31 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
         }
         binding.customerDetail.setOnClickListener {
             findNavController().navigate(ShopFragmentDirections.actionNavShopToCustomerFragment())
-            shopViewModel.setCustomsList(shopData.orders.sortedBy { it.personName })
+            shopViewModel.setCustomsList(shopData.orderItems.sortedBy { it.personName })
         }
         binding.buyersDetail.setOnClickListener {
             findNavController().navigate(ShopFragmentDirections.actionNavShopToBuyerFragment())
-            shopViewModel.setCustomsList(shopData.buyers.sortedBy { it.personName })
+            shopViewModel.setCustomsList(shopData.stockItems.sortedBy { it.personName })
         }
 
-        shopViewModel.shopData.observe { resp->
-            resp.getValueFromResponse()?.let {
-                binding.chickenRateField.text(it.rate?.chickenrate)
-                binding.zindaRateField.text(it.rate?.zindarate)
-                binding.totalCustomer.text = getString(R.string.total, it.orders.size)
-                binding.totalBuyers.text = getString(R.string.total, it.buyers.size)
+        shopViewModel.getData.observe { resp ->
+            resp.getValueFromResponse()?.data?.let {
+                binding.chickenRateField.text(it.dailyRates.first().chickenrate)
+                binding.zindaRateField.text(it.dailyRates.first().zindarate)
+                binding.totalCustomer.text = getString(R.string.total, it.orderItems.size)
+                binding.totalBuyers.text = getString(R.string.total, it.stockItems.size)
 
-                binding.customersWeight.text = getString(R.string.total_weight, it.orders.sumOf { it.weight })
-                binding.buyersWeight.text = getString(R.string.total_weight, it.buyers.sumOf { it.weight })
+                binding.customersWeight.text = getString(R.string.total_weight, it.orderItems.sumOf { it.weight })
+                binding.buyersWeight.text = getString(R.string.total_weight, it.stockItems.sumOf { it.weight })
                 shopData = it
                 WaitDialog.dismiss()
             }
         }
     }
 
-    fun loadData(date: Date){
+    private fun loadData(date: Date){
         WaitDialog.show("Load Data...")
-        shopViewModel.getShopData(date.formattedDate())
+        shopViewModel.setData(date.formattedDate(), listOf("dailyRates","orderItems","stockItems"))
         binding.textFieldSaleDate.editText?.setText(date.formattedDate("MMM d, yyyy"))
     }
 }

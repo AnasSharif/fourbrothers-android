@@ -21,8 +21,7 @@ abstract class XBaseApiRepo {
                 when (throwable) {
                     is HttpException -> {
                         XNetworkResponse.Failure(throwable, throwable.message, throwable.code())
-                    }
-                    else -> {
+                    }else -> {
                         XNetworkResponse.Failure(throwable, throwable.message, null)
                     }
                 }

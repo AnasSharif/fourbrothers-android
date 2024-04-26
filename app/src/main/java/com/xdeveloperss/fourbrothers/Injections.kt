@@ -3,8 +3,10 @@ package com.xdeveloperss.fourbrothers
 import com.xdeveloperss.fourbrothers.ui.join.data.AuthRepoImpl
 import com.xdeveloperss.fourbrothers.ui.join.data.AuthRepository
 import com.xdeveloperss.fourbrothers.ui.join.data.AuthViewModel
-import com.xdeveloperss.fourbrothers.ui.main.ui.shop.ShopRepo
-import com.xdeveloperss.fourbrothers.ui.main.ui.shop.ShopRepoImpl
+import com.xdeveloperss.fourbrothers.ui.main.MainRepo
+import com.xdeveloperss.fourbrothers.ui.main.MainRepoImpl
+import com.xdeveloperss.fourbrothers.ui.main.MainViewModel
+import com.xdeveloperss.fourbrothers.ui.main.ui.parties.PartyViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.shop.ShopViewModel
 import com.xdeveloperss.fourbrothers.xnetwork.config.configureApi
 import com.xdeveloperss.fourbrothers.xnetwork.config.server.ServerInterface
@@ -15,8 +17,8 @@ val repos = module {
     single<AuthRepository> {
         AuthRepoImpl(get())
     }
-    single<ShopRepo> {
-        ShopRepoImpl(get())
+    single<MainRepo> {
+        MainRepoImpl(get())
     }
 }
 val vms = module {
@@ -24,7 +26,13 @@ val vms = module {
         AuthViewModel(get())
     }
     viewModel {
+        MainViewModel(get())
+    }
+    viewModel {
         ShopViewModel(get())
+    }
+    viewModel {
+        PartyViewModel(get())
     }
 }
 val apiModule = module {

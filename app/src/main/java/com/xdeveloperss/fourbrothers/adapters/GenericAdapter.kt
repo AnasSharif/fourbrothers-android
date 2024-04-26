@@ -12,6 +12,7 @@ import com.kongzue.dialogx.dialogs.PopMenu
 import com.kongzue.dialogx.interfaces.OnIconChangeCallBack
 import com.xdeveloperss.fourbrothers.R
 import com.xdeveloperss.fourbrothers.XBaseApplication
+import com.xdeveloperss.fourbrothers.data.models.Person
 import com.xdeveloperss.fourbrothers.data.responses.ShopItemData
 import com.xdeveloperss.fourbrothers.databinding.ShopItemBinding
 import com.xdeveloperss.fourbrothers.utils.FileManager
@@ -19,6 +20,7 @@ import com.xdeveloperss.fourbrothers.utils.FileManager
 
 enum class AdapterType{
     SHOP,
+    PERSON
 }
 enum class AdapterAction(val id: Int, val image: Int){
     EDIT(R.string.edit, R.drawable.baseline_edit_24),
@@ -38,6 +40,8 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
             AdapterType.SHOP -> {
                 GenericViewHolder(ShopItemBinding.inflate(inflater, parent,false))
             }
+
+            AdapterType.PERSON -> { GenericViewHolder(ShopItemBinding.inflate(inflater, parent,false))}
         }
     }
 
@@ -50,6 +54,12 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
                 b.weight.text = data.weight.toString() +" Kg"
                 b.amount.text = data.total.toInt().toString() +" Rs"
 
+            }
+            AdapterType.PERSON -> {
+                val data = lists[position] as Person
+                val b =  holder.b as ShopItemBinding
+                b.personName.text = data.name
+                b.weight.text = data.phonenumber
             }
         }
         holder.b.root.setOnClickListener {
