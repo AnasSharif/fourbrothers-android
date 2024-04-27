@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputLayout
 import com.xdeveloperss.fourbrothers.R
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -73,3 +74,17 @@ fun Int.isZero():Boolean{
 fun Int?.value():Int{
     return this ?: 0
 }
+fun Double.exactly(): String {
+    val formatter = NumberFormat.getInstance().apply {
+        minimumFractionDigits = 0
+        maximumFractionDigits = 16 // maximum digits in Double after dot (maximum precision)
+    }
+    return formatter.format(this) ?: ""
+}
+fun String.removeSpecialChars(): Double {
+    val cleanString = this.replace("[^\\d.]".toRegex(), "").replace(",", "")
+    return cleanString.toDoubleOrNull() ?: 0.0
+}
+
+val Double.rounded : Double
+    get() =  String.format("%.1f", this).toDouble()

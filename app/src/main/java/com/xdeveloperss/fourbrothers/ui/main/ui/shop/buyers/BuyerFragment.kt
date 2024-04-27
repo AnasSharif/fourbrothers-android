@@ -2,7 +2,7 @@ package com.xdeveloperss.fourbrothers.ui.main.ui.shop.buyers
 
 import com.xdeveloperss.fourbrothers.adapters.AdapterType
 import com.xdeveloperss.fourbrothers.adapters.GenericAdapter
-import com.xdeveloperss.fourbrothers.data.responses.ShopItemData
+import com.xdeveloperss.fourbrothers.data.responses.OrderItems
 import com.xdeveloperss.fourbrothers.databinding.FragmentBuyerBinding
 import com.xdeveloperss.fourbrothers.databinding.FragmentSupplieBinding
 import com.xdeveloperss.fourbrothers.ui.main.ui.shop.ShopViewModel
@@ -16,7 +16,7 @@ class BuyerFragment : XBaseFragment<FragmentBuyerBinding>(FragmentBuyerBinding::
         shopViewModel.customersList.observe {
             binding.buyersRV.adapter = GenericAdapter(type = AdapterType.SHOP, it)
             { i, action, shop ->
-                val inv = shop as ShopItemData
+                val inv = shop
             }
         }
     }

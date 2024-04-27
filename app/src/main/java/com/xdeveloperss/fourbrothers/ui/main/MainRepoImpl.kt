@@ -1,6 +1,7 @@
 package com.xdeveloperss.fourbrothers.ui.main
 
 import com.google.gson.Gson
+import com.kongzue.dialogx.dialogs.WaitDialog
 import com.xdeveloperss.fourbrothers.data.BaseResponseRepo
 import com.xdeveloperss.fourbrothers.xnetwork.config.repository.XBaseApiRepo
 import com.xdeveloperss.fourbrothers.xnetwork.config.response.XNetworkResponse
@@ -87,6 +88,7 @@ class MainRepoImpl(private val api: ServerInterface): XBaseApiRepo(), MainRepo {
     ): XNetworkResponse<BaseResponseRepo> {
         return withContext(Dispatchers.IO){
             try {
+
                 val servicesList = async {
                     val response = safeApiCall {
                         val params =  mutableMapOf(

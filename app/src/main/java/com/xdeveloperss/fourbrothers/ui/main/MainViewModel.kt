@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xdeveloperss.fourbrothers.data.BaseResponseRepo
-import com.xdeveloperss.fourbrothers.data.responses.ShopItemData
 import com.xdeveloperss.fourbrothers.xnetwork.config.response.XNetworkResponse
 import com.xdeveloperss.fourbrothers.xnetwork.config.response.getValueFromResponse
 import kotlinx.coroutines.launch

@@ -1,7 +1,7 @@
 package com.xdeveloperss.fourbrothers.data.models
 
 data class Product(
-    val id: Long,
+    val id: Int,
     val suppliesID: Any? = null,
     val name: String,
     val slug: String,

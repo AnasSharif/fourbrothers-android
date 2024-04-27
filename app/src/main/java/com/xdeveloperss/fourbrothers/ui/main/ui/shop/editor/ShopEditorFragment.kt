@@ -13,12 +13,14 @@ import com.canhub.cropper.options
 import com.google.android.material.textfield.TextInputLayout
 import com.xdeveloperss.fourbrothers.R
 import com.xdeveloperss.fourbrothers.data.models.PersonRate
-import com.xdeveloperss.fourbrothers.data.responses.ShopItemData
+import com.xdeveloperss.fourbrothers.data.responses.DailyRates
+import com.xdeveloperss.fourbrothers.data.responses.OrderItems
 import com.xdeveloperss.fourbrothers.databinding.FragmentShopEditorBinding
 import com.xdeveloperss.fourbrothers.ui.main.ui.shop.ShopViewModel
 import com.xdeveloperss.fourbrothers.utils.AppExecutors
 import com.xdeveloperss.fourbrothers.utils.FileManager
 import com.xdeveloperss.fourbrothers.utils.double
+import com.xdeveloperss.fourbrothers.utils.rounded
 import com.xdeveloperss.fourbrothers.utils.text
 import com.xdeveloperss.fourbrothers.utils.value
 import com.xdeveloperss.fourbrothers.xbase.XBaseFragment
@@ -28,7 +30,7 @@ class ShopEditorFragment : XBaseFragment<FragmentShopEditorBinding>(FragmentShop
 
     private val shopViewModel: ShopViewModel by sharedViewModel()
 
-    private lateinit var itemData: ShopItemData
+    private lateinit var itemData: OrderItems
 
     private var productRate: PersonRate? = null
     override fun onViewCreated() {
@@ -47,6 +49,7 @@ class ShopEditorFragment : XBaseFragment<FragmentShopEditorBinding>(FragmentShop
                     binding.textFieldRateType.text(prods[i].rate.type?.name)
                     binding.textFieldRates.text(prods[i].rate.amount.toString())
                     this.productRate = prods[i].rate
+                    itemData.productsId = prods[i].product.id
                     this.updatedDataItemWeight(prods[i].rate)
                 }
             }
@@ -66,6 +69,9 @@ class ShopEditorFragment : XBaseFragment<FragmentShopEditorBinding>(FragmentShop
                     setOutputCompressFormat(Bitmap.CompressFormat.PNG)
                 }
             )
+        }
+        binding.saveBtn.setOnClickListener {
+            shopViewModel.saveData(OrderItems::class.java, itemData)
         }
     }
     override fun imagePick(bitmap: Bitmap, fileName: String, uri: Uri?) {
@@ -107,6 +113,9 @@ class ShopEditorFragment : XBaseFragment<FragmentShopEditorBinding>(FragmentShop
                 total = weight*(itemData.dailyRate.zindarate.value()  + rate.amount)
             }
         }
-        binding.fieldAmount.text(total.toString())
+        binding.fieldAmount.text(total.rounded.toString())
+        itemData.weight = weight
+        itemData.total = total.rounded
+        itemData.personRatesId = rate.id
     }
 }

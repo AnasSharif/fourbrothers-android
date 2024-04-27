@@ -13,7 +13,7 @@ import com.kongzue.dialogx.interfaces.OnIconChangeCallBack
 import com.xdeveloperss.fourbrothers.R
 import com.xdeveloperss.fourbrothers.XBaseApplication
 import com.xdeveloperss.fourbrothers.data.models.Person
-import com.xdeveloperss.fourbrothers.data.responses.ShopItemData
+import com.xdeveloperss.fourbrothers.data.responses.OrderItems
 import com.xdeveloperss.fourbrothers.databinding.ShopItemBinding
 import com.xdeveloperss.fourbrothers.utils.FileManager
 
@@ -48,7 +48,7 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
     override fun onBindViewHolder(holder: GenericViewHolder, position: Int) {
         when(type){
             AdapterType.SHOP ->{
-                val data = lists[position] as ShopItemData
+                val data = lists[position] as OrderItems
                 val b =  holder.b as ShopItemBinding
                 b.personName.text = data.personName
                 b.weight.text = data.weight.toString() +" Kg"

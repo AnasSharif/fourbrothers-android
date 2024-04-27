@@ -17,16 +17,22 @@ data class DailyRates(
     var chickenrate: Int? = null,
     var media: List<Media>? = null)
 
-data class ShopItemData(val id:Int? = null,
-                        @SerializedName("daily_rate")
-                        var dailyRate: DailyRates,
-                        var weight: Double = 0.0,
-                        var total: Double = 0.0,
-                        @SerializedName("person_name")
-                        var personName: String,
-                        val product: Product,
-                        val person: Person,
-                        @SerializedName("item_rate")
-                        val itemRate: PersonRate,
-                        var media: List<Media>? = null
+data class OrderItems(
+    val id: Int? = null,
+    @SerializedName("daily_rate")
+    var dailyRate: DailyRates,
+    @SerializedName("products_id")
+    var productsId: Int? = null,
+    var personsId: Int? = null,
+    @SerializedName("person_rates_id")
+    var personRatesId: Int? = null,
+    var weight: Double = 0.0,
+    var total: Double = 0.0,
+    @SerializedName("person_name")
+    var personName: String,
+    val product: Product,
+    val person: Person,
+    @SerializedName("item_rate")
+    val itemRate: PersonRate,
+    var media: List<Media>? = null
 )

@@ -7,7 +7,6 @@ import com.xdeveloperss.fourbrothers.adapters.AdapterType
 import com.xdeveloperss.fourbrothers.adapters.GenericAdapter
 
 import com.xdeveloperss.fourbrothers.data.Section
-import com.xdeveloperss.fourbrothers.data.responses.ShopItemData
 import com.xdeveloperss.fourbrothers.databinding.FragmentCustomerBinding
 import com.xdeveloperss.fourbrothers.databinding.FragmentSupplieBinding
 import com.xdeveloperss.fourbrothers.ui.main.ui.shop.ShopFragmentDirections

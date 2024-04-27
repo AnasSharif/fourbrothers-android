@@ -14,12 +14,14 @@ sealed class XNetworkResponse<out T>{
 }
 
 fun <T> XNetworkResponse<T>.getValueFromResponse():T?{
-    WaitDialog.dismiss()
+    WaitDialog.show("Saving...")
     return when(this){
         is XNetworkResponse.Success -> {
+            WaitDialog.dismiss()
             this.value
         }
         is XNetworkResponse.Failure -> {
+            WaitDialog.dismiss()
             MessageDialog.show("Unknown Error",this.exception?.message ?: this.message,"Ok")
             null
         }
