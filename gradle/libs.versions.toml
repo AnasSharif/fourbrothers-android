@@ -16,6 +16,7 @@ material = "1.11.0"
 activity = "1.8.2"
 constraintlayout = "2.1.4"
 navigationFragmentKtx = "2.7.7"
+photoview = "2.3.0"
 retrofit = "2.9.0"
 sdpAndroid = "1.1.0"
 sspAndroid = "1.1.0"
@@ -52,11 +53,13 @@ utilcodex = { module = "com.blankj:utilcodex", version.ref = "utilcodex" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 cropper = { module = "com.vanniktech:android-image-cropper", version.ref = "cropper" }
+photoview = { module = "com.github.chrisbanes:PhotoView", version.ref = "photoview" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "safeargs" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
 
 
 

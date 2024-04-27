@@ -72,6 +72,8 @@ dependencies {
 
     implementation (libs.dialogx)
 
+    implementation(project(":ximagepreview"))
+
     //Retrofit configuration
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
