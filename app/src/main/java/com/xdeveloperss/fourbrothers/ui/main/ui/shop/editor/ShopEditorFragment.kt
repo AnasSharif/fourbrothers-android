@@ -1,6 +1,7 @@
 package com.xdeveloperss.fourbrothers.ui.main.ui.shop.editor
 
 import android.graphics.Bitmap
+import android.net.Uri
 import android.provider.MediaStore
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -27,12 +28,12 @@ class ShopEditorFragment : XBaseFragment<FragmentShopEditorBinding>(FragmentShop
 
     private val shopViewModel: ShopViewModel by sharedViewModel()
 
-    private lateinit var shopData: ShopItemData
+    private lateinit var itemData: ShopItemData
 
     private var productRate: PersonRate? = null
     override fun onViewCreated() {
         shopViewModel.selectedData.observe {
-            shopData = it[1]!!
+            itemData = it[1]!!
             binding.textFieldSelectParty.editText?.setText(it[1]?.personName)
             binding.fieldAmount.editText?.setText(it[1]?.total.toString())
             binding.fieldWeight.editText?.setText(it[1]?.weight.toString())
@@ -49,6 +50,7 @@ class ShopEditorFragment : XBaseFragment<FragmentShopEditorBinding>(FragmentShop
                     this.updatedDataItemWeight(prods[i].rate)
                 }
             }
+            this.loadAdapter(itemData.media?.map { it.file_name.toString() }?.toList() ?: listOf(), binding.imagePager)
         }
 
         binding.fieldWeight.editText?.addTextChangedListener { text ->
@@ -57,13 +59,25 @@ class ShopEditorFragment : XBaseFragment<FragmentShopEditorBinding>(FragmentShop
             }
         }
 
-        binding.imageCard.setOnClickListener {
+        binding.imagePicker.setOnClickListener {
             cropImage.launch(
                 options{
                     setGuidelines(CropImageView.Guidelines.ON)
                     setOutputCompressFormat(Bitmap.CompressFormat.PNG)
                 }
             )
+        }
+    }
+    override fun imagePick(bitmap: Bitmap, fileName: String, uri: Uri?) {
+        super.imagePick(bitmap, fileName ,uri)
+        itemData.let {
+            shopViewModel.storeFile(
+                "orderItems",
+                it.id.toString(),
+                fileName,
+                FileManager.getFileWithName(fileName = fileName)
+            )
+            adapter?.addItem(fileName)
         }
     }
     private fun loadPersonProduct(strings: List<String>, inputLayout: TextInputLayout, clickListener:((String,Int)->Unit)){
@@ -81,16 +95,16 @@ class ShopEditorFragment : XBaseFragment<FragmentShopEditorBinding>(FragmentShop
         var total = 0.0
         when(rate.type?.id?.toInt()){
             1->{
-                total = weight*(shopData.dailyRate.chickenrate.value() + rate.amount)
+                total = weight*(itemData.dailyRate.chickenrate.value() + rate.amount)
             }
             2->{
-                total = weight*(shopData.dailyRate.zindarate.value()  * rate.amount)
+                total = weight*(itemData.dailyRate.zindarate.value()  * rate.amount)
             }
             3->{
                 total = weight*rate.amount
             }
             5->{
-                total = weight*(shopData.dailyRate.zindarate.value()  + rate.amount)
+                total = weight*(itemData.dailyRate.zindarate.value()  + rate.amount)
             }
         }
         binding.fieldAmount.text(total.toString())

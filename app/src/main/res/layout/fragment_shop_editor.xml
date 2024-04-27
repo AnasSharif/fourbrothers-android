@@ -19,13 +19,22 @@
             android:clickable="true"
             android:focusable="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/item_image"
-                android:src="@drawable/baseline_image_24"
-                android:layout_gravity="center"
+            android:layout_height="@dimen/_100sdp">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/imagePager"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_80sdp"/>
+                android:layout_height="match_parent"/>
+            <ImageView
+                android:id="@+id/imagePicker"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_gravity="center"
+                android:foreground="?selectableItemBackground"
+                android:src="@drawable/add_image_24"
+                android:clickable="true"
+                android:focusable="true"
+                app:tint="@color/md_theme_light_primary" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textfield.TextInputLayout

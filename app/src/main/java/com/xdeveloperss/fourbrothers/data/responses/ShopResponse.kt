@@ -28,4 +28,5 @@ data class ShopItemData(val id:Int? = null,
                         val person: Person,
                         @SerializedName("item_rate")
                         val itemRate: PersonRate,
+                        var media: List<Media>? = null
 )

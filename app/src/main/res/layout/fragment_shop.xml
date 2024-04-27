@@ -32,11 +32,11 @@
 
             <ImageView
                 android:id="@+id/imagePicker"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
                 android:layout_gravity="center"
                 android:foreground="?selectableItemBackground"
-                android:src="@drawable/ic_menu_camera"
+                android:src="@drawable/add_image_24"
                 android:clickable="true"
                 android:focusable="true"
                 app:tint="@color/md_theme_light_primary" />

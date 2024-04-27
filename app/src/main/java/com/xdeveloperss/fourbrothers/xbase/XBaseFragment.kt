@@ -12,9 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
+import androidx.viewpager.widget.ViewPager
 import com.blankj.utilcode.util.ThreadUtils.runOnUiThread
 import com.bumptech.glide.Glide
 import com.canhub.cropper.CropImageContract
+import com.xdeveloperss.fourbrothers.adapters.PagerAdapter
 import com.xdeveloperss.fourbrothers.utils.AppExecutors
 import com.xdeveloperss.fourbrothers.utils.FileManager
 
@@ -27,7 +29,7 @@ abstract class XBaseFragment<B : ViewBinding>(val bindingFactory: (LayoutInflate
     Fragment()  {
     lateinit var binding: B
     lateinit var mInflater: LayoutInflater
-
+    var adapter: PagerAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         registerBackPress()
@@ -81,5 +83,9 @@ abstract class XBaseFragment<B : ViewBinding>(val bindingFactory: (LayoutInflate
                 }
             }
         }
+    }
+    fun loadAdapter(list: List<String>, pager: ViewPager){
+        adapter = PagerAdapter(requireContext(), list.toMutableList())
+        pager.adapter = adapter
     }
 }

@@ -35,8 +35,6 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
 
     private val shopViewModel: ShopViewModel by sharedViewModel()
 
-    private var adapter: PagerAdapter? = null
-
     private lateinit var shopData: Data
     override fun onViewCreated() {
 
@@ -82,11 +80,12 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
                 shopData = it
                 binding.chickenRateField.text(shopData.dailyRates?.chickenrate)
                 binding.zindaRateField.text(shopData.dailyRates?.zindarate)
-                this.loadAdapter(shopData.dailyRates?.media?.map { it.file_name.toString() }?.toList() ?: listOf())
                 binding.totalCustomer.text = getString(R.string.total, it.orderItems.size)
                 binding.totalBuyers.text = getString(R.string.total, it.stockItems.size)
                 binding.customersWeight.text = getString(R.string.total_weight, it.orderItems.sumOf { it.weight })
                 binding.buyersWeight.text = getString(R.string.total_weight, it.stockItems.sumOf { it.weight })
+
+                this.loadAdapter(shopData.dailyRates?.media?.map { it.file_name.toString() }?.toList() ?: listOf(), binding.viewPagerMain)
                 WaitDialog.dismiss()
             }
         }
@@ -117,10 +116,5 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
         shopViewModel.setData(date, listOf("dailyRates","orderItems","stockItems"))
         binding.textFieldSaleDate.editText?.setText(date)
         Prefs.putString("selectedDate", date)
-    }
-
-    private fun loadAdapter(list: List<String>){
-        adapter = PagerAdapter(requireContext(), list.toMutableList())
-        binding.viewPagerMain.adapter = adapter
     }
 }
