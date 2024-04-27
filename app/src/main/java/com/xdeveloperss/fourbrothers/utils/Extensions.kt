@@ -43,9 +43,18 @@ fun TextInputLayout.double(): Double{
     val char = editText?.text ?: "0"
     return char.toString().toDouble()
 }
+fun TextInputLayout.Int(): Int?{
+    return if (editText?.text.isNullOrEmpty()) null else editText?.text.toString().toInt()
+}
 fun ImageView.glideLoad(uri: Uri?) {
     Glide.with(this)
         .load(uri)
         .placeholder(R.drawable.side_nav_bar)
         .into(this)
+}
+fun Int.isZero():Boolean{
+  return this == 0
+}
+fun Int?.value():Int{
+    return this ?: 0
 }

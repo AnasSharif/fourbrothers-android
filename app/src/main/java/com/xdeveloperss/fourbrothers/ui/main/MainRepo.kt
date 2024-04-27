@@ -10,4 +10,6 @@ interface MainRepo {
 
     suspend fun store(type: String, itemId:String, fileName: String, files:List<File>): XNetworkResponse<BaseResponseRepo>
 
+    suspend fun<T> saveData(type: Class<T>, data: T): XNetworkResponse<BaseResponseRepo>
+
 }

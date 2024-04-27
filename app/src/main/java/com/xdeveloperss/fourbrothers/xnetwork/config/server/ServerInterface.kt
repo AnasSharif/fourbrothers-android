@@ -1,5 +1,7 @@
 package com.xdeveloperss.fourbrothers.xnetwork.config.server
 
+import com.google.gson.ExclusionStrategy
+import com.google.gson.FieldAttributes
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.xdeveloperss.fourbrothers.data.BaseResponseRepo
@@ -30,6 +32,8 @@ interface ServerInterface {
     @GET("/api/getData")
     suspend fun getData(@Query("created_at") date: String?=null,
                         @Query("type[]") types: List<String>):BaseResponseRepo
+    @POST("/api/saveData")
+    suspend fun saveData(@QueryMap params: Map<String, String>):BaseResponseRepo
     @Multipart
     @POST("/api/store")
     suspend fun store(@Part("type")type: RequestBody,

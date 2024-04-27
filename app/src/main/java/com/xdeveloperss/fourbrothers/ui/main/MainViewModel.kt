@@ -13,10 +13,17 @@ import java.io.File
 
 open class MainViewModel(private val repository: MainRepo): ViewModel() {
 
+    private val _saveData: MutableLiveData<BaseResponseRepo> by lazy {
+        MutableLiveData()
+    }
+    fun <T> saveData(type: Class<T>, data: T) =
+        viewModelScope.launch {
+            _saveData.value = repository.saveData(type, data).getValueFromResponse()
+        }
+
     private val _getData: MutableLiveData<XNetworkResponse<BaseResponseRepo>> by lazy {
         MutableLiveData()
     }
-
     val getData: LiveData<XNetworkResponse<BaseResponseRepo>>
         get() = _getData
 

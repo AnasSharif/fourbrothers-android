@@ -4,7 +4,7 @@ import com.xdeveloperss.fourbrothers.data.models.Person
 
 
 data class Data(
-    var dailyRates:List<DailyRates>,
+    var dailyRates:DailyRates? = null,
     val orderItems: List<ShopItemData>,
     val stockItems: List<ShopItemData>,
     val persons: List<Person>)

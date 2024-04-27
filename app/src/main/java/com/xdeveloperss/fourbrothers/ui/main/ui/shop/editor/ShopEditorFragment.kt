@@ -19,6 +19,7 @@ import com.xdeveloperss.fourbrothers.utils.AppExecutors
 import com.xdeveloperss.fourbrothers.utils.FileManager
 import com.xdeveloperss.fourbrothers.utils.double
 import com.xdeveloperss.fourbrothers.utils.text
+import com.xdeveloperss.fourbrothers.utils.value
 import com.xdeveloperss.fourbrothers.xbase.XBaseFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -80,16 +81,16 @@ class ShopEditorFragment : XBaseFragment<FragmentShopEditorBinding>(FragmentShop
         var total = 0.0
         when(rate.type?.id?.toInt()){
             1->{
-                total = weight*(shopData.dailyRate.chickenrate + rate.amount)
+                total = weight*(shopData.dailyRate.chickenrate.value() + rate.amount)
             }
             2->{
-                total = weight*(shopData.dailyRate.zindarate * rate.amount)
+                total = weight*(shopData.dailyRate.zindarate.value()  * rate.amount)
             }
             3->{
                 total = weight*rate.amount
             }
             5->{
-                total = weight*(shopData.dailyRate.zindarate + rate.amount)
+                total = weight*(shopData.dailyRate.zindarate.value()  + rate.amount)
             }
         }
         binding.fieldAmount.text(total.toString())

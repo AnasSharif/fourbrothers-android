@@ -1,5 +1,6 @@
 package com.xdeveloperss.fourbrothers.ui.main
 
+import com.google.gson.Gson
 import com.xdeveloperss.fourbrothers.data.BaseResponseRepo
 import com.xdeveloperss.fourbrothers.xnetwork.config.repository.XBaseApiRepo
 import com.xdeveloperss.fourbrothers.xnetwork.config.response.XNetworkResponse
@@ -74,6 +75,32 @@ class MainRepoImpl(private val api: ServerInterface): XBaseApiRepo(), MainRepo {
                 }
                 val list = servicesList.await()
                 XNetworkResponse.Success(list).value
+            }catch (exception:Exception){
+                XNetworkResponse.Failure(exception, exception.message,1)
+            }
+        }
+    }
+
+    override suspend fun <T> saveData(
+        type: Class<T>,
+        data: T
+    ): XNetworkResponse<BaseResponseRepo> {
+        return withContext(Dispatchers.IO){
+            try {
+                val servicesList = async {
+                    val response = safeApiCall {
+                        val params =  mutableMapOf(
+                            "type" to type.simpleName.lowercase(),
+                            type.simpleName.lowercase() to Gson().toJson(data))
+                        api.saveData(params)
+                    }
+                    if (response is XNetworkResponse.Success && response.value.success){
+                        XNetworkResponse.Success(response.value)
+                    }else{
+                        XNetworkResponse.Failure(IOException(), "Enable connecting to server please try again!",2)
+                    }
+                }
+                servicesList.await()
             }catch (exception:Exception){
                 XNetworkResponse.Failure(exception, exception.message,1)
             }

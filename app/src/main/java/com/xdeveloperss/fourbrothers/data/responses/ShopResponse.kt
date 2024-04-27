@@ -1,16 +1,21 @@
 package com.xdeveloperss.fourbrothers.data.responses
 
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.xdeveloperss.fourbrothers.data.BaseResponseRepo
 import com.xdeveloperss.fourbrothers.data.models.Media
 import com.xdeveloperss.fourbrothers.data.models.Person
 import com.xdeveloperss.fourbrothers.data.models.PersonRate
 import com.xdeveloperss.fourbrothers.data.models.Product
+import com.xdeveloperss.fourbrothers.utils.formattedDate
+import java.util.Date
 
-data class DailyRates(val id:Int,
-                      val zindarate:Int,
-                      val chickenrate: Int,
-                      var media: List<Media> = listOf())
+data class DailyRates(
+    val id:Int? = null,
+    var date:String? = Date().formattedDate(),
+    var zindarate:Int? = null,
+    var chickenrate: Int? = null,
+    var media: List<Media>? = null)
 
 data class ShopItemData(val id:Int? = null,
                         @SerializedName("daily_rate")
