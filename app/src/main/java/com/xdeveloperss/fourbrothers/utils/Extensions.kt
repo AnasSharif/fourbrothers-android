@@ -1,9 +1,7 @@
 package com.xdeveloperss.fourbrothers.utils
 
-import android.app.Activity
 import android.net.Uri
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -12,6 +10,7 @@ import com.xdeveloperss.fourbrothers.R
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 
 fun FragmentActivity.showDateDialogWithDate(withSelection: Long = MaterialDatePicker.todayInUtcMilliseconds(), completion:(Date:String, date: Date)->Unit){
@@ -22,13 +21,15 @@ fun FragmentActivity.showDateDialogWithDate(withSelection: Long = MaterialDatePi
             .build()
     datePicker.show(this.supportFragmentManager,"DataPicker")
     datePicker.addOnPositiveButtonClickListener {
-        val dateFormat = SimpleDateFormat("MMM d, yyyy", Locale.getDefault()).format(Date(it))
-        val newDate = dateFormat.format(Date(it))
-        completion(newDate, Date(it))
+        completion(Date(it).formattedDate(), Date(it))
     }
 }
 
 fun Date.formattedDate(format: String = "yyyy-MM-dd"):String{
+    val dateFormat = SimpleDateFormat(format, Locale.getDefault())
+    return dateFormat.format(this)
+}
+fun Date.format1(format: String = "MMM d, yyyy"):String{
     val dateFormat = SimpleDateFormat(format, Locale.getDefault())
     return dateFormat.format(this)
 }
@@ -45,6 +46,20 @@ fun TextInputLayout.double(): Double{
 }
 fun TextInputLayout.Int(): Int?{
     return if (editText?.text.isNullOrEmpty()) null else editText?.text.toString().toInt()
+}
+fun TextInputLayout.string(): String{
+    return if (editText?.text.isNullOrEmpty()) "" else editText?.text.toString()
+}
+fun String.dateMilliSec(format: String = "yyyy-MM-dd"):Long{
+    try {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        dateFormat.timeZone = TimeZone.getTimeZone("UTC")
+        val date: Date = dateFormat.parse(this) ?: return -1
+        return date.time
+    } catch (e: Exception) {
+        e.printStackTrace()
+        return -1
+    }
 }
 fun ImageView.glideLoad(uri: Uri?) {
     Glide.with(this)

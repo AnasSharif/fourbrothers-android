@@ -18,12 +18,15 @@ import com.xdeveloperss.fourbrothers.databinding.RateDialogViewBinding
 import com.xdeveloperss.fourbrothers.ui.join.data.AuthViewModel
 import com.xdeveloperss.fourbrothers.utils.FileManager
 import com.xdeveloperss.fourbrothers.utils.Int
+import com.xdeveloperss.fourbrothers.utils.dateMilliSec
 import com.xdeveloperss.fourbrothers.utils.formattedDate
 import com.xdeveloperss.fourbrothers.utils.glideLoad
 import com.xdeveloperss.fourbrothers.utils.showDateDialogWithDate
+import com.xdeveloperss.fourbrothers.utils.string
 import com.xdeveloperss.fourbrothers.utils.text
 import com.xdeveloperss.fourbrothers.xbase.XBaseFragment
 import com.xdeveloperss.fourbrothers.xnetwork.config.response.getValueFromResponse
+import com.xdeveloperss.fourbrothers.xnetwork.config.utlis.Prefs
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.Date
@@ -37,10 +40,15 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
     private lateinit var shopData: Data
     override fun onViewCreated() {
 
-        this.loadData(Date())
+        Prefs.getString("selectedDate")?.let {
+            this.loadData(it)
+        } ?:run {
+            this.loadData( Date().formattedDate())
+        }
+
         binding.textFieldSaleDate.editText?.setOnClickListener {
-            requireActivity().showDateDialogWithDate( completion = { _, date ->
-                this.loadData(date)
+            requireActivity().showDateDialogWithDate( binding.textFieldSaleDate.string().dateMilliSec(),completion = { string, date ->
+                this.loadData(string)
             })
         }
         binding.customerDetail.setOnClickListener {
@@ -72,13 +80,9 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
         shopViewModel.getData.observe { resp ->
             resp.getValueFromResponse()?.data?.let {
                 shopData = it
-                shopData.dailyRates?.let { rate ->
-                    binding.chickenRateField.text(rate.chickenrate)
-                    binding.zindaRateField.text(rate.zindarate)
-                    rate.media?.let { media->
-                        this.loadAdapter(media.map { it.file_name.toString() }.toList())
-                    }
-                }
+                binding.chickenRateField.text(shopData.dailyRates?.chickenrate)
+                binding.zindaRateField.text(shopData.dailyRates?.zindarate)
+                this.loadAdapter(shopData.dailyRates?.media?.map { it.file_name.toString() }?.toList() ?: listOf())
                 binding.totalCustomer.text = getString(R.string.total, it.orderItems.size)
                 binding.totalBuyers.text = getString(R.string.total, it.stockItems.size)
                 binding.customersWeight.text = getString(R.string.total_weight, it.orderItems.sumOf { it.weight })
@@ -104,14 +108,15 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
     private fun showRateAlert(){
         XDialogBuilder(requireActivity(),shopData.dailyRates ?: DailyRates()).setData {
             shopViewModel.saveData(DailyRates::class.java, it as DailyRates)
-            this.loadData(date = Date())
+            this.loadData(date = Prefs.getString("selectedDate") ?: Date().formattedDate())
         }.show()
 
     }
-    private fun loadData(date: Date){
+    private fun loadData(date: String){
         WaitDialog.show("Load Data...")
-        shopViewModel.setData(date.formattedDate(), listOf("dailyRates","orderItems","stockItems"))
-        binding.textFieldSaleDate.editText?.setText(date.formattedDate("MMM d, yyyy"))
+        shopViewModel.setData(date, listOf("dailyRates","orderItems","stockItems"))
+        binding.textFieldSaleDate.editText?.setText(date)
+        Prefs.putString("selectedDate", date)
     }
 
     private fun loadAdapter(list: List<String>){

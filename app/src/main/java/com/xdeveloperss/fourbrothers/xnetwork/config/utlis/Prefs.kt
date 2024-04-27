@@ -25,8 +25,8 @@ object Prefs {
         pref.edit().remove(API_KEY).apply()
     }
 
-    fun getString(key: String):String {
-        return pref.getString(key,"").toString()
+    fun getString(key: String):String? {
+        return pref.getString(key,null)
     }
     fun putString(key: String, value: String) {
         pref.edit().putString(key,value).apply()
