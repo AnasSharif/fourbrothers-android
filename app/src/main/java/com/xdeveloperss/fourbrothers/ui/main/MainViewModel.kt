@@ -7,7 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.xdeveloperss.fourbrothers.data.BaseResponseRepo
 import com.xdeveloperss.fourbrothers.data.responses.ShopItemData
 import com.xdeveloperss.fourbrothers.xnetwork.config.response.XNetworkResponse
+import com.xdeveloperss.fourbrothers.xnetwork.config.response.getValueFromResponse
 import kotlinx.coroutines.launch
+import java.io.File
 
 open class MainViewModel(private val repository: MainRepo): ViewModel() {
 
@@ -22,7 +24,12 @@ open class MainViewModel(private val repository: MainRepo): ViewModel() {
         _getData.value = repository.getData(date, types)
     }
 
-    private val _customersList: MutableLiveData<List<ShopItemData>> by lazy {
+    private val _storeFile: MutableLiveData<BaseResponseRepo> by lazy {
         MutableLiveData()
     }
+
+    fun storeFile(type: String, itemId: String, fileName: String, file: File) =
+        viewModelScope.launch {
+            _storeFile.value = repository.store(type, itemId, fileName, arrayListOf(file)).getValueFromResponse()
+        }
 }

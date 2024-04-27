@@ -7,6 +7,11 @@ import com.xdeveloperss.fourbrothers.xnetwork.config.server.ServerInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
+import java.io.IOException
 
 class MainRepoImpl(private val api: ServerInterface): XBaseApiRepo(), MainRepo {
     override suspend fun getData(
@@ -37,6 +42,40 @@ class MainRepoImpl(private val api: ServerInterface): XBaseApiRepo(), MainRepo {
                 }
             }catch (exception:Exception){
                 XNetworkResponse.Failure(exception, exception.message,null)
+            }
+        }
+    }
+
+    override suspend fun store(
+        type: String,
+        itemId: String,
+        fileName: String,
+        files: List<File>
+    ): XNetworkResponse<BaseResponseRepo> {
+        return withContext(Dispatchers.IO){
+            try {
+                val servicesList = async {
+                    val multipartArray = mutableListOf<MultipartBody.Part>()
+                    for (file in files){
+                        val requestBody = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file)
+                        val body = MultipartBody.Part.createFormData("fileName[]", file.name, requestBody)
+                        multipartArray.add(body)
+                    }
+                    val classType = RequestBody.create("text/plain".toMediaTypeOrNull(), type)
+                    val requestItemId = RequestBody.create("text/plain".toMediaTypeOrNull(), itemId)
+                    val response = safeApiCall {
+                        api.store(classType, requestItemId, multipartArray.toTypedArray())
+                    }
+                    if (response is XNetworkResponse.Success && response.value.success){
+                        XNetworkResponse.Success(response.value)
+                    }else{
+                        XNetworkResponse.Failure(IOException(), "Enable connecting to server please try again!",2)
+                    }
+                }
+                val list = servicesList.await()
+                XNetworkResponse.Success(list).value
+            }catch (exception:Exception){
+                XNetworkResponse.Failure(exception, exception.message,1)
             }
         }
     }

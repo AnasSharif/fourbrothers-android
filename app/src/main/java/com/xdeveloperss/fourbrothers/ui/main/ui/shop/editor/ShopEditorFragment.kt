@@ -65,18 +65,6 @@ class ShopEditorFragment : XBaseFragment<FragmentShopEditorBinding>(FragmentShop
             )
         }
     }
-
-    private val cropImage = registerForActivityResult(CropImageContract()) { result ->
-        if (result.isSuccessful) {
-            val imageUri = result.uriContent
-            Glide.with(requireActivity()).load(imageUri).into(binding.itemImage)
-            AppExecutors().getInstance()?.diskIO()?.execute {
-                val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, imageUri)
-                binding.itemImage.tag = FileManager.createFileFromPath(bitmap=bitmap)
-            }
-        }
-    }
-
     private fun loadPersonProduct(strings: List<String>, inputLayout: TextInputLayout, clickListener:((String,Int)->Unit)){
         val adapter = ArrayAdapter(requireContext(), R.layout.drop_down_list_item, strings)
         val specieMenu = inputLayout.editText as? AutoCompleteTextView

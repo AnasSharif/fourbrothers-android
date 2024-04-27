@@ -4,7 +4,10 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.xdeveloperss.fourbrothers.data.BaseResponseRepo
 import com.xdeveloperss.fourbrothers.xnetwork.config.models.AuthResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
@@ -27,10 +30,11 @@ interface ServerInterface {
     @GET("/api/getData")
     suspend fun getData(@Query("created_at") date: String?=null,
                         @Query("type[]") types: List<String>):BaseResponseRepo
-
-    @GET("/api/getData")
-    @JvmSuppressWildcards
-    suspend fun getData(@QueryMap param: Map<String,Any>):BaseResponseRepo
+    @Multipart
+    @POST("/api/store")
+    suspend fun store(@Part("type")type: RequestBody,
+                      @Part("itemId")itemId: RequestBody,
+                      @Part part: Array<MultipartBody.Part> ):BaseResponseRepo
 
 
     companion object {

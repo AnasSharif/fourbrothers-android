@@ -1,6 +1,9 @@
 package com.xdeveloperss.fourbrothers.xbase
 
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
+import com.blankj.utilcode.util.ThreadUtils.runOnUiThread
+import com.bumptech.glide.Glide
+import com.canhub.cropper.CropImageContract
+import com.xdeveloperss.fourbrothers.utils.AppExecutors
+import com.xdeveloperss.fourbrothers.utils.FileManager
 
 /**
  *@Author: Anas Sharif
@@ -56,7 +64,22 @@ abstract class XBaseFragment<B : ViewBinding>(val bindingFactory: (LayoutInflate
 
     open fun enableBackPress(): Boolean { return false }
 
+    open fun imagePick( bitmap: Bitmap, fileName: String ,uri: Uri?){}
+
     fun <T> LiveData<T>.observe(onChanged: (T) -> Unit) {
         observe(viewLifecycleOwner, onChanged)
+    }
+
+    val cropImage = registerForActivityResult(CropImageContract()) { result ->
+        if (result.isSuccessful) {
+            val imageUri = result.uriContent
+            AppExecutors().getInstance()?.diskIO()?.execute {
+                val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, imageUri)
+                val fileName = FileManager.createFileFromPath(bitmap=bitmap)
+                runOnUiThread {
+                    imagePick(bitmap,fileName, imageUri)
+                }
+            }
+        }
     }
 }

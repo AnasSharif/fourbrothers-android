@@ -16,6 +16,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.card.MaterialCardView
+            app:layout_constraintTop_toBottomOf="@+id/rates_container"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_margin="@dimen/_5sdp"
+            android:focusable="true">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPagerMain"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"/>
+
+            <ImageView
+                android:id="@+id/imagePicker"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_gravity="center"
+                android:foreground="?selectableItemBackground"
+                android:src="@drawable/ic_menu_camera"
+                android:clickable="true"
+                android:focusable="true"
+                app:tint="@color/md_theme_light_primary" />
+        </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textFieldSaleDate"
             android:layout_width="match_parent"

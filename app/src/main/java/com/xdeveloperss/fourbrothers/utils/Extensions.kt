@@ -46,6 +46,6 @@ fun TextInputLayout.double(): Double{
 fun ImageView.glideLoad(uri: Uri?) {
     Glide.with(this)
         .load(uri)
-        .placeholder(R.drawable.baseline_image_24)
+        .placeholder(R.drawable.side_nav_bar)
         .into(this)
 }
