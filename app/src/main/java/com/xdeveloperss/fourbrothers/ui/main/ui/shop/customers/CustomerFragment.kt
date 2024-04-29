@@ -24,6 +24,7 @@ class CustomerFragment : XBaseFragment<FragmentCustomerBinding>(FragmentCustomer
             binding.customersRV.adapter = GenericAdapter(type = AdapterType.SHOP, it)
             { i, action, shop ->
                 findNavController().navigate(CustomerFragmentDirections.actionCustomerFragmentToShopEditorFragment())
+                shop.modelType = "orderItems"
                 shopViewModel.setSelectData(shop)
             }
         }

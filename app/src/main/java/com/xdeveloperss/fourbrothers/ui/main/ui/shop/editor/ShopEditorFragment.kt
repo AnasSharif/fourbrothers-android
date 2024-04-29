@@ -11,6 +11,7 @@ import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageView
 import com.canhub.cropper.options
 import com.google.android.material.textfield.TextInputLayout
+import com.kongzue.dialogx.dialogs.WaitDialog
 import com.xdeveloperss.fourbrothers.R
 import com.xdeveloperss.fourbrothers.data.models.PersonRate
 import com.xdeveloperss.fourbrothers.data.responses.DailyRates
@@ -71,11 +72,13 @@ class ShopEditorFragment : XBaseFragment<FragmentShopEditorBinding>(FragmentShop
             )
         }
         binding.saveBtn.setOnClickListener {
+            WaitDialog.show("Saving...")
             shopViewModel.saveData(null, typeString = itemData.modelType, itemData)
         }
     }
     override fun imagePick(bitmap: Bitmap, fileName: String, uri: Uri?) {
         super.imagePick(bitmap, fileName ,uri)
+        WaitDialog.show("Uploading...")
         itemData.let {
             shopViewModel.storeFile(
                 it.modelType,

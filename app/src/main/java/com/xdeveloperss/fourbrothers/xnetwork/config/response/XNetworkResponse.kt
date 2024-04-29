@@ -14,7 +14,6 @@ sealed class XNetworkResponse<out T>{
 }
 
 fun <T> XNetworkResponse<T>.getValueFromResponse():T?{
-    WaitDialog.show("Saving...")
     return when(this){
         is XNetworkResponse.Success -> {
             WaitDialog.dismiss()
