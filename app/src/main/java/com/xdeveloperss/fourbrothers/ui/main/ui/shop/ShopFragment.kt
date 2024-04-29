@@ -93,6 +93,7 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
 
     override fun imagePick(bitmap: Bitmap, fileName: String, uri: Uri?) {
         super.imagePick(bitmap, fileName ,uri)
+        WaitDialog.show("Uploading...")
         shopData.dailyRates?.let {
             shopViewModel.storeFile(
                 "dailyRates",
