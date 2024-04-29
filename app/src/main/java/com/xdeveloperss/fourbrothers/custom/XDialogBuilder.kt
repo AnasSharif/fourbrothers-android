@@ -5,7 +5,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.xdeveloperss.fourbrothers.data.models.Supply
+import com.xdeveloperss.fourbrothers.data.models.VendorSupplieItems
 import com.xdeveloperss.fourbrothers.data.responses.DailyRates
+import com.xdeveloperss.fourbrothers.databinding.DialogVendorItemBinding
 import com.xdeveloperss.fourbrothers.databinding.RateDialogViewBinding
 import com.xdeveloperss.fourbrothers.databinding.SupplierDialogBinding
 import com.xdeveloperss.fourbrothers.utils.Int
@@ -15,7 +17,8 @@ import com.xdeveloperss.fourbrothers.utils.value
 
 enum class XDialogType{
     DAILY_RATES,
-    SUPPLER
+    SUPPLER,
+    VENDOR_ITEM
 }
 class XDialogBuilder<T>(private var context: FragmentActivity, private val modelClass: T) {
 
@@ -32,6 +35,8 @@ class XDialogBuilder<T>(private var context: FragmentActivity, private val model
             XDialogType.SUPPLER ->{
                 SupplierDialogBinding.inflate(LayoutInflater.from(context), null, false)
             }
+
+            XDialogType.VENDOR_ITEM -> { DialogVendorItemBinding.inflate(LayoutInflater.from(context), null, false) }
         }
         materialAlertDialogBuilder.setView(binding.root)
         return this
@@ -51,6 +56,11 @@ class XDialogBuilder<T>(private var context: FragmentActivity, private val model
                 b.supplierRate.text(it.rate)
                 b.supplyWeight.text(it.weight.toString())
                 b.textView.text = it.supplier.name
+            }
+            if (it is VendorSupplieItems){
+                val b = binding as DialogVendorItemBinding
+                b.vendorWeight.text(it.weight.toString())
+                b.textView.text = it.vendor.name
             }
         }
         return this
@@ -81,6 +91,18 @@ class XDialogBuilder<T>(private var context: FragmentActivity, private val model
                                     it.rate = b.supplierRate.Int().value()
                                     it.weight = b.supplyWeight.double()
                                     it.weight = b.supplyWeight.double()
+                                    comp(it)
+                                }
+                            }
+                        }
+                    }
+
+                    XDialogType.VENDOR_ITEM -> {
+                        this.completion?.let { comp->
+                            modelClass.let {
+                                if (it is VendorSupplieItems){
+                                    val b = binding as DialogVendorItemBinding
+                                    it.weight = b.vendorWeight.double()
                                     comp(it)
                                 }
                             }

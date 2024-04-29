@@ -109,10 +109,10 @@
         android:id="@+id/supplyCustomerFragment"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.supplie.editor.SupplyCustomerFragment"
         tools:layout="@layout/fragment_supply_customer"
-        android:label="SupplyCustomerFragment" />
+        android:label="Supply Parties" />
     <fragment
         android:id="@+id/supplyExpenseFragment"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.supplie.editor.SupplyExpenseFragment"
         tools:layout="@layout/fragment_supply_expense"
-        android:label="SupplyExpenseFragment" />
+        android:label="Supply Expenses" />
 </navigation>

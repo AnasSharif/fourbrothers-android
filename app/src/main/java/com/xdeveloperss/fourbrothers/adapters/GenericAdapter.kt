@@ -18,9 +18,12 @@ import com.xdeveloperss.fourbrothers.R
 import com.xdeveloperss.fourbrothers.XBaseApplication
 import com.xdeveloperss.fourbrothers.data.models.Person
 import com.xdeveloperss.fourbrothers.data.models.Supply
+import com.xdeveloperss.fourbrothers.data.models.VendorSupplie
+import com.xdeveloperss.fourbrothers.data.models.VendorSupplieItems
 import com.xdeveloperss.fourbrothers.data.responses.OrderItems
 import com.xdeveloperss.fourbrothers.databinding.ShopItemBinding
 import com.xdeveloperss.fourbrothers.databinding.SupplieItemBinding
+import com.xdeveloperss.fourbrothers.databinding.SupplyPartyItemBinding
 import com.xdeveloperss.fourbrothers.utils.FileManager
 import com.xdeveloperss.fourbrothers.utils.glideLoad
 
@@ -28,7 +31,8 @@ import com.xdeveloperss.fourbrothers.utils.glideLoad
 enum class AdapterType{
     SHOP,
     PERSON,
-    SUPPLY
+    SUPPLY,
+    SUPPLY_PARTY
 }
 enum class AdapterAction(val id: Int, val image: Int){
     EDIT(R.string.edit, R.drawable.baseline_edit_24),
@@ -46,12 +50,10 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
     ): GenericViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return when(type){
-            AdapterType.SHOP -> {
-                GenericViewHolder(ShopItemBinding.inflate(inflater, parent,false))
-            }
-
+            AdapterType.SHOP -> { GenericViewHolder(ShopItemBinding.inflate(inflater, parent,false)) }
             AdapterType.PERSON -> { GenericViewHolder(ShopItemBinding.inflate(inflater, parent,false))}
             AdapterType.SUPPLY -> { GenericViewHolder(SupplieItemBinding.inflate(inflater, parent,false))}
+            AdapterType.SUPPLY_PARTY -> { GenericViewHolder(SupplyPartyItemBinding.inflate(inflater, parent,false)) }
         }
     }
 
@@ -79,6 +81,21 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
                 b.supplierRate.text = getString(R.string.rate, data.rate)
                 b.supplierWeight.text =  getString(R.string.total_weight, data.weight)
                 data.vendorSupplie.media?.let {
+                    val adapter = PagerAdapter(XBaseApplication.xCon(), it.toMutableList())
+                    b.viewPagerMain.adapter = adapter
+                }
+                b.imagePicker.setOnClickListener {
+                    actions(position, AdapterAction.PICKER, lists[position])
+                }
+            }
+
+            AdapterType.SUPPLY_PARTY -> {
+                val data = lists[position] as VendorSupplieItems
+                val b =  holder.b as SupplyPartyItemBinding
+                b.supplierName.text = data.vendor.name
+                b.supplierRate.text = getString(R.string.rate, data.rate)
+                b.supplierWeight.text =  getString(R.string.total_weight, data.weight)
+                data.media?.let {
                     val adapter = PagerAdapter(XBaseApplication.xCon(), it.toMutableList())
                     b.viewPagerMain.adapter = adapter
                 }

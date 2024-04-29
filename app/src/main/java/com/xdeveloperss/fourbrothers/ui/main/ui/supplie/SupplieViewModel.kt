@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.xdeveloperss.fourbrothers.data.models.Supply
+import com.xdeveloperss.fourbrothers.data.models.VendorSupplieItems
 import com.xdeveloperss.fourbrothers.data.responses.OrderItems
 import com.xdeveloperss.fourbrothers.ui.main.MainRepo
 import com.xdeveloperss.fourbrothers.ui.main.MainViewModel
@@ -20,6 +21,17 @@ class SupplieViewModel(repository: MainRepo): MainViewModel(repository) {
 
     fun setSupply(item: Supply) = viewModelScope.launch {
         _selectedSupply.value = item
+    }
+
+    private val _selectedVendorItems: MutableLiveData<List<VendorSupplieItems>> by lazy {
+        MutableLiveData()
+    }
+
+    val getVendorItems: LiveData<List<VendorSupplieItems>>
+        get() = _selectedVendorItems
+
+    fun setVendorItems(item: List<VendorSupplieItems>) = viewModelScope.launch {
+        _selectedVendorItems.value = item
     }
 
 }

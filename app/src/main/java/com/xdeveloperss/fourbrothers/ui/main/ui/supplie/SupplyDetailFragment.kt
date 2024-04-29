@@ -20,11 +20,11 @@ import java.util.Date
 
 class SupplyDetailFragment : XBaseFragment<FragmentSupplyDetailBinding>(FragmentSupplyDetailBinding::inflate) {
 
-    private val supplieViewModel: SupplieViewModel by sharedViewModel()
+    private val supplyViewModel: SupplieViewModel by sharedViewModel()
     lateinit var supply: Supply
     override fun onViewCreated() {
 
-        supplieViewModel.getSupply.observe {
+        supplyViewModel.getSupply.observe {
             supply = it
             binding.mandiRateField.text(it.vendorSupplie.rate.toString())
             binding.supplyRateField.text(it.vendorSupplie.mandiRate.toString())
@@ -38,7 +38,7 @@ class SupplyDetailFragment : XBaseFragment<FragmentSupplyDetailBinding>(Fragment
             binding.totalExpense.text = getString(R.string.total, it.vendorSupplie.expenses.size)
             binding.expenseAmount.text = getString(R.string.total_amount, it.vendorSupplie.expenses.sumOf { it.amount })
         }
-        supplieViewModel.getData.observe { resp ->
+        supplyViewModel.getData.observe { resp ->
             resp.getValueFromResponse()?.data?.let {
 
             }
@@ -47,7 +47,9 @@ class SupplyDetailFragment : XBaseFragment<FragmentSupplyDetailBinding>(Fragment
             showRateAlert()
         }
         binding.customerDetail.setOnClickListener {
+            supplyViewModel.setVendorItems(supply.vendorSupplie.items)
             findNavController().navigate(SupplyDetailFragmentDirections.actionSupplyDetailFragmentToSupplyCustomerFragment())
+
         }
         binding.expenseDetail.setOnClickListener {
             findNavController().navigate(SupplyDetailFragmentDirections.actionSupplyDetailFragmentToSupplyExpenseFragment())
@@ -55,8 +57,8 @@ class SupplyDetailFragment : XBaseFragment<FragmentSupplyDetailBinding>(Fragment
     }
     private fun showRateAlert(){
         XDialogBuilder(requireActivity(), supply).setData(type = XDialogType.SUPPLER) {
-            supplieViewModel.saveData(null,"supplies", it as Supply)
-            supplieViewModel.setSupply(it)
+            supplyViewModel.saveData(null,"supplies", it as Supply)
+            supplyViewModel.setSupply(it)
         }.show()
 
     }

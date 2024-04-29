@@ -29,9 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:foreground="?selectableItemBackground"
-                android:src="@drawable/add_image_24"
-                app:tint="@color/black90" />
+                android:src="@drawable/add_image_24" />
         </FrameLayout>
 
 
