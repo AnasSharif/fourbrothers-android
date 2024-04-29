@@ -1,11 +1,13 @@
 package com.xdeveloperss.fourbrothers.ui.main.ui.shop.buyers
 
+import androidx.navigation.fragment.findNavController
 import com.xdeveloperss.fourbrothers.adapters.AdapterType
 import com.xdeveloperss.fourbrothers.adapters.GenericAdapter
 import com.xdeveloperss.fourbrothers.data.responses.OrderItems
 import com.xdeveloperss.fourbrothers.databinding.FragmentBuyerBinding
 import com.xdeveloperss.fourbrothers.databinding.FragmentSupplieBinding
 import com.xdeveloperss.fourbrothers.ui.main.ui.shop.ShopViewModel
+import com.xdeveloperss.fourbrothers.ui.main.ui.shop.customers.CustomerFragmentDirections
 import com.xdeveloperss.fourbrothers.xbase.XBaseFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -16,7 +18,9 @@ class BuyerFragment : XBaseFragment<FragmentBuyerBinding>(FragmentBuyerBinding::
         shopViewModel.customersList.observe {
             binding.buyersRV.adapter = GenericAdapter(type = AdapterType.SHOP, it)
             { i, action, shop ->
-                val inv = shop
+                findNavController().navigate(BuyerFragmentDirections.actionBuyerFragmentToShopEditorFragment())
+                shop.modelType = "stockItems"
+                shopViewModel.setSelectData(shop)
             }
         }
     }

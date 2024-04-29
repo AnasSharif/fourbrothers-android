@@ -35,15 +35,15 @@ class ShopEditorFragment : XBaseFragment<FragmentShopEditorBinding>(FragmentShop
     private var productRate: PersonRate? = null
     override fun onViewCreated() {
         shopViewModel.selectedData.observe {
-            itemData = it[1]!!
-            binding.textFieldSelectParty.editText?.setText(it[1]?.personName)
-            binding.fieldAmount.editText?.setText(it[1]?.total.toString())
-            binding.fieldWeight.editText?.setText(it[1]?.weight.toString())
-            binding.textFieldSelectPartyProduct.editText?.setText(it[1]?.product?.name)
-            binding.textFieldRateType.editText?.setText(it[1]?.itemRate?.type?.name)
-            binding.textFieldRates.editText?.setText(it[1]?.itemRate?.amount.toString())
-            this.productRate = it[1]?.itemRate
-            it[1]?.person?.products?.let { prods ->
+            itemData = it
+            binding.textFieldSelectParty.editText?.setText(itemData.personName)
+            binding.fieldAmount.editText?.setText(itemData.total.toString())
+            binding.fieldWeight.editText?.setText(itemData.weight.toString())
+            binding.textFieldSelectPartyProduct.editText?.setText(itemData.product.name)
+            binding.textFieldRateType.editText?.setText(itemData.itemRate.type?.name)
+            binding.textFieldRates.editText?.setText(itemData.itemRate.amount.toString())
+            this.productRate = itemData.itemRate
+            itemData.person.products?.let { prods ->
                 this.loadPersonProduct(prods.map { it.product.name }.toList(), binding.textFieldSelectPartyProduct)
                 { s, i ->
                     binding.textFieldRateType.text(prods[i].rate.type?.name)
@@ -71,14 +71,14 @@ class ShopEditorFragment : XBaseFragment<FragmentShopEditorBinding>(FragmentShop
             )
         }
         binding.saveBtn.setOnClickListener {
-            shopViewModel.saveData(OrderItems::class.java, itemData)
+            shopViewModel.saveData(null, typeString = itemData.modelType, itemData)
         }
     }
     override fun imagePick(bitmap: Bitmap, fileName: String, uri: Uri?) {
         super.imagePick(bitmap, fileName ,uri)
         itemData.let {
             shopViewModel.storeFile(
-                "orderItems",
+                it.modelType,
                 it.id.toString(),
                 fileName,
                 FileManager.getFileWithName(fileName = fileName)

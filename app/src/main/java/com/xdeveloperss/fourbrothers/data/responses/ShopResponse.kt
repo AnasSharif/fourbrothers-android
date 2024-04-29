@@ -34,5 +34,6 @@ data class OrderItems(
     val person: Person,
     @SerializedName("item_rate")
     val itemRate: PersonRate,
-    var media: List<Media>? = null
+    var media: List<Media>? = null,
+    var modelType:String = "orderItems"
 )

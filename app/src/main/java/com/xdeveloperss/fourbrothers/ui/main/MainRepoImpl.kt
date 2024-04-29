@@ -83,17 +83,19 @@ class MainRepoImpl(private val api: ServerInterface): XBaseApiRepo(), MainRepo {
     }
 
     override suspend fun <T> saveData(
-        type: Class<T>,
+        type: Class<T>?,
+        stringType: String?,
         data: T
     ): XNetworkResponse<BaseResponseRepo> {
         return withContext(Dispatchers.IO){
             try {
 
                 val servicesList = async {
+                    val className = type?.simpleName?.lowercase() ?: stringType ?: ""
                     val response = safeApiCall {
                         val params =  mutableMapOf(
-                            "type" to type.simpleName.lowercase(),
-                            type.simpleName.lowercase() to Gson().toJson(data))
+                            "type" to className,
+                            className to Gson().toJson(data))
                         api.saveData(params)
                     }
                     if (response is XNetworkResponse.Success && response.value.success){

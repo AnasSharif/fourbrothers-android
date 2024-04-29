@@ -8,7 +8,7 @@ import com.xdeveloperss.fourbrothers.ui.main.MainRepo
 import com.xdeveloperss.fourbrothers.ui.main.MainViewModel
 import kotlinx.coroutines.launch
 
-class ShopViewModel(private val repository: MainRepo): MainViewModel(repository) {
+class ShopViewModel(repository: MainRepo): MainViewModel(repository) {
 
     private val _customersList: MutableLiveData<List<OrderItems>> by lazy {
         MutableLiveData()
@@ -22,14 +22,14 @@ class ShopViewModel(private val repository: MainRepo): MainViewModel(repository)
     }
 
 
-    private val _selectedData: MutableLiveData<Map<Int,OrderItems>> by lazy {
+    private val _selectedData: MutableLiveData<OrderItems> by lazy {
         MutableLiveData()
     }
 
-    val selectedData: LiveData<Map<Int,OrderItems>>
+    val selectedData: LiveData<OrderItems>
         get() = _selectedData
 
     fun setSelectData(item: OrderItems) = viewModelScope.launch {
-        _selectedData.value = mapOf(1 to item)
+        _selectedData.value = item
     }
 }

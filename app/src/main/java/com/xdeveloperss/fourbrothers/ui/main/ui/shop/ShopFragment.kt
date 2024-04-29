@@ -106,7 +106,7 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
 
     private fun showRateAlert(){
         XDialogBuilder(requireActivity(),shopData.dailyRates ?: DailyRates()).setData {
-            shopViewModel.saveData(DailyRates::class.java, it as DailyRates)
+            shopViewModel.saveData(DailyRates::class.java, null, it as DailyRates)
             this.loadData(date = Prefs.getString("selectedDate") ?: Date().formattedDate())
         }.show()
 

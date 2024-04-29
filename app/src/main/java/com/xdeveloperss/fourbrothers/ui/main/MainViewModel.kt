@@ -15,9 +15,9 @@ open class MainViewModel(private val repository: MainRepo): ViewModel() {
     private val _saveData: MutableLiveData<BaseResponseRepo> by lazy {
         MutableLiveData()
     }
-    fun <T> saveData(type: Class<T>, data: T) =
+    fun <T> saveData(type: Class<T>?= null, typeString: String? = null, data: T) =
         viewModelScope.launch {
-            _saveData.value = repository.saveData(type, data).getValueFromResponse()
+            _saveData.value = repository.saveData(type, typeString, data).getValueFromResponse()
         }
 
     private val _getData: MutableLiveData<XNetworkResponse<BaseResponseRepo>> by lazy {
