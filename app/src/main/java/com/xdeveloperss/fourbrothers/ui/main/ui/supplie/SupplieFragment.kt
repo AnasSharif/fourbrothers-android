@@ -49,7 +49,8 @@ class SupplieFragment : XBaseFragment<FragmentSupplieBinding>(FragmentSupplieBin
                         AdapterAction.EDIT -> {}
                         AdapterAction.DELETE -> {}
                         AdapterAction.SELECT -> {
-//                            findNavController().navigate(CustomerFragmentDirections.actionCustomerFragmentToShopEditorFragment())
+                            findNavController().navigate(SupplieFragmentDirections.actionNavSuppliesToSupplyDetailFragment())
+                            supplieViewModel.setSupply(supply)
                         }
                         AdapterAction.PICKER -> {
                             cropImage.launch(

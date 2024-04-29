@@ -42,7 +42,8 @@ data class VendorSupplie (
     val vendorSuppliesVansID: Any? = null,
     val vendorSupplieTypeID: Long,
     val rate: Long,
-    val mandiRate: Long,
+    @SerializedName("mandi_rate")
+    val mandiRate: Int,
     val weight: Long,
     val waste: Long,
     val saving: Any? = null,
@@ -51,6 +52,8 @@ data class VendorSupplie (
     val updatedAt: String,
     val items: List<Item>,
     val media: List<Media>? = null,
+    val expenses: List<Expense>,
+    val pickup: SupplieVan
 )
 
 data class Item (
@@ -59,10 +62,19 @@ data class Item (
     val vendorRatesID: Any? = null,
     val vendorSuppliesID: Long,
     val imageURL: Any? = null,
-    val weight: Long,
+    val weight: Double,
     val rate: Long,
     val total: Long,
     val date: String,
     val createdAt: String,
     val updatedAt: String
 )
+data class Expense (
+    val id: Long,
+    val vendorSuppliesID: Long,
+    val vendorSupplieExpenseTypeID: Long,
+    val amount: Long,
+    val createdAt: String,
+    val updatedAt: String
+)
+

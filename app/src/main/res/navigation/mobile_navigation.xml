@@ -40,7 +40,15 @@
         android:id="@+id/nav_supplies"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.supplie.SupplieFragment"
         android:label="@string/menu_supplie"
-        tools:layout="@layout/fragment_supply_detail" />
+        tools:layout="@layout/fragment_supplie" >
+        <action
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_in_pop"
+            app:popExitAnim="@anim/slide_out_pop"
+            android:id="@+id/action_nav_supplies_to_supplyDetailFragment"
+            app:destination="@id/supplyDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/customerFragment"
         tools:layout="@layout/fragment_customer"
@@ -77,4 +85,9 @@
         tools:layout="@layout/fragment_party"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.parties.PartyFragment"
         android:label="@string/parties" />
+    <fragment
+        android:id="@+id/supplyDetailFragment"
+        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.supplie.SupplyDetailFragment"
+        android:label="@string/supply_detail"
+        tools:layout="@layout/fragment_supply_detail" />
 </navigation>

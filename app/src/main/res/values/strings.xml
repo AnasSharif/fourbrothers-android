@@ -22,6 +22,7 @@
     <string name="buyers">Buyers Data</string>
     <string name="detail">Show Detail</string>
     <string name="total">Total: %1$d</string>
+    <string name="total_amount">Total: %1$d</string>
     <string name="total_weight">Total Weight: %.1f <b>Kg</b></string>
     <string name="edit">Edit\n</string>
     <string name="delete">Delete</string>
@@ -29,4 +30,5 @@
     <string name="parties">Parties</string>
     <string name="pager_image">Pager Image</string>
     <string name="rate">Rate: %1$d</string>
+    <string name="supply_detail">Supply Detail</string>
 </resources>

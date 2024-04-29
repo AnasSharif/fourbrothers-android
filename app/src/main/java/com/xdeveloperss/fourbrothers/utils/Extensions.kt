@@ -94,3 +94,7 @@ fun String.removeSpecialChars(): Double {
 
 val Double.rounded : Double
     get() =  String.format("%.1f", this).toDouble()
+
+fun Double.addPresent(present: Int = 4):Double{
+    return this+this*present
+}

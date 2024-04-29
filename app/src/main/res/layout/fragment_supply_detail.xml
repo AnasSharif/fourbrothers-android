@@ -15,49 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        <com.google.android.material.card.MaterialCardView
-            app:layout_constraintTop_toBottomOf="@+id/rates_container"
-            android:clickable="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.Material3.CardView.Elevated"
-            android:layout_margin="@dimen/_5sdp"
-            android:focusable="true">
-
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewPagerMain"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_100sdp"/>
-
-            <ImageView
-                android:id="@+id/imagePicker"
-                android:layout_width="@dimen/_60sdp"
-                android:layout_height="@dimen/_60sdp"
-                android:layout_gravity="center"
-                android:foreground="?selectableItemBackground"
-                android:src="@drawable/add_image_24"
-                android:clickable="true"
-                android:focusable="true"
-                app:tint="@color/md_theme_light_primary" />
-        </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textFieldSaleDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusableInTouchMode="false"
-            app:startIconCheckable="true"
-            app:startIconDrawable="@drawable/baseline_calendar_today_24"
-            android:layout_weight="1"
-            android:hint="Select Date">
-            <com.google.android.material.textfield.TextInputEditText
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
         <TextView
-            android:text="Supplie Rates"
+            android:text="Rates"
             android:textSize="@dimen/_13ssp"
             android:layout_marginTop="@dimen/_2sdp"
             android:textStyle="bold"
@@ -108,6 +67,59 @@
         <com.google.android.material.card.MaterialCardView
             app:layout_constraintTop_toBottomOf="@+id/rates_container"
             android:clickable="true"
+            android:id="@+id/supplier_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_margin="@dimen/_5sdp"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_13sdp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/supplier_name"
+                        android:text="----"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:id="@+id/supplier_rate"
+                        android:text="@string/total"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="?android:attr/textColorSecondary"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:id="@+id/supplier_weight"
+                        android:text="@string/total_weight"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="?android:attr/textColorSecondary"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            app:layout_constraintTop_toBottomOf="@+id/rates_container"
+            android:clickable="true"
             android:id="@+id/customer_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -130,14 +142,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Suppliers Data"
+                        android:text="Supply Customers"
                         android:textAppearance="?attr/textAppearanceTitleMedium"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_6sdp"
-                        android:id="@+id/total_customer"
+                        android:id="@+id/total_supply_customer"
                         android:text="@string/total"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
                         android:textColor="?android:attr/textColorSecondary"
@@ -146,7 +158,60 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_12sdp"
-                        android:id="@+id/customers_weight"
+                        android:id="@+id/supply_weight"
+                        android:text="@string/total_weight"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="?android:attr/textColorSecondary"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            app:layout_constraintTop_toBottomOf="@+id/rates_container"
+            android:clickable="true"
+            android:id="@+id/expense_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_margin="@dimen/_5sdp"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_13sdp">
+
+                    <!-- Title, secondary and supporting text -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Supply Expenses"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:id="@+id/total_expense"
+                        android:text="@string/total"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="?android:attr/textColorSecondary"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:id="@+id/expense_amount"
                         android:text="@string/total_weight"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
                         android:textColor="?android:attr/textColorSecondary"
