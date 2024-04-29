@@ -5,8 +5,10 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.xdeveloperss.fourbrothers.data.models.Supply
+import com.xdeveloperss.fourbrothers.data.models.VendorSupplieExpense
 import com.xdeveloperss.fourbrothers.data.models.VendorSupplieItems
 import com.xdeveloperss.fourbrothers.data.responses.DailyRates
+import com.xdeveloperss.fourbrothers.databinding.DialogVendorExpenseBinding
 import com.xdeveloperss.fourbrothers.databinding.DialogVendorItemBinding
 import com.xdeveloperss.fourbrothers.databinding.RateDialogViewBinding
 import com.xdeveloperss.fourbrothers.databinding.SupplierDialogBinding
@@ -18,7 +20,8 @@ import com.xdeveloperss.fourbrothers.utils.value
 enum class XDialogType{
     DAILY_RATES,
     SUPPLER,
-    VENDOR_ITEM
+    VENDOR_ITEM,
+    SUPPLY_EXPENSE
 }
 class XDialogBuilder<T>(private var context: FragmentActivity, private val modelClass: T) {
 
@@ -29,14 +32,10 @@ class XDialogBuilder<T>(private var context: FragmentActivity, private val model
     private fun viewBinding():XDialogBuilder<T>{
         this.materialAlertDialogBuilder = MaterialAlertDialogBuilder(context)
         binding = when(dialogType){
-            XDialogType.DAILY_RATES -> {
-                RateDialogViewBinding.inflate(LayoutInflater.from(context), null, false)
-            }
-            XDialogType.SUPPLER ->{
-                SupplierDialogBinding.inflate(LayoutInflater.from(context), null, false)
-            }
-
+            XDialogType.DAILY_RATES -> { RateDialogViewBinding.inflate(LayoutInflater.from(context), null, false) }
+            XDialogType.SUPPLER ->{ SupplierDialogBinding.inflate(LayoutInflater.from(context), null, false) }
             XDialogType.VENDOR_ITEM -> { DialogVendorItemBinding.inflate(LayoutInflater.from(context), null, false) }
+            XDialogType.SUPPLY_EXPENSE -> { DialogVendorExpenseBinding.inflate(LayoutInflater.from(context), null, false) }
         }
         materialAlertDialogBuilder.setView(binding.root)
         return this
@@ -61,6 +60,11 @@ class XDialogBuilder<T>(private var context: FragmentActivity, private val model
                 val b = binding as DialogVendorItemBinding
                 b.vendorWeight.text(it.weight.toString())
                 b.textView.text = it.vendor.name
+            }
+            if (it is VendorSupplieExpense){
+                val b = binding as DialogVendorExpenseBinding
+                b.expenseAmount.text(it.amount.toString())
+                b.textView.text = it.type.name
             }
         }
         return this
@@ -103,6 +107,18 @@ class XDialogBuilder<T>(private var context: FragmentActivity, private val model
                                 if (it is VendorSupplieItems){
                                     val b = binding as DialogVendorItemBinding
                                     it.weight = b.vendorWeight.double()
+                                    comp(it)
+                                }
+                            }
+                        }
+                    }
+
+                    XDialogType.SUPPLY_EXPENSE -> {
+                        this.completion?.let { comp->
+                            modelClass.let {
+                                if (it is VendorSupplieExpense){
+                                    val b = binding as DialogVendorExpenseBinding
+                                    it.amount = b.expenseAmount.double()
                                     comp(it)
                                 }
                             }

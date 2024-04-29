@@ -19,9 +19,11 @@ import com.xdeveloperss.fourbrothers.XBaseApplication
 import com.xdeveloperss.fourbrothers.data.models.Person
 import com.xdeveloperss.fourbrothers.data.models.Supply
 import com.xdeveloperss.fourbrothers.data.models.VendorSupplie
+import com.xdeveloperss.fourbrothers.data.models.VendorSupplieExpense
 import com.xdeveloperss.fourbrothers.data.models.VendorSupplieItems
 import com.xdeveloperss.fourbrothers.data.responses.OrderItems
 import com.xdeveloperss.fourbrothers.databinding.ShopItemBinding
+import com.xdeveloperss.fourbrothers.databinding.SupplieExpenseItemBinding
 import com.xdeveloperss.fourbrothers.databinding.SupplieItemBinding
 import com.xdeveloperss.fourbrothers.databinding.SupplyPartyItemBinding
 import com.xdeveloperss.fourbrothers.utils.FileManager
@@ -32,7 +34,8 @@ enum class AdapterType{
     SHOP,
     PERSON,
     SUPPLY,
-    SUPPLY_PARTY
+    SUPPLY_PARTY,
+    SUPPLY_EXPENSE
 }
 enum class AdapterAction(val id: Int, val image: Int){
     EDIT(R.string.edit, R.drawable.baseline_edit_24),
@@ -54,6 +57,7 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
             AdapterType.PERSON -> { GenericViewHolder(ShopItemBinding.inflate(inflater, parent,false))}
             AdapterType.SUPPLY -> { GenericViewHolder(SupplieItemBinding.inflate(inflater, parent,false))}
             AdapterType.SUPPLY_PARTY -> { GenericViewHolder(SupplyPartyItemBinding.inflate(inflater, parent,false)) }
+            AdapterType.SUPPLY_EXPENSE ->  { GenericViewHolder(SupplieExpenseItemBinding.inflate(inflater, parent,false)) }
         }
     }
 
@@ -102,6 +106,13 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
                 b.imagePicker.setOnClickListener {
                     actions(position, AdapterAction.PICKER, lists[position])
                 }
+            }
+
+            AdapterType.SUPPLY_EXPENSE -> {
+                val data = lists[position] as VendorSupplieExpense
+                val b =  holder.b as SupplieExpenseItemBinding
+                b.expenseName.text = data.type.name
+                b.expenseAmount.text = getString(R.string.total, data.amount.toLong())
             }
         }
         holder.b.root.setOnClickListener {

@@ -38,7 +38,7 @@ class SupplyCustomerFragment : XBaseFragment<FragmentSupplyCustomerBinding>(Frag
                     AdapterAction.SELECT -> {
                         XDialogBuilder(requireActivity(), item).setData(type = XDialogType.VENDOR_ITEM) {
                             supplyViewModel.saveData(VendorSupplieItems::class.java,null, it as VendorSupplieItems)
-                            binding.supplyCustomersRV.adapter?.notifyDataSetChanged()
+                            binding.supplyCustomersRV.adapter?.notifyItemChanged(i)
                         }.show()
                     }
                     AdapterAction.PICKER -> {

@@ -36,7 +36,7 @@ class SupplyDetailFragment : XBaseFragment<FragmentSupplyDetailBinding>(Fragment
             binding.supplyWeight.text = getString(R.string.total_weight, it.vendorSupplie.items.sumOf { it.weight })
 
             binding.totalExpense.text = getString(R.string.total, it.vendorSupplie.expenses.size)
-            binding.expenseAmount.text = getString(R.string.total_amount, it.vendorSupplie.expenses.sumOf { it.amount })
+            binding.expenseAmount.text = getString(R.string.total, it.vendorSupplie.expenses.sumOf { it.amount.toLong() })
         }
         supplyViewModel.getData.observe { resp ->
             resp.getValueFromResponse()?.data?.let {
@@ -52,6 +52,7 @@ class SupplyDetailFragment : XBaseFragment<FragmentSupplyDetailBinding>(Fragment
 
         }
         binding.expenseDetail.setOnClickListener {
+            supplyViewModel.setVendorItemExpense(supply.vendorSupplie.expenses)
             findNavController().navigate(SupplyDetailFragmentDirections.actionSupplyDetailFragmentToSupplyExpenseFragment())
         }
     }

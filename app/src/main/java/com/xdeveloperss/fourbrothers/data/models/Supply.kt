@@ -52,7 +52,7 @@ data class VendorSupplie (
     val updatedAt: String,
     val items: List<VendorSupplieItems>,
     val media: List<Media>? = null,
-    val expenses: List<Expense>,
+    val expenses: List<VendorSupplieExpense>,
     val pickup: SupplieVan
 )
 
@@ -67,12 +67,18 @@ data class VendorSupplieItems (
     val media: MutableList<Media>? = null,
     val vendor: Supplier
 )
-data class Expense (
+data class VendorSupplieExpense (
     val id: Long,
-    val vendorSuppliesID: Long,
-    val vendorSupplieExpenseTypeID: Long,
-    val amount: Long,
+    var amount: Double,
+    val createdAt: String,
+    val type: ExpenseType
+)
+
+data class ExpenseType (
+    val id: Long,
+    val name: String,
     val createdAt: String,
     val updatedAt: String
 )
+
 
