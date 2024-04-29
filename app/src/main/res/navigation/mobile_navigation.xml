@@ -89,5 +89,30 @@
         android:id="@+id/supplyDetailFragment"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.supplie.SupplyDetailFragment"
         android:label="@string/supply_detail"
-        tools:layout="@layout/fragment_supply_detail" />
+        tools:layout="@layout/fragment_supply_detail" >
+        <action
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_in_pop"
+            app:popExitAnim="@anim/slide_out_pop"
+            android:id="@+id/action_supplyDetailFragment_to_supplyCustomerFragment"
+            app:destination="@id/supplyCustomerFragment" />
+        <action
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_in_pop"
+            app:popExitAnim="@anim/slide_out_pop"
+            android:id="@+id/action_supplyDetailFragment_to_supplyExpenseFragment"
+            app:destination="@id/supplyExpenseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/supplyCustomerFragment"
+        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.supplie.editor.SupplyCustomerFragment"
+        tools:layout="@layout/fragment_supply_customer"
+        android:label="SupplyCustomerFragment" />
+    <fragment
+        android:id="@+id/supplyExpenseFragment"
+        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.supplie.editor.SupplyExpenseFragment"
+        tools:layout="@layout/fragment_supply_expense"
+        android:label="SupplyExpenseFragment" />
 </navigation>

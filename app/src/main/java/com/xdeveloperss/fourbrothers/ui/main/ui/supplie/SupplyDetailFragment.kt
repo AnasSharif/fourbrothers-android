@@ -1,7 +1,12 @@
 package com.xdeveloperss.fourbrothers.ui.main.ui.supplie
 
+import androidx.navigation.fragment.findNavController
 import com.kongzue.dialogx.dialogs.WaitDialog
 import com.xdeveloperss.fourbrothers.R
+import com.xdeveloperss.fourbrothers.custom.XDialogBuilder
+import com.xdeveloperss.fourbrothers.custom.XDialogType
+import com.xdeveloperss.fourbrothers.data.models.Supply
+import com.xdeveloperss.fourbrothers.data.responses.DailyRates
 import com.xdeveloperss.fourbrothers.data.responses.Data
 import com.xdeveloperss.fourbrothers.databinding.FragmentSupplyDetailBinding
 import com.xdeveloperss.fourbrothers.utils.addPresent
@@ -16,10 +21,11 @@ import java.util.Date
 class SupplyDetailFragment : XBaseFragment<FragmentSupplyDetailBinding>(FragmentSupplyDetailBinding::inflate) {
 
     private val supplieViewModel: SupplieViewModel by sharedViewModel()
-    private lateinit var supply: Data
+    lateinit var supply: Supply
     override fun onViewCreated() {
 
         supplieViewModel.getSupply.observe {
+            supply = it
             binding.mandiRateField.text(it.vendorSupplie.rate.toString())
             binding.supplyRateField.text(it.vendorSupplie.mandiRate.toString())
             binding.supplierName.text = it.supplier.name
@@ -37,11 +43,22 @@ class SupplyDetailFragment : XBaseFragment<FragmentSupplyDetailBinding>(Fragment
 
             }
         }
+        binding.supplierDetail.setOnClickListener {
+            showRateAlert()
+        }
+        binding.customerDetail.setOnClickListener {
+            findNavController().navigate(SupplyDetailFragmentDirections.actionSupplyDetailFragmentToSupplyCustomerFragment())
+        }
+        binding.expenseDetail.setOnClickListener {
+            findNavController().navigate(SupplyDetailFragmentDirections.actionSupplyDetailFragmentToSupplyExpenseFragment())
+        }
     }
-    private fun loadData(date: String){
-        WaitDialog.show("Load Data...")
-        supplieViewModel.setData(date, listOf("supplie"))
-        Prefs.putString("selectedDate", date)
+    private fun showRateAlert(){
+        XDialogBuilder(requireActivity(), supply).setData(type = XDialogType.SUPPLER) {
+            supplieViewModel.saveData(null,"supplies", it as Supply)
+            supplieViewModel.setSupply(it)
+        }.show()
+
     }
 
 }
