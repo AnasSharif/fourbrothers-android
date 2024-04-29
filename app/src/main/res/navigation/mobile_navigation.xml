@@ -40,7 +40,7 @@
         android:id="@+id/nav_supplies"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.supplie.SupplieFragment"
         android:label="@string/menu_supplie"
-        tools:layout="@layout/fragment_supplie" />
+        tools:layout="@layout/fragment_supply_detail" />
     <fragment
         android:id="@+id/customerFragment"
         tools:layout="@layout/fragment_customer"

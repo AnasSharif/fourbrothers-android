@@ -1,11 +1,15 @@
 package com.xdeveloperss.fourbrothers.adapters
 
-
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.blankj.utilcode.util.FileUtils
+import com.blankj.utilcode.util.ImageUtils
+import com.blankj.utilcode.util.StringUtils.getString
+import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.kongzue.dialogx.dialogs.MessageDialog
 import com.kongzue.dialogx.dialogs.PopMenu
@@ -13,19 +17,24 @@ import com.kongzue.dialogx.interfaces.OnIconChangeCallBack
 import com.xdeveloperss.fourbrothers.R
 import com.xdeveloperss.fourbrothers.XBaseApplication
 import com.xdeveloperss.fourbrothers.data.models.Person
+import com.xdeveloperss.fourbrothers.data.models.Supply
 import com.xdeveloperss.fourbrothers.data.responses.OrderItems
 import com.xdeveloperss.fourbrothers.databinding.ShopItemBinding
+import com.xdeveloperss.fourbrothers.databinding.SupplieItemBinding
 import com.xdeveloperss.fourbrothers.utils.FileManager
+import com.xdeveloperss.fourbrothers.utils.glideLoad
 
 
 enum class AdapterType{
     SHOP,
-    PERSON
+    PERSON,
+    SUPPLY
 }
 enum class AdapterAction(val id: Int, val image: Int){
     EDIT(R.string.edit, R.drawable.baseline_edit_24),
     DELETE(R.string.delete, R.drawable.baseline_delete_outline_24),
     SELECT(R.string.select, R.drawable.baseline_pan_tool_alt_24),
+    PICKER(R.string.select, R.drawable.baseline_pan_tool_alt_24),
 
 }
 class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val lists: List<T>,
@@ -42,6 +51,7 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
             }
 
             AdapterType.PERSON -> { GenericViewHolder(ShopItemBinding.inflate(inflater, parent,false))}
+            AdapterType.SUPPLY -> { GenericViewHolder(SupplieItemBinding.inflate(inflater, parent,false))}
         }
     }
 
@@ -60,6 +70,21 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
                 val b =  holder.b as ShopItemBinding
                 b.personName.text = data.name
                 b.weight.text = data.phonenumber
+            }
+
+            AdapterType.SUPPLY -> {
+                val data = lists[position] as Supply
+                val b =  holder.b as SupplieItemBinding
+                b.supplierName.text = data.supplier.name
+                b.supplierRate.text = getString(R.string.rate, data.rate)
+                b.supplierWeight.text =  getString(R.string.total_weight, data.weight)
+                data.vendorSupplie.media?.let {
+                    val adapter = PagerAdapter(XBaseApplication.xCon(), it.toMutableList())
+                    b.viewPagerMain.adapter = adapter
+                }
+                b.imagePicker.setOnClickListener {
+                    actions(position, AdapterAction.PICKER, lists[position])
+                }
             }
         }
         holder.b.root.setOnClickListener {

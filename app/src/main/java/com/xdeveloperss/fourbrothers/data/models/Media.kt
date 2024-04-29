@@ -1,6 +1,8 @@
 package com.xdeveloperss.fourbrothers.data.models
 
 import android.graphics.Bitmap
+import android.net.Uri
+import androidx.core.net.toUri
 import com.blankj.utilcode.util.ImageUtils
 import com.xdeveloperss.fourbrothers.BuildConfig
 import com.xdeveloperss.fourbrothers.utils.AppExecutors

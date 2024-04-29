@@ -1,12 +1,18 @@
 package com.xdeveloperss.fourbrothers.utils
 
+import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.ImageView
 import androidx.fragment.app.FragmentActivity
+import com.blankj.utilcode.util.ImageUtils
 import com.bumptech.glide.Glide
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputLayout
+import com.xdeveloperss.fourbrothers.BuildConfig
 import com.xdeveloperss.fourbrothers.R
+import java.io.File
+import java.io.FileNotFoundException
+import java.net.URL
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Date

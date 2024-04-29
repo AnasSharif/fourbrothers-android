@@ -17,6 +17,7 @@ import com.blankj.utilcode.util.ThreadUtils.runOnUiThread
 import com.bumptech.glide.Glide
 import com.canhub.cropper.CropImageContract
 import com.xdeveloperss.fourbrothers.adapters.PagerAdapter
+import com.xdeveloperss.fourbrothers.data.models.Media
 import com.xdeveloperss.fourbrothers.utils.AppExecutors
 import com.xdeveloperss.fourbrothers.utils.FileManager
 
@@ -84,7 +85,7 @@ abstract class XBaseFragment<B : ViewBinding>(val bindingFactory: (LayoutInflate
             }
         }
     }
-    fun loadAdapter(list: List<String>, pager: ViewPager){
+    fun loadAdapter(list: List<Media>, pager: ViewPager){
         adapter = PagerAdapter(requireContext(), list.toMutableList())
         pager.adapter = adapter
     }

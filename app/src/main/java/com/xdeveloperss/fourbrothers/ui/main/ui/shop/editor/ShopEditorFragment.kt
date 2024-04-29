@@ -54,7 +54,7 @@ class ShopEditorFragment : XBaseFragment<FragmentShopEditorBinding>(FragmentShop
                     this.updatedDataItemWeight(prods[i].rate)
                 }
             }
-            this.loadAdapter(itemData.media?.map { it.file_name.toString() }?.toList() ?: listOf(), binding.imagePager)
+            this.loadAdapter(itemData.media?.toList() ?: listOf(), binding.imagePager)
         }
 
         binding.fieldWeight.editText?.addTextChangedListener { text ->

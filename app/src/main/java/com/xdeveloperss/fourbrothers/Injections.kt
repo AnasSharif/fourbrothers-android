@@ -8,6 +8,7 @@ import com.xdeveloperss.fourbrothers.ui.main.MainRepoImpl
 import com.xdeveloperss.fourbrothers.ui.main.MainViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.parties.PartyViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.shop.ShopViewModel
+import com.xdeveloperss.fourbrothers.ui.main.ui.supplie.SupplieViewModel
 import com.xdeveloperss.fourbrothers.xnetwork.config.configureApi
 import com.xdeveloperss.fourbrothers.xnetwork.config.server.ServerInterface
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -30,6 +31,9 @@ val vms = module {
     }
     viewModel {
         ShopViewModel(get())
+    }
+    viewModel {
+        SupplieViewModel(get())
     }
     viewModel {
         PartyViewModel(get())

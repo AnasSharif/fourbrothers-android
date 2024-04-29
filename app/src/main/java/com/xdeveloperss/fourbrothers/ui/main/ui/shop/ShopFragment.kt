@@ -38,11 +38,7 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
     private lateinit var shopData: Data
     override fun onViewCreated() {
 
-        Prefs.getString("selectedDate")?.let {
-            this.loadData(it)
-        } ?:run {
-            this.loadData( Date().formattedDate())
-        }
+        this.loadData(Prefs.getString("selectedDate") ?: Date().formattedDate())
 
         binding.textFieldSaleDate.editText?.setOnClickListener {
             requireActivity().showDateDialogWithDate( binding.textFieldSaleDate.string().dateMilliSec(),completion = { string, date ->
@@ -85,7 +81,7 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
                 binding.customersWeight.text = getString(R.string.total_weight, it.orderItems.sumOf { it.weight })
                 binding.buyersWeight.text = getString(R.string.total_weight, it.stockItems.sumOf { it.weight })
 
-                this.loadAdapter(shopData.dailyRates?.media?.map { it.file_name.toString() }?.toList() ?: listOf(), binding.viewPagerMain)
+                this.loadAdapter(shopData.dailyRates?.media?.toMutableList() ?: listOf(), binding.viewPagerMain)
                 WaitDialog.dismiss()
             }
         }
