@@ -35,4 +35,7 @@ object Prefs {
     fun getUserData(): UserData? {
         return Gson().fromJson(pref.getString("userData",""), UserData::class.java)
     }
+    fun isAdmin(): Boolean{
+       return getUserData()?.isAdmin ?: false
+    }
 }

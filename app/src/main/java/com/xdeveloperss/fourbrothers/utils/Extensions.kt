@@ -2,6 +2,7 @@ package com.xdeveloperss.fourbrothers.utils
 
 import android.graphics.Bitmap
 import android.net.Uri
+import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.FragmentActivity
 import com.blankj.utilcode.util.ImageUtils
@@ -97,4 +98,7 @@ val Double.rounded : Double
 
 fun Double.addPresent(present: Int = 4):Double{
     return this+this*present
+}
+fun View.hide(bool: Boolean){
+    visibility = if (bool) View.GONE else View.VISIBLE
 }

@@ -28,6 +28,8 @@ import com.xdeveloperss.fourbrothers.databinding.SupplieItemBinding
 import com.xdeveloperss.fourbrothers.databinding.SupplyPartyItemBinding
 import com.xdeveloperss.fourbrothers.utils.FileManager
 import com.xdeveloperss.fourbrothers.utils.glideLoad
+import com.xdeveloperss.fourbrothers.utils.hide
+import com.xdeveloperss.fourbrothers.xnetwork.config.utlis.Prefs
 
 
 enum class AdapterType{
@@ -91,6 +93,7 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
                 val supplierTotal = data.rate*data.weight
                 val suppliesTotal = data.vendorSupplie.items.sumOf { it.total }
                 val suppliesExpenses = data.vendorSupplie.expenses.sumOf { it.amount }
+                b.supplyContainer.hide(!Prefs.isAdmin())
                 b.supplierAmount.text = supplierTotal.toInt().toString()
                 b.suppliesAmount.text = suppliesTotal.toString()
                 b.totalExpense.text = suppliesExpenses.toInt().toString()
