@@ -11,7 +11,8 @@ data class Supply(
     var weight: Double,
     val date: String,
     val supplier: Supplier,
-    val supplieVan: SupplieVan,
+    @SerializedName("supplie_van")
+    val supplieVan: SupplieVan? = null,
     @SerializedName("vendor_supplie")
     val vendorSupplie: VendorSupplie,
     val createdAt: String,
@@ -25,7 +26,9 @@ data class SupplieVan (
     val vehiclesID: Any? = null,
     val employeesID: Any? = null,
     val createdAt: String,
-    val updatedAt: String
+    val updatedAt: String,
+    val van: Van? = null,
+    val driver: Employees? = null,
 )
 
 data class Supplier (
@@ -81,4 +84,23 @@ data class ExpenseType (
     val updatedAt: String
 )
 
+data class Van (
+    val id: Int,
+    val number: String? = null,
+    val name: String? = null,
+    val createdAt: String,
+    val updatedAt: String
+)
+
+data class Employees (
+    val id: Long,
+    val personsID: Long,
+    val employeeTypesID: Long,
+    val employeeSalariesID: Long,
+    val name: String,
+    val phonenumber: String,
+    val address: Any? = null,
+    val createdAt: String,
+    val updatedAt: String
+)
 

@@ -67,7 +67,6 @@
         <com.google.android.material.card.MaterialCardView
             app:layout_constraintTop_toBottomOf="@+id/rates_container"
             android:clickable="true"
-            android:id="@+id/supplier_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.Material3.CardView.Elevated"
@@ -82,6 +81,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/supplier_container"
                     android:orientation="vertical"
                     android:padding="@dimen/_13sdp">
 
@@ -107,6 +107,43 @@
                         android:layout_marginTop="@dimen/_12sdp"
                         android:id="@+id/supplier_weight"
                         android:text="@string/total_weight"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="?android:attr/textColorSecondary"
+                        />
+
+                </LinearLayout>
+                <View
+                    android:background="@color/black10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"/>
+                <LinearLayout
+                    android:id="@+id/pickup_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_13sdp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Supply Pickup"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:id="@+id/pickup_number"
+                        android:text="@string/number"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="?android:attr/textColorSecondary"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:id="@+id/driver_name"
+                        android:text="@string/driver"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
                         android:textColor="?android:attr/textColorSecondary"
                         />
@@ -173,6 +210,50 @@
         <com.google.android.material.card.MaterialCardView
             app:layout_constraintTop_toBottomOf="@+id/rates_container"
             android:clickable="true"
+            android:id="@+id/weight_loss_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_margin="@dimen/_5sdp"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_13sdp">
+
+                    <!-- Title, secondary and supporting text -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Supply Weight Loss"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:id="@+id/weight_loss"
+                        android:text="@string/weight_loss"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="?android:attr/textColorSecondary"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            app:layout_constraintTop_toBottomOf="@+id/rates_container"
+            android:clickable="true"
             android:id="@+id/expense_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -212,7 +293,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_12sdp"
                         android:id="@+id/expense_amount"
-                        android:text="@string/total_weight"
+                        android:text="@string/total_amount"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
                         android:textColor="?android:attr/textColorSecondary"
                         />

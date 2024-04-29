@@ -1,6 +1,7 @@
 package com.xdeveloperss.fourbrothers.ui.main.ui.supplie
 
 import androidx.navigation.fragment.findNavController
+import com.blankj.utilcode.util.ToastUtils
 import com.kongzue.dialogx.dialogs.WaitDialog
 import com.xdeveloperss.fourbrothers.R
 import com.xdeveloperss.fourbrothers.custom.XDialogBuilder
@@ -11,6 +12,7 @@ import com.xdeveloperss.fourbrothers.data.responses.Data
 import com.xdeveloperss.fourbrothers.databinding.FragmentSupplyDetailBinding
 import com.xdeveloperss.fourbrothers.utils.addPresent
 import com.xdeveloperss.fourbrothers.utils.formattedDate
+import com.xdeveloperss.fourbrothers.utils.rounded
 import com.xdeveloperss.fourbrothers.utils.text
 import com.xdeveloperss.fourbrothers.xbase.XBaseFragment
 import com.xdeveloperss.fourbrothers.xnetwork.config.response.getValueFromResponse
@@ -37,14 +39,23 @@ class SupplyDetailFragment : XBaseFragment<FragmentSupplyDetailBinding>(Fragment
 
             binding.totalExpense.text = getString(R.string.total, it.vendorSupplie.expenses.size)
             binding.expenseAmount.text = getString(R.string.total, it.vendorSupplie.expenses.sumOf { it.amount.toLong() })
+
+            supply.supplieVan?.let {
+                binding.pickupNumber.text = getString(R.string.number, it.van?.number.toString())
+                binding.driverName.text = getString(R.string.driver, it.driver?.name.toString())
+            }
+            binding.weightLoss.text = getString(R.string.weight_loss, (it.weight-it.vendorSupplie.items.sumOf { it.weight }).rounded)
         }
         supplyViewModel.getData.observe { resp ->
             resp.getValueFromResponse()?.data?.let {
 
             }
         }
-        binding.supplierDetail.setOnClickListener {
+        binding.supplierContainer.setOnClickListener {
             showRateAlert()
+        }
+        binding.pickupContainer.setOnClickListener {
+            ToastUtils.showShort("Pick up")
         }
         binding.customerDetail.setOnClickListener {
             supplyViewModel.setVendorItems(supply.vendorSupplie.items)
