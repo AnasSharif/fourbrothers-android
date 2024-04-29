@@ -88,6 +88,13 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
                     val adapter = PagerAdapter(XBaseApplication.xCon(), it.toMutableList())
                     b.viewPagerMain.adapter = adapter
                 }
+                val supplierTotal = data.rate*data.weight
+                val suppliesTotal = data.vendorSupplie.items.sumOf { it.total }
+                val suppliesExpenses = data.vendorSupplie.expenses.sumOf { it.amount }
+                b.supplierAmount.text = supplierTotal.toInt().toString()
+                b.suppliesAmount.text = suppliesTotal.toString()
+                b.totalExpense.text = suppliesExpenses.toInt().toString()
+                b.totalBachat.text = getString(R.string.total, (suppliesTotal-supplierTotal-suppliesExpenses).toInt())
                 b.imagePicker.setOnClickListener {
                     actions(position, AdapterAction.PICKER, lists[position])
                 }
