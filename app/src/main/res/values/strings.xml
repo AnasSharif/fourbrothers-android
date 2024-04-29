@@ -34,4 +34,5 @@
     <string name="supply_detail">Supply Detail</string>
     <string name="driver">Driver: %1$s</string>
     <string name="number">Number: %1$s</string>
+    <string name="search">Search</string>
 </resources>
