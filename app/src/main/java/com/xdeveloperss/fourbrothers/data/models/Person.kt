@@ -1,5 +1,7 @@
 package com.xdeveloperss.fourbrothers.data.models
 
+import com.google.gson.annotations.SerializedName
+
 data class Person (
     val id: Int,
     val name: String,
@@ -9,7 +11,9 @@ data class Person (
     val createdAt: String,
     val updatedAt: String,
     val products: List<PersonProduct>? = null,
-    val payments: List<Payment>?= null
+    val payments: List<Payment>?= null,
+    @SerializedName("kachra_payments")
+    val kachraPayments:  List<KachraPayment> = listOf()
 )
 
 class PersonProduct(
@@ -38,4 +42,24 @@ data class Payment (
     val addedAt: String,
     val createdAt: String,
     val updatedAt: String
+)
+
+data class KachraPayment (
+    val id: Long,
+    val usersID: Any? = null,
+    val personsID: Long,
+    val shopID: Any? = null,
+    val personProductsID: Any? = null,
+    val weight: Any? = null,
+    val amount: Long,
+    @SerializedName("payment_type")
+    val paymentType: String,
+    val desc: String? = null,
+    @SerializedName("created_at")
+    val createdAt: String,
+    val updatedAt: String,
+    val product: Product? = null,
+    //This is shop
+    val person: Person? = null,
+    val media: MutableList<Media> = mutableListOf()
 )

@@ -41,4 +41,8 @@
     <string name="products">Products</string>
     <string name="kachra">Kachra Charbhi</string>
     <string name="setting">Setting</string>
+    <string name="add_advance">+ Advance</string>
+    <string name="add_kachra_charbhi">+ Kachra Charbhi</string>
+    <string name="remaining_balance">Current Balance</string>
+    <string name="payments">Payments</string>
 </resources>

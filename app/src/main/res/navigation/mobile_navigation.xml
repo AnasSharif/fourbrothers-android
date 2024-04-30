@@ -124,10 +124,23 @@
         android:id="@+id/nav_kachra"
         tools:layout="@layout/fragment_kachra"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.kachra.KachraFragment"
-        android:label="@string/kachra" />
+        android:label="@string/kachra" >
+        <action
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_in_pop"
+            app:popExitAnim="@anim/slide_out_pop"
+            android:id="@+id/action_nav_kachra_to_kachraPartyFragment"
+            app:destination="@id/kachraPartyFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_products"
         tools:layout="@layout/fragment_product"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.product.ProductFragment"
         android:label="@string/products" />
+    <fragment
+        android:id="@+id/kachraPartyFragment"
+        tools:layout="@layout/fragment_kachra_party"
+        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.kachra.editor.KachraPartyFragment"
+        android:label="Party Detail" />
 </navigation>

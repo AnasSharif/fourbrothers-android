@@ -15,4 +15,6 @@ data class Data(
     val supplies: List<Supply>,
     val expenses: List<Expense>,
     val expenseType: List<ExpenseType>,
-    val products: List<Product>)
+    val products: List<Product>,
+    val kachraBuyer: List<Person>,
+    )

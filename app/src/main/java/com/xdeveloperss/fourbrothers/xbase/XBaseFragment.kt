@@ -8,18 +8,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import androidx.viewpager.widget.ViewPager
 import com.blankj.utilcode.util.ThreadUtils.runOnUiThread
-import com.bumptech.glide.Glide
 import com.canhub.cropper.CropImageContract
 import com.xdeveloperss.fourbrothers.adapters.PagerAdapter
 import com.xdeveloperss.fourbrothers.data.models.Media
 import com.xdeveloperss.fourbrothers.utils.AppExecutors
 import com.xdeveloperss.fourbrothers.utils.FileManager
+
 
 /**
  *@Author: Anas Sharif
@@ -31,6 +32,11 @@ abstract class XBaseFragment<B : ViewBinding>(val bindingFactory: (LayoutInflate
     lateinit var binding: B
     lateinit var mInflater: LayoutInflater
     var adapter: PagerAdapter? = null
+
+    fun barTitle(text: String){
+        (activity as AppCompatActivity?)?.supportActionBar?.title = text
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         registerBackPress()
