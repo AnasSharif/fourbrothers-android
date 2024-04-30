@@ -16,9 +16,13 @@ import com.xdeveloperss.fourbrothers.data.models.Product
 import com.xdeveloperss.fourbrothers.databinding.FragmentProductBinding
 import com.xdeveloperss.fourbrothers.ui.main.ui.expense.ExpenseViewModel
 import com.xdeveloperss.fourbrothers.utils.FileManager
+import com.xdeveloperss.fourbrothers.utils.backWithDelay
+import com.xdeveloperss.fourbrothers.utils.slug
+import com.xdeveloperss.fourbrothers.utils.toDate
 import com.xdeveloperss.fourbrothers.xbase.XBaseFragment
 import com.xdeveloperss.fourbrothers.xnetwork.config.response.getValueFromResponse
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import java.util.Date
 
 class ProductFragment: XBaseFragment<FragmentProductBinding>(FragmentProductBinding::inflate)  {
 
@@ -30,19 +34,30 @@ class ProductFragment: XBaseFragment<FragmentProductBinding>(FragmentProductBind
     override fun onViewCreated() {
 
         productViewModel.setData(null, listOf("products"))
+        binding.addProduct.setOnClickListener {
+            XDialogBuilder(requireActivity(), Product()).setData(type = XDialogType.PRODUCT) {
+                val product = it as Product
+                product.slug = product.name.toString().slug()
+                productViewModel.saveData(null,"products", product)
+                binding.root.backWithDelay {
+                    this.onViewCreated()
+                }
+            }.show()
+        }
         productViewModel.getData.observe { resp ->
             resp.getValueFromResponse()?.data?.let {
-                binding.productsRV.adapter = GenericAdapter(type = AdapterType.PRODUCT, it.products)
+                val pp =  it.products.sortedByDescending { it.createdAt }
+                binding.productsRV.adapter = GenericAdapter(type = AdapterType.PRODUCT, pp)
                 { i, action, pro ->
                     product = pro
                     when(action){
                         AdapterAction.EDIT -> {}
                         AdapterAction.DELETE -> {}
                         AdapterAction.SELECT -> {
-//                            XDialogBuilder(requireActivity(), exp).setData(type = XDialogType.EXPENSE) {
-//                                productViewModel.saveData(null,"expenses", it as Expense)
-//                                binding.expenseRV.adapter?.notifyItemChanged(i)
-//                            }.show()
+                            XDialogBuilder(requireActivity(), pro).setData(type = XDialogType.PRODUCT) {
+                                productViewModel.saveData(null,"products", it as Product)
+                                binding.productsRV.adapter?.notifyItemChanged(i)
+                            }.show()
                         }
                         AdapterAction.PICKER -> {
                             selectedIndex = i

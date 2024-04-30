@@ -1,13 +1,15 @@
 package com.xdeveloperss.fourbrothers.data.models
 
+import com.google.gson.annotations.SerializedName
+
 data class Product(
-    val id: Int,
-    val suppliesID: Any? = null,
-    val name: String,
-    val slug: String,
-    val category: String,
-    val createdAt: String,
-    val updatedAt: String,
+    val id: Int? = null,
+    var name: String? = null,
+    var slug: String? = null,
+    val category: String = "chicken",
+    @SerializedName("created_at")
+    val createdAt: String? = null,
+    val updatedAt: String? = null,
     val media: MutableList<Media> = mutableListOf()
 )
 

@@ -17,6 +17,7 @@ import com.xdeveloperss.fourbrothers.R
 import java.io.File
 import java.io.FileNotFoundException
 import java.net.URL
+import java.text.Normalizer
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -116,4 +117,16 @@ fun View.backWithDelay(delay: Long = 200, complete:()->Unit) {
             complete()
         }, delay)
     }
+}
+
+fun String.slug(replacement: String = "-") = Normalizer
+    .normalize(this, Normalizer.Form.NFD)
+    .replace("[^\\p{ASCII}]".toRegex(), "")
+    .replace("[^a-zA-Z0-9\\s]+".toRegex(), "").trim()
+    .replace("\\s+".toRegex(), replacement)
+    .lowercase()
+
+fun String.toDate(format: String = "yyyy-MM-dd"):Date{
+    val dateFormat = SimpleDateFormat(format, Locale.getDefault())
+    return dateFormat.parse(this) ?: Date()
 }
