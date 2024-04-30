@@ -7,7 +7,8 @@ data class Product(
     val slug: String,
     val category: String,
     val createdAt: String,
-    val updatedAt: String
+    val updatedAt: String,
+    val media: MutableList<Media> = mutableListOf()
 )
 
 

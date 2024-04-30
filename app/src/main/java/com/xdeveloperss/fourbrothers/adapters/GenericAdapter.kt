@@ -18,12 +18,14 @@ import com.xdeveloperss.fourbrothers.R
 import com.xdeveloperss.fourbrothers.XBaseApplication
 import com.xdeveloperss.fourbrothers.data.models.Expense
 import com.xdeveloperss.fourbrothers.data.models.Person
+import com.xdeveloperss.fourbrothers.data.models.Product
 import com.xdeveloperss.fourbrothers.data.models.Supply
 import com.xdeveloperss.fourbrothers.data.models.VendorSupplie
 import com.xdeveloperss.fourbrothers.data.models.VendorSupplieExpense
 import com.xdeveloperss.fourbrothers.data.models.VendorSupplieItems
 import com.xdeveloperss.fourbrothers.data.responses.OrderItems
 import com.xdeveloperss.fourbrothers.databinding.ExpenseItemBinding
+import com.xdeveloperss.fourbrothers.databinding.ProductItemBinding
 import com.xdeveloperss.fourbrothers.databinding.ShopItemBinding
 import com.xdeveloperss.fourbrothers.databinding.SupplieExpenseItemBinding
 import com.xdeveloperss.fourbrothers.databinding.SupplieItemBinding
@@ -40,7 +42,8 @@ enum class AdapterType{
     SUPPLY,
     SUPPLY_PARTY,
     SUPPLY_EXPENSE,
-    EXPENSE
+    EXPENSE,
+    PRODUCT
 }
 enum class AdapterAction(val id: Int, val image: Int){
     EDIT(R.string.edit, R.drawable.baseline_edit_24),
@@ -64,6 +67,7 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
             AdapterType.SUPPLY_PARTY -> { GenericViewHolder(SupplyPartyItemBinding.inflate(inflater, parent,false)) }
             AdapterType.SUPPLY_EXPENSE ->  { GenericViewHolder(SupplieExpenseItemBinding.inflate(inflater, parent,false)) }
             AdapterType.EXPENSE -> { GenericViewHolder(ExpenseItemBinding.inflate(inflater, parent,false)) }
+            AdapterType.PRODUCT -> { GenericViewHolder(ProductItemBinding.inflate(inflater, parent,false)) }
         }
     }
 
@@ -138,6 +142,19 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
                 data.media.let {
                     val adapter = PagerAdapter(XBaseApplication.xCon(), it.toMutableList())
                     b.viewPagerMain.adapter = adapter
+                }
+                b.imagePicker.setOnClickListener {
+                    actions(position, AdapterAction.PICKER, lists[position])
+                }
+            }
+            AdapterType.PRODUCT -> {
+                val data = lists[position] as Product
+                val b =  holder.b as ProductItemBinding
+                b.productName.text = data.name
+                if (data.media.isNotEmpty()){
+                    loadImage(data.media.first().file_name.toString(), b.productImage)
+                }else{
+                    b.productImage.setImageBitmap(null)
                 }
                 b.imagePicker.setOnClickListener {
                     actions(position, AdapterAction.PICKER, lists[position])

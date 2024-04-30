@@ -8,6 +8,7 @@ import com.xdeveloperss.fourbrothers.ui.main.MainRepoImpl
 import com.xdeveloperss.fourbrothers.ui.main.MainViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.expense.ExpenseViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.parties.PartyViewModel
+import com.xdeveloperss.fourbrothers.ui.main.ui.product.ProductViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.shop.ShopViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.supplie.SupplieViewModel
 import com.xdeveloperss.fourbrothers.xnetwork.config.configureApi
@@ -35,6 +36,9 @@ val vms = module {
     }
     viewModel {
         ExpenseViewModel(get())
+    }
+    viewModel {
+        ProductViewModel(get())
     }
     viewModel {
         SupplieViewModel(get())
