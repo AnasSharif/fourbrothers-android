@@ -17,6 +17,10 @@
             android:icon="@drawable/baseline_view_list_24"
             android:title="@string/menu_supplie" />
         <item
+            android:id="@+id/nav_expenses"
+            android:icon="@drawable/baseline_supervisor_account_24"
+            android:title="@string/expenses" />
+        <item
             android:id="@+id/nav_parties"
             android:icon="@drawable/baseline_supervisor_account_24"
             android:title="@string/parties" />

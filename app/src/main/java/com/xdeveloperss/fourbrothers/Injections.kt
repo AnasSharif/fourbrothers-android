@@ -6,6 +6,7 @@ import com.xdeveloperss.fourbrothers.ui.join.data.AuthViewModel
 import com.xdeveloperss.fourbrothers.ui.main.MainRepo
 import com.xdeveloperss.fourbrothers.ui.main.MainRepoImpl
 import com.xdeveloperss.fourbrothers.ui.main.MainViewModel
+import com.xdeveloperss.fourbrothers.ui.main.ui.expense.ExpenseViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.parties.PartyViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.shop.ShopViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.supplie.SupplieViewModel
@@ -31,6 +32,9 @@ val vms = module {
     }
     viewModel {
         ShopViewModel(get())
+    }
+    viewModel {
+        ExpenseViewModel(get())
     }
     viewModel {
         SupplieViewModel(get())

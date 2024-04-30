@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:weightSum="2"
+    tools:context=".ui.main.ui.supplie.SupplyDetailFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textFieldExpenseDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="false"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        app:startIconCheckable="true"
+        app:startIconDrawable="@drawable/baseline_calendar_today_24"
+        android:hint="Select Date">
+        <com.google.android.material.textfield.TextInputEditText
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/expenseRV"
+        tools:listitem="@layout/supplie_item"
+        android:layout_width="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

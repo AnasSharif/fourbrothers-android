@@ -16,12 +16,14 @@ import com.kongzue.dialogx.dialogs.PopMenu
 import com.kongzue.dialogx.interfaces.OnIconChangeCallBack
 import com.xdeveloperss.fourbrothers.R
 import com.xdeveloperss.fourbrothers.XBaseApplication
+import com.xdeveloperss.fourbrothers.data.models.Expense
 import com.xdeveloperss.fourbrothers.data.models.Person
 import com.xdeveloperss.fourbrothers.data.models.Supply
 import com.xdeveloperss.fourbrothers.data.models.VendorSupplie
 import com.xdeveloperss.fourbrothers.data.models.VendorSupplieExpense
 import com.xdeveloperss.fourbrothers.data.models.VendorSupplieItems
 import com.xdeveloperss.fourbrothers.data.responses.OrderItems
+import com.xdeveloperss.fourbrothers.databinding.ExpenseItemBinding
 import com.xdeveloperss.fourbrothers.databinding.ShopItemBinding
 import com.xdeveloperss.fourbrothers.databinding.SupplieExpenseItemBinding
 import com.xdeveloperss.fourbrothers.databinding.SupplieItemBinding
@@ -37,7 +39,8 @@ enum class AdapterType{
     PERSON,
     SUPPLY,
     SUPPLY_PARTY,
-    SUPPLY_EXPENSE
+    SUPPLY_EXPENSE,
+    EXPENSE
 }
 enum class AdapterAction(val id: Int, val image: Int){
     EDIT(R.string.edit, R.drawable.baseline_edit_24),
@@ -60,6 +63,7 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
             AdapterType.SUPPLY -> { GenericViewHolder(SupplieItemBinding.inflate(inflater, parent,false))}
             AdapterType.SUPPLY_PARTY -> { GenericViewHolder(SupplyPartyItemBinding.inflate(inflater, parent,false)) }
             AdapterType.SUPPLY_EXPENSE ->  { GenericViewHolder(SupplieExpenseItemBinding.inflate(inflater, parent,false)) }
+            AdapterType.EXPENSE -> { GenericViewHolder(ExpenseItemBinding.inflate(inflater, parent,false)) }
         }
     }
 
@@ -124,6 +128,21 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
                 b.expenseName.text = data.type.name
                 b.expenseAmount.text = getString(R.string.total, data.amount.toLong())
             }
+
+            AdapterType.EXPENSE -> {
+                val data = lists[position] as Expense
+                val b =  holder.b as ExpenseItemBinding
+                b.expenseName.text = data.type.name
+                b.expenseAmount.text = getString(R.string.total, data.amount.toLong())
+                b.expenseDesc.text = data.desc
+                data.media.let {
+                    val adapter = PagerAdapter(XBaseApplication.xCon(), it.toMutableList())
+                    b.viewPagerMain.adapter = adapter
+                }
+                b.imagePicker.setOnClickListener {
+                    actions(position, AdapterAction.PICKER, lists[position])
+                }
+            }
         }
         holder.b.root.setOnClickListener {
             actions(position, AdapterAction.SELECT, lists[position])
@@ -157,6 +176,7 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
             }
         }
     }
+
     private fun loadImage(name: String, imageView: ImageView){
         Glide.with(XBaseApplication.xCon())
             .load(FileManager.getFileForGlide(name))

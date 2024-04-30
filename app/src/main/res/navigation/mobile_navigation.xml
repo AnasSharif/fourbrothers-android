@@ -115,4 +115,9 @@
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.supplie.editor.SupplyExpenseFragment"
         tools:layout="@layout/fragment_supply_expense"
         android:label="Supply Expenses" />
+    <fragment
+        android:id="@+id/nav_expenses"
+        tools:layout="@layout/fragment_expense"
+        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.expense.ExpenseFragment"
+        android:label="Expenses" />
 </navigation>

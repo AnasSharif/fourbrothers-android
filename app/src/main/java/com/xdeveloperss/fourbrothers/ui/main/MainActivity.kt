@@ -41,7 +41,7 @@ class MainActivity : XBaseActivity<ActivityMainBinding>(ActivityMainBinding::inf
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_shop, R.id.nav_supplies, R.id.nav_parties
+                R.id.nav_home, R.id.nav_shop, R.id.nav_supplies, R.id.nav_expenses ,R.id.nav_parties
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

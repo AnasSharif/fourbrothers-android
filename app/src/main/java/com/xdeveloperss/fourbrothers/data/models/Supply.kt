@@ -74,10 +74,10 @@ data class VendorSupplieExpense (
     val id: Long,
     var amount: Double,
     val createdAt: String,
-    val type: ExpenseType
+    val type: SupplyExpenseType
 )
 
-data class ExpenseType (
+data class SupplyExpenseType (
     val id: Long,
     val name: String,
     val createdAt: String,
