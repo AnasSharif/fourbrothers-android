@@ -38,4 +38,7 @@
     <string name="expenses">Expenses</string>
     <string name="select_date">Select Date</string>
     <string name="image_description">Image description</string>
+    <string name="products">Products</string>
+    <string name="kachra">Kachra Charbhi</string>
+    <string name="setting">Setting</string>
 </resources>

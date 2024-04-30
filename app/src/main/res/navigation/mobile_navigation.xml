@@ -120,4 +120,14 @@
         tools:layout="@layout/fragment_expense"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.expense.ExpenseFragment"
         android:label="Expenses" />
+    <fragment
+        android:id="@+id/nav_kachra"
+        tools:layout="@layout/fragment_kachra"
+        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.kachra.KachraFragment"
+        android:label="@string/kachra" />
+    <fragment
+        android:id="@+id/nav_products"
+        tools:layout="@layout/fragment_product"
+        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.product.ProductFragment"
+        android:label="@string/products" />
 </navigation>

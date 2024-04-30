@@ -18,12 +18,20 @@
             android:title="@string/menu_supplie" />
         <item
             android:id="@+id/nav_expenses"
-            android:icon="@drawable/baseline_supervisor_account_24"
+            android:icon="@drawable/expense_icon"
             android:title="@string/expenses" />
         <item
             android:id="@+id/nav_parties"
             android:icon="@drawable/baseline_supervisor_account_24"
             android:title="@string/parties" />
+        <item
+            android:id="@+id/nav_products"
+            android:icon="@drawable/baseline_apps_24"
+            android:title="@string/products" />
+        <item
+            android:id="@+id/nav_kachra"
+            android:icon="@drawable/baseline_delete_24"
+            android:title="@string/kachra" />
         <item
             android:id="@+id/logout"
             android:icon="@drawable/baseline_logout_24"
