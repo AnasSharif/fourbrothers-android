@@ -2,9 +2,12 @@ package com.xdeveloperss.fourbrothers.utils
 
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ImageUtils
 import com.bumptech.glide.Glide
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -46,6 +49,10 @@ fun TextInputLayout.text(text: String?){
 }
 fun TextInputLayout.text(intValue: Int?){
     val stringValue = intValue ?: ""
+    this.editText?.setText(stringValue.toString())
+}
+fun TextInputLayout.text(double: Double?){
+    val stringValue = double ?: ""
     this.editText?.setText(stringValue.toString())
 }
 fun TextInputLayout.double(): Double{
@@ -101,4 +108,12 @@ fun Double.addPresent(present: Int = 4):Double{
 }
 fun View.hide(bool: Boolean){
     visibility = if (bool) View.GONE else View.VISIBLE
+}
+
+fun View.backWithDelay(delay: Long = 200, complete:()->Unit) {
+    Looper.myLooper()?.let {
+        Handler(it).postDelayed({
+            complete()
+        }, delay)
+    }
 }

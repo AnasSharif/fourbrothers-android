@@ -132,8 +132,8 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
             AdapterType.EXPENSE -> {
                 val data = lists[position] as Expense
                 val b =  holder.b as ExpenseItemBinding
-                b.expenseName.text = data.type.name
-                b.expenseAmount.text = getString(R.string.total, data.amount.toLong())
+                b.expenseName.text = data.type?.name.toString()
+                b.expenseAmount.text = getString(R.string.total, data.amount?.toLong())
                 b.expenseDesc.text = data.desc
                 data.media.let {
                     val adapter = PagerAdapter(XBaseApplication.xCon(), it.toMutableList())

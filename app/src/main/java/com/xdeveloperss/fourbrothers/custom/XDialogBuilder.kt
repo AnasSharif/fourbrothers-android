@@ -1,9 +1,14 @@
 package com.xdeveloperss.fourbrothers.custom
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputLayout
+import com.xdeveloperss.fourbrothers.R
 import com.xdeveloperss.fourbrothers.data.models.Expense
 import com.xdeveloperss.fourbrothers.data.models.Supply
 import com.xdeveloperss.fourbrothers.data.models.VendorSupplieExpense
@@ -44,7 +49,7 @@ class XDialogBuilder<T>(private var context: FragmentActivity, private val model
         materialAlertDialogBuilder.setView(binding.root)
         return this
     }
-    fun setData(type: XDialogType = XDialogType.DAILY_RATES, completion: (Any?) -> Unit): XDialogBuilder<T> {
+    fun setData(type: XDialogType = XDialogType.DAILY_RATES, selectionList:List<String> = listOf(), completion: (Any?) -> Unit): XDialogBuilder<T> {
         dialogType = type
         this.completion = completion
         viewBinding()
@@ -72,8 +77,11 @@ class XDialogBuilder<T>(private var context: FragmentActivity, private val model
             }
             if (it is Expense){
                 val b = binding as DialogExpenseBinding
-                b.expenseAmount.text(it.amount.toString())
+                b.expenseAmount.text(it.amount)
                 b.expenseDesc.text(it.desc)
+                loadSelection(context, selectionList, b.expenseTypeSelection){ s: String, i: Int ->
+                    it.expenseTypesID = i
+                }
             }
         }
         return this
@@ -153,5 +161,15 @@ class XDialogBuilder<T>(private var context: FragmentActivity, private val model
             dialog.dismiss()
         }
             .show()
+    }
+
+    private fun loadSelection(context: Context, strings: List<String>, inputLayout: TextInputLayout, clickListener:((String, Int)->Unit)){
+        val adapter = ArrayAdapter(context, R.layout.drop_down_list_item, strings)
+        val specieMenu = inputLayout.editText as? AutoCompleteTextView
+        specieMenu?.setAdapter(adapter)
+        specieMenu?.setOnItemClickListener { _, _, i, _ ->
+            clickListener(strings[i], i)
+        }
+
     }
 }

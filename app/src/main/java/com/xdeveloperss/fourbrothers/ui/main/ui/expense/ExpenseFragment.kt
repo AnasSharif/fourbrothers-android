@@ -12,16 +12,19 @@ import com.xdeveloperss.fourbrothers.adapters.GenericAdapter
 import com.xdeveloperss.fourbrothers.custom.XDialogBuilder
 import com.xdeveloperss.fourbrothers.custom.XDialogType
 import com.xdeveloperss.fourbrothers.data.models.Expense
+import com.xdeveloperss.fourbrothers.data.models.ExpenseType
 import com.xdeveloperss.fourbrothers.data.models.Media
 import com.xdeveloperss.fourbrothers.data.models.Supply
 import com.xdeveloperss.fourbrothers.data.models.VendorSupplieItems
 import com.xdeveloperss.fourbrothers.databinding.FragmentExpenseBinding
 import com.xdeveloperss.fourbrothers.ui.main.ui.supplie.SupplieFragmentDirections
 import com.xdeveloperss.fourbrothers.utils.FileManager
+import com.xdeveloperss.fourbrothers.utils.backWithDelay
 import com.xdeveloperss.fourbrothers.utils.dateMilliSec
 import com.xdeveloperss.fourbrothers.utils.formattedDate
 import com.xdeveloperss.fourbrothers.utils.showDateDialogWithDate
 import com.xdeveloperss.fourbrothers.utils.string
+import com.xdeveloperss.fourbrothers.utils.value
 import com.xdeveloperss.fourbrothers.xbase.XBaseFragment
 import com.xdeveloperss.fourbrothers.xnetwork.config.response.getValueFromResponse
 import com.xdeveloperss.fourbrothers.xnetwork.config.utlis.Prefs
@@ -32,18 +35,30 @@ class ExpenseFragment: XBaseFragment<FragmentExpenseBinding>(FragmentExpenseBind
     private val expenseViewModel:ExpenseViewModel by sharedViewModel()
 
     private lateinit var expense: Expense
+    private var expenseTypes: List<ExpenseType> = listOf()
     private var selectedIndex: Int = 0
     override fun onViewCreated() {
-        this.loadData(Prefs.getString("selectedSupplieDate") ?: Date().formattedDate())
+        this.loadData(Prefs.getString(this::class.java.name) ?: Date().formattedDate())
 
         binding.textFieldExpenseDate.editText?.setOnClickListener {
             requireActivity().showDateDialogWithDate(binding.textFieldExpenseDate.string().dateMilliSec(),completion = { string, date ->
                 this.loadData(string)
             })
         }
+        binding.addExpense.setOnClickListener {
+            XDialogBuilder(requireActivity(),Expense()).setData(type = XDialogType.EXPENSE, expenseTypes.map { it.name }) {
+                val newExp = it as Expense
+                newExp.expenseTypesID = expenseTypes[newExp.expenseTypesID.value()].id
+                expenseViewModel.saveData(null,"expenses", newExp)
+                binding.root.backWithDelay {
+                    this.onViewCreated()
+                }
+            }.show()
+        }
 
         expenseViewModel.getData.observe { resp ->
             resp.getValueFromResponse()?.data?.let {
+                this.expenseTypes = it.expenseType
                 binding.expenseRV.adapter = GenericAdapter(type = AdapterType.EXPENSE, it.expenses)
                 { i, action, exp ->
                     expense = exp
@@ -88,9 +103,9 @@ class ExpenseFragment: XBaseFragment<FragmentExpenseBinding>(FragmentExpenseBind
 
     private fun loadData(date: String){
         WaitDialog.show("Load Data...")
-        expenseViewModel.setData(date, listOf("expenses"))
+        expenseViewModel.setData(date, listOf("expenses", "expenseType"))
         binding.textFieldExpenseDate.editText?.setText(date)
-        Prefs.putString("selectedDate", date)
+        Prefs.putString(this::class.java.name, date)
     }
 
 }

@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/_8sdp"
+    >
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -14,12 +16,24 @@
         android:fontFamily="sans-serif"
         android:text="Shop Expense" />
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/expense_amount"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:id="@+id/expense_type_selection"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusableInTouchMode="false"
+        android:hint="Expense Type">
+        <AutoCompleteTextView
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/expense_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
         android:hint="Amount">
         <com.google.android.material.textfield.TextInputEditText
             android:inputType="numberDecimal"
@@ -29,11 +43,9 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/expense_desc"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
         android:hint="Detail">
         <com.google.android.material.textfield.TextInputEditText
             android:inputType="text"
