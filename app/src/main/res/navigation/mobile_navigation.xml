@@ -34,6 +34,13 @@
             app:popExitAnim="@anim/slide_out_pop"
             android:id="@+id/action_nav_shop_to_buyerFragment"
             app:destination="@id/buyerFragment" />
+        <action
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_in_pop"
+            app:popExitAnim="@anim/slide_out_pop"
+            android:id="@+id/action_nav_shop_to_wasuliFragment"
+            app:destination="@id/wasuliFragment" />
     </fragment>
 
     <fragment
@@ -143,4 +150,17 @@
         tools:layout="@layout/fragment_kachra_party"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.kachra.editor.KachraPartyFragment"
         android:label="Party Detail" />
+    <fragment
+        android:id="@+id/wasuliFragment"
+        tools:layout="@layout/fragment_wasuli"
+        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.shop.wasulies.WasuliFragment"
+        android:label="Cash Wasulies" >
+        <action
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_in_pop"
+            app:popExitAnim="@anim/slide_out_pop"
+            android:id="@+id/action_wasuliFragment_to_nav_parties"
+            app:destination="@id/nav_parties" />
+    </fragment>
 </navigation>

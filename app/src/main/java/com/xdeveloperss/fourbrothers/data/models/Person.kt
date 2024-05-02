@@ -6,7 +6,7 @@ import java.util.Date
 import java.util.function.DoubleUnaryOperator
 
 data class Person (
-    val id: Int,
+    val id: Long,
     @SerializedName("persons_id")
     val personsID: Long? = null,
     val name: String,

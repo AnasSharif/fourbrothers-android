@@ -11,6 +11,7 @@ import com.xdeveloperss.fourbrothers.ui.main.ui.kachra.KachraViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.parties.PartyViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.product.ProductViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.shop.ShopViewModel
+import com.xdeveloperss.fourbrothers.ui.main.ui.shop.wasulies.WasuliViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.supplie.SupplieViewModel
 import com.xdeveloperss.fourbrothers.xnetwork.config.configureApi
 import com.xdeveloperss.fourbrothers.xnetwork.config.server.ServerInterface
@@ -43,6 +44,9 @@ val vms = module {
     }
     viewModel {
         KachraViewModel(get())
+    }
+    viewModel {
+        WasuliViewModel(get())
     }
     viewModel {
         SupplieViewModel(get())

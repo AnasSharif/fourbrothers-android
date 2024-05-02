@@ -5,16 +5,20 @@ import android.content.Context
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.Navigation
 import com.kongzue.dialogx.dialogs.WaitDialog
 import com.xdeveloperss.fourbrothers.R
+import com.xdeveloperss.fourbrothers.adapters.AdapterAction
 import com.xdeveloperss.fourbrothers.adapters.AdapterType
 import com.xdeveloperss.fourbrothers.adapters.GenericAdapter
 import com.xdeveloperss.fourbrothers.data.models.Person
 import com.xdeveloperss.fourbrothers.databinding.FragmentPartyBinding
+import com.xdeveloperss.fourbrothers.ui.main.ui.shop.wasulies.WasuliViewModel
+import com.xdeveloperss.fourbrothers.utils.K
 import com.xdeveloperss.fourbrothers.xbase.XBaseFragment
 import com.xdeveloperss.fourbrothers.xnetwork.config.response.getValueFromResponse
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -32,14 +36,28 @@ class PartyFragment : XBaseFragment<FragmentPartyBinding>(FragmentPartyBinding::
                 setupAdapter(parties)
             }
         }
+        arguments?.getBoolean(K.SELECT_PARTY)?.let {
+            (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        }
         this.loadData()
         this.searchBarView()
     }
     private fun setupAdapter(persons: List<Person>){
         binding.partiesRV.adapter = GenericAdapter(type = AdapterType.PERSON, persons)
         { i, action, person ->
-
+            when (action) {
+                AdapterAction.SELECT -> {
+                    arguments?.getBoolean(K.SELECT_PARTY)?.let {
+                        partyViewModel.setSelectParty(person)
+                        this.backPressed()
+                        return@GenericAdapter
+                    }
+                }
+                else -> {}
+            }
         }
+
+
     }
     private fun loadData(){
         WaitDialog.show("Load Data...")

@@ -25,6 +25,8 @@ import com.xdeveloperss.fourbrothers.data.models.VendorSupplie
 import com.xdeveloperss.fourbrothers.data.models.VendorSupplieExpense
 import com.xdeveloperss.fourbrothers.data.models.VendorSupplieItems
 import com.xdeveloperss.fourbrothers.data.responses.OrderItems
+import com.xdeveloperss.fourbrothers.data.responses.VasuliItem
+import com.xdeveloperss.fourbrothers.databinding.CashRecevingItemBinding
 import com.xdeveloperss.fourbrothers.databinding.ExpenseItemBinding
 import com.xdeveloperss.fourbrothers.databinding.KachraPaymentItemBinding
 import com.xdeveloperss.fourbrothers.databinding.ProductItemBinding
@@ -47,7 +49,8 @@ enum class AdapterType{
     SUPPLY_EXPENSE,
     EXPENSE,
     PRODUCT,
-    KACHRA_PAYMENT
+    KACHRA_PAYMENT,
+    CASH_RECEIVING
 }
 enum class AdapterAction(val id: Int, val image: Int){
     EDIT(R.string.edit, R.drawable.baseline_edit_24),
@@ -73,6 +76,7 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
             AdapterType.EXPENSE -> { GenericViewHolder(ExpenseItemBinding.inflate(inflater, parent,false)) }
             AdapterType.PRODUCT -> { GenericViewHolder(ProductItemBinding.inflate(inflater, parent,false)) }
             AdapterType.KACHRA_PAYMENT ->  { GenericViewHolder(KachraPaymentItemBinding.inflate(inflater, parent,false)) }
+            AdapterType.CASH_RECEIVING ->  { GenericViewHolder(CashRecevingItemBinding.inflate(inflater, parent,false)) }
         }
     }
 
@@ -174,6 +178,20 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
                 b.typeText.text = if (data.paymentType == "cash") "C" else "A"
                 b.productName.text = data.product?.name ?: "---"
                 b.shopName.text = data.person?.name ?: "---"
+                b.imagePicker.setOnClickListener {
+                    actions(position, AdapterAction.PICKER, lists[position])
+                }
+                data.media.let {
+                    val adapter = PagerAdapter(XBaseApplication.xCon(), it.toMutableList())
+                    b.viewPagerMain.adapter = adapter
+                }
+            }
+
+            AdapterType.CASH_RECEIVING -> {
+                val data = lists[position] as VasuliItem
+                val b =  holder.b as CashRecevingItemBinding
+                b.partyName.text = data.person?.name.toString()
+                b.partyAmount.text =  getString(R.string.total, data.amount)
                 b.imagePicker.setOnClickListener {
                     actions(position, AdapterAction.PICKER, lists[position])
                 }

@@ -11,6 +11,7 @@ data class Data(
     var dailyRates:DailyRates? = null,
     val orderItems: List<OrderItems>,
     val stockItems: List<OrderItems>,
+    val vasuliItems: List<VasuliItem>,
     val persons: List<Person>,
     val supplies: List<Supply>,
     val expenses: List<Expense>,

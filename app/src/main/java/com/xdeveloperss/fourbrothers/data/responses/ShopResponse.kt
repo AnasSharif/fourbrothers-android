@@ -37,3 +37,19 @@ data class OrderItems(
     var media: List<Media>? = null,
     var modelType:String = "orderItems"
 )
+
+
+data class VasuliItem (
+    val id: Long? = null,
+    val usersID: Long? = null,
+    @SerializedName("persons_id")
+    var personsID: Long? = null,
+    val person: Person? = null,
+    var amount: Long? = null,
+    @SerializedName("created_at")
+    val createdAt: String = Date().formattedDate(),
+    @SerializedName("added_at")
+    val addedAt: String = Date().formattedDate(),
+    var media: MutableList<Media> = mutableListOf(),
+)
+

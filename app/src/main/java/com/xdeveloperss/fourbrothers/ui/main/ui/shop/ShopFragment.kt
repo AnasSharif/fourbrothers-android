@@ -16,6 +16,7 @@ import com.xdeveloperss.fourbrothers.data.responses.Data
 import com.xdeveloperss.fourbrothers.databinding.FragmentShopBinding
 import com.xdeveloperss.fourbrothers.databinding.RateDialogViewBinding
 import com.xdeveloperss.fourbrothers.ui.join.data.AuthViewModel
+import com.xdeveloperss.fourbrothers.ui.main.ui.shop.wasulies.WasuliViewModel
 import com.xdeveloperss.fourbrothers.utils.FileManager
 import com.xdeveloperss.fourbrothers.utils.Int
 import com.xdeveloperss.fourbrothers.utils.dateMilliSec
@@ -34,6 +35,7 @@ import java.util.Date
 class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inflate) {
 
     private val shopViewModel: ShopViewModel by sharedViewModel()
+    private val vasuliViewModel: WasuliViewModel by sharedViewModel()
 
     private lateinit var shopData: Data
     override fun onViewCreated() {
@@ -52,6 +54,10 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
         binding.buyersDetail.setOnClickListener {
             findNavController().navigate(ShopFragmentDirections.actionNavShopToBuyerFragment())
             shopViewModel.setCustomsList(shopData.stockItems.sortedBy { it.personName })
+        }
+        binding.cashWasuliCard.setOnClickListener {
+            findNavController().navigate(ShopFragmentDirections.actionNavShopToWasuliFragment())
+            vasuliViewModel.setWasulies(shopData.vasuliItems.sortedBy { it.createdAt }.toMutableList())
         }
         binding.imagePicker.setOnClickListener {
             if (shopData.dailyRates == null){
@@ -80,6 +86,7 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
                 binding.totalBuyers.text = getString(R.string.total, it.stockItems.size)
                 binding.customersWeight.text = getString(R.string.total_weight, it.orderItems.sumOf { it.weight })
                 binding.buyersWeight.text = getString(R.string.total_weight, it.stockItems.sumOf { it.weight })
+                binding.cashWasuli.text = getString(R.string.total, it.vasuliItems.count())
 
                 this.loadAdapter(shopData.dailyRates?.media?.toMutableList() ?: listOf(), binding.viewPagerMain)
                 WaitDialog.dismiss()
@@ -110,7 +117,7 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
     }
     private fun loadData(date: String){
         WaitDialog.show("Load Data...")
-        shopViewModel.setData(date, listOf("dailyRates","orderItems","stockItems"))
+        shopViewModel.setData(date, listOf("dailyRates","orderItems","stockItems","vasuliItems"))
         binding.textFieldSaleDate.editText?.setText(date)
         Prefs.putString("selectedDate", date)
     }
