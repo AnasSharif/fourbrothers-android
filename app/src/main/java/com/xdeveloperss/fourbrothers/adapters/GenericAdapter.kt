@@ -35,6 +35,7 @@ import com.xdeveloperss.fourbrothers.databinding.SupplyPartyItemBinding
 import com.xdeveloperss.fourbrothers.utils.FileManager
 import com.xdeveloperss.fourbrothers.utils.glideLoad
 import com.xdeveloperss.fourbrothers.utils.hide
+import com.xdeveloperss.fourbrothers.utils.value
 import com.xdeveloperss.fourbrothers.xnetwork.config.utlis.Prefs
 
 
@@ -168,7 +169,7 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
             AdapterType.KACHRA_PAYMENT ->{
                 val data = lists[position] as KachraPayment
                 val b =  holder.b as KachraPaymentItemBinding
-                b.kachraAmount.text = getString(R.string.total, data.amount)
+                b.kachraAmount.text = getString(R.string.total, data.amount.value().toLong())
                 b.kachraWeight.text = getString(R.string.total_weight, data.weight)
                 b.typeText.text = if (data.paymentType == "cash") "C" else "A"
                 b.productName.text = data.product?.name ?: "---"
@@ -176,10 +177,9 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
                 b.imagePicker.setOnClickListener {
                     actions(position, AdapterAction.PICKER, lists[position])
                 }
-                if (data.media.isNotEmpty()){
-                    loadImage(data.media.first().file_name.toString(), b.productImage)
-                }else{
-                    b.productImage.setImageBitmap(null)
+                data.media.let {
+                    val adapter = PagerAdapter(XBaseApplication.xCon(), it.toMutableList())
+                    b.viewPagerMain.adapter = adapter
                 }
             }
         }

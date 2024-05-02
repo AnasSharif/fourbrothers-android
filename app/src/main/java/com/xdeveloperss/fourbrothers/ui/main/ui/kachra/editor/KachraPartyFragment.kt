@@ -2,25 +2,30 @@ package com.xdeveloperss.fourbrothers.ui.main.ui.kachra.editor
 
 import android.graphics.Bitmap
 import android.net.Uri
-import androidx.navigation.fragment.findNavController
+import android.text.InputType
 import com.canhub.cropper.CropImageView
 import com.canhub.cropper.options
+import com.kongzue.dialogx.DialogX
+import com.kongzue.dialogx.dialogs.InputDialog
+import com.kongzue.dialogx.dialogs.PopTip
 import com.kongzue.dialogx.dialogs.WaitDialog
+import com.kongzue.dialogx.style.MaterialStyle
+import com.kongzue.dialogx.util.InputInfo
 import com.xdeveloperss.fourbrothers.R
 import com.xdeveloperss.fourbrothers.adapters.AdapterAction
 import com.xdeveloperss.fourbrothers.adapters.AdapterType
 import com.xdeveloperss.fourbrothers.adapters.GenericAdapter
 import com.xdeveloperss.fourbrothers.data.models.KachraPayment
 import com.xdeveloperss.fourbrothers.data.models.Media
-import com.xdeveloperss.fourbrothers.data.models.Product
+import com.xdeveloperss.fourbrothers.data.models.Person
 import com.xdeveloperss.fourbrothers.databinding.FragmentKachraPartyBinding
-import com.xdeveloperss.fourbrothers.ui.main.MainActivity
-import com.xdeveloperss.fourbrothers.ui.main.ui.kachra.KachraFragmentDirections
 import com.xdeveloperss.fourbrothers.ui.main.ui.kachra.KachraViewModel
 import com.xdeveloperss.fourbrothers.utils.FileManager
+import com.xdeveloperss.fourbrothers.utils.formattedDate
 import com.xdeveloperss.fourbrothers.utils.value
 import com.xdeveloperss.fourbrothers.xbase.XBaseFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import java.util.Date
 
 class KachraPartyFragment : XBaseFragment<FragmentKachraPartyBinding>(FragmentKachraPartyBinding::inflate) {
 
@@ -29,36 +34,77 @@ class KachraPartyFragment : XBaseFragment<FragmentKachraPartyBinding>(FragmentKa
     private var selectedIndex: Int = 0
 
     private lateinit var payment: KachraPayment
+
+    private lateinit var party: Person
+
     override fun onViewCreated() {
 
         paymentViewModel.selectedParty.observe {
+            this.party = it
             barTitle(it.name)
+            paymentAdapter(it.kachraPayments)
+        }
+        binding.advanceBtn.setOnClickListener {
+            this.showAdvanceAlert(KachraPayment())
+        }
+    }
 
-            val advance = it.kachraPayments.let {
-                it.filter { it.paymentType=="advance" }.sumOf { it.amount.toInt() }
-            }
-            val cash = it.kachraPayments.let {
-                it.filter { it.paymentType=="cash" }.sumOf { it.amount.toInt() }
-            }
-            binding.balanceAmount.text = getString(R.string.total, (advance.value()-cash.value()))
-
-            binding.paymentsRV.adapter = GenericAdapter(type = AdapterType.KACHRA_PAYMENT, it.kachraPayments.sortedByDescending { it.createdAt })
-            { i, action, pro ->
-                payment = pro
-                when (action) {
-                    AdapterAction.SELECT -> {
-
-                    }AdapterAction.PICKER->{
-                    selectedIndex = i
-                    cropImage.launch(
-                        options{
-                            setGuidelines(CropImageView.Guidelines.ON)
-                            setOutputCompressFormat(Bitmap.CompressFormat.PNG)
-                        }
+    private fun showAdvanceAlert(payment: KachraPayment){
+        InputDialog("Advance Payment", "", "Save", "Cancel", "Enter Amount")
+            .setInputText( (payment.amount ?:"").toString() )
+            .setInputInfo(
+                InputInfo()
+                    .setInputType(InputType.TYPE_CLASS_NUMBER)
+                    .setCursorColor(resources.getColor(R.color.seed))
+                    .setBottomLineColor(
+                        if (DialogX.globalStyle is MaterialStyle) resources.getColor(
+                            R.color.seed
+                        ) else 0
                     )
-                    }
-                    else -> {}
+            )
+            .setOkButton { _, _, inputStr ->
+                payment.amount = inputStr.toString().toDouble()
+                payment.personsID = party.personsID
+                payment.paymentType =  "advance"
+                paymentViewModel.saveData(null,"dailyKacharaPayment", payment)
+                if (payment.id == null){
+                    this.party.kachraPayments.add(payment)
+                }else{
+                    binding.paymentsRV.adapter?.notifyItemChanged(selectedIndex)
                 }
+                paymentAdapter(this.party.kachraPayments)
+
+                false
+            }
+            .show()
+    }
+
+    private fun paymentAdapter(payments: List<KachraPayment>){
+        val advance = payments.let {
+            it.filter { it.paymentType=="advance" }.sumOf { it.amount.value() }
+        }
+        val cash = payments.let {
+            it.filter { it.paymentType=="cash" }.sumOf { it.amount.value() }
+        }
+        binding.balanceAmount.text = getString(R.string.total, (advance-cash).toLong())
+        binding.paymentsRV.adapter = GenericAdapter(type = AdapterType.KACHRA_PAYMENT, payments.sortedByDescending { it.createdAt })
+        { i, action, pro ->
+            payment = pro
+            selectedIndex = i
+            when (action) {
+                AdapterAction.SELECT -> {
+                    if (pro.paymentType == "advance"){
+                        this.showAdvanceAlert(pro)
+                    }
+                }AdapterAction.PICKER->{
+                cropImage.launch(
+                    options{
+                        setGuidelines(CropImageView.Guidelines.ON)
+                        setOutputCompressFormat(Bitmap.CompressFormat.PNG)
+                    }
+                )
+            }
+                else -> {}
             }
         }
     }

@@ -14,7 +14,7 @@
 
         <FrameLayout
             android:layout_weight="1"
-            android:id="@+id/image_picker"
+            android:id="@+id/image_viewer"
             android:clickable="true"
             android:background="@drawable/side_nav_bar"
             android:layout_width="@dimen/_60ssp"
@@ -22,11 +22,19 @@
             android:scaleType="centerCrop"
             android:foreground="?selectableItemBackground"
             android:focusable="true">
-            <ImageView
-                android:scaleType="centerCrop"
-                android:id="@+id/product_image"
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPagerMain"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="@dimen/_100sdp"/>
+
+            <ImageView
+                android:id="@+id/imagePicker"
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:layout_gravity="center"
+                android:foreground="?selectableItemBackground"
+                app:fabSize="auto"
+                android:src="@drawable/add_image_24" />
         </FrameLayout>
 
         <LinearLayout

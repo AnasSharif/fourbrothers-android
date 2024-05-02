@@ -1,9 +1,14 @@
 package com.xdeveloperss.fourbrothers.data.models
 
 import com.google.gson.annotations.SerializedName
+import com.xdeveloperss.fourbrothers.utils.formattedDate
+import java.util.Date
+import java.util.function.DoubleUnaryOperator
 
 data class Person (
     val id: Int,
+    @SerializedName("persons_id")
+    val personsID: Long? = null,
     val name: String,
     val phonenumber: String,
     val currentRateID: String? = null,
@@ -13,7 +18,7 @@ data class Person (
     val products: List<PersonProduct>? = null,
     val payments: List<Payment>?= null,
     @SerializedName("kachra_payments")
-    val kachraPayments:  List<KachraPayment> = listOf()
+    val kachraPayments:  MutableList<KachraPayment> = mutableListOf()
 )
 
 class PersonProduct(
@@ -45,19 +50,21 @@ data class Payment (
 )
 
 data class KachraPayment (
-    val id: Long,
-    val usersID: Any? = null,
-    val personsID: Long,
-    val shopID: Any? = null,
+    val id: Int? = null,
+    val usersID: Int? = null,
+    @SerializedName("persons_id")
+    var personsID: Long? = null,
+    @SerializedName("shop_id")
+    val shopID: Int? = null,
+    @SerializedName("person_products_id")
     val personProductsID: Any? = null,
-    val weight: Any? = null,
-    val amount: Long,
+    var weight: Double? = null,
+    var amount: Double? = null,
     @SerializedName("payment_type")
-    val paymentType: String,
+    var paymentType: String? = null,
     val desc: String? = null,
     @SerializedName("created_at")
-    val createdAt: String,
-    val updatedAt: String,
+    val createdAt: String? = Date().formattedDate(),
     val product: Product? = null,
     //This is shop
     val person: Person? = null,

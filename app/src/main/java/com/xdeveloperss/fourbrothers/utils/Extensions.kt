@@ -89,6 +89,9 @@ fun Int.isZero():Boolean{
 fun Int?.value():Int{
     return this ?: 0
 }
+fun Double?.value():Double{
+    return this ?: 0.0
+}
 fun Double.exactly(): String {
     val formatter = NumberFormat.getInstance().apply {
         minimumFractionDigits = 0
