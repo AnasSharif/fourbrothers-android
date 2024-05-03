@@ -30,7 +30,7 @@ interface ServerInterface {
     suspend fun logout(): Boolean
 
     @GET("/api/getData")
-    suspend fun getData(@Query("created_at") date: String?=null,
+    suspend fun getData(@Query("added_at") date: String?=null,
                         @Query("type[]") types: List<String>):BaseResponseRepo
     @POST("/api/saveData")
     suspend fun saveData(@QueryMap params: Map<String, String>):BaseResponseRepo

@@ -1,6 +1,7 @@
 package com.xdeveloperss.fourbrothers.ui.join
 
 import android.content.Intent
+import com.blankj.utilcode.util.ToastUtils
 import com.google.gson.Gson
 import com.kongzue.dialogx.dialogs.MessageDialog
 import com.kongzue.dialogx.dialogs.WaitDialog
@@ -38,6 +39,8 @@ class LoginActivity : XBaseActivity<ActivityLoginBinding>(ActivityLoginBinding::
                     Prefs.setToken(it.token.toString())
                     Prefs.putString("userData", Gson().toJson(it.data))
                     finish()
+                }else{
+                    ToastUtils.showLong(it.message)
                 }
             }
         }

@@ -4,8 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 data class Supply(
     val id: Int,
-    val suppliersID: Int,
-    val vendorSuppliesID: Int,
+    val suppliersID: Int? = null,
+    val vendorSuppliesID: Int? = null,
     val mandiRatesID: Int? = null,
     var rate: Int,
     var weight: Double,
@@ -23,8 +23,8 @@ data class SupplieVan (
     val id: Int,
     val suppliesID: Long,
     val vendorSuppliesID: Long,
-    val vehiclesID: Any? = null,
-    val employeesID: Any? = null,
+    val vehiclesID: Long? = null,
+    val employeesID: Long? = null,
     val createdAt: String,
     val updatedAt: String,
     val van: Van? = null,
@@ -41,15 +41,15 @@ data class Supplier (
 )
 data class VendorSupplie (
     val id: Long,
-    val usersID: Any? = null,
+    val usersID: Double? = null,
     val vendorSuppliesVansID: Any? = null,
     val vendorSupplieTypeID: Long,
     val rate: Long,
     @SerializedName("mandi_rate")
     val mandiRate: Int,
-    val weight: Long,
-    val waste: Long,
-    val saving: Any? = null,
+    val weight: Double,
+    val waste: Double,
+    val saving: Double? = null,
     val date: String,
     val createdAt: String,
     val updatedAt: String,

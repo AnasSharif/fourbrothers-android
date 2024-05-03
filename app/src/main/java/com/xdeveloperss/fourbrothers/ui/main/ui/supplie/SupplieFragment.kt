@@ -33,7 +33,7 @@ class SupplieFragment : XBaseFragment<FragmentSupplieBinding>(FragmentSupplieBin
     private lateinit var supply: Supply
     override fun onViewCreated() {
 
-        this.loadData(Prefs.getString("selectedSupplieDate") ?: Date().formattedDate())
+        this.loadData(Prefs.getString(this::class.java.name) ?: Date().formattedDate())
 
         binding.textFieldSaleDate.editText?.setOnClickListener {
             requireActivity().showDateDialogWithDate( binding.textFieldSaleDate.string().dateMilliSec(),completion = { string, date ->
@@ -79,6 +79,6 @@ class SupplieFragment : XBaseFragment<FragmentSupplieBinding>(FragmentSupplieBin
         WaitDialog.show("Load Data...")
         supplieViewModel.setData(date, listOf("supplies"))
         binding.textFieldSaleDate.editText?.setText(date)
-        Prefs.putString("selectedDate", date)
+        Prefs.putString(this::class.java.name, date)
     }
 }

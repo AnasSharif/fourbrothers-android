@@ -27,7 +27,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "API_URL", "\"https://docsgene.xdeveloperss.com\"")
+            buildConfigField("String", "API_URL", "\"https://waqaskhanpoultry.xdeveloperss.com\"")
             signingConfig = signingConfigs.getByName("debug")
         }
         debug {
