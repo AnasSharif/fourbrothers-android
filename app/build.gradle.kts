@@ -86,4 +86,5 @@ dependencies {
     implementation (libs.glide)
     annotationProcessor (libs.glide.compiler)
     implementation (libs.cropper)
+    implementation(libs.onesignal)
 }
