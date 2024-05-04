@@ -12,10 +12,11 @@ import java.util.Date
 
 data class DailyRates(
     val id:Int? = null,
-    var date:String? = Date().formattedDate(),
     var zindarate:Int? = null,
     var chickenrate: Int? = null,
-    var media: List<Media>? = null)
+    var media: List<Media>? = null,
+    @SerializedName("added_at")
+    var addedAt:String? = Date().formattedDate(),)
 
 data class OrderItems(
     val id: Int? = null,

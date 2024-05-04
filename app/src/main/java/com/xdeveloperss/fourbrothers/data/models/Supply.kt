@@ -104,3 +104,10 @@ data class Employees (
     val updatedAt: String
 )
 
+data class MandiRate (
+    val id: Long? = null,
+    var rate: Long? = null,
+    @SerializedName("added_at")
+    var addedAt: String? = null,
+    val createdAt: String? = null,
+)

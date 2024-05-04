@@ -75,7 +75,6 @@ class ProductFragment: XBaseFragment<FragmentProductBinding>(FragmentProductBind
     }
     override fun imagePick(bitmap: Bitmap, fileName: String, uri: Uri?) {
         super.imagePick(bitmap, fileName ,uri)
-        WaitDialog.show("Uploading...")
         productViewModel.storeFile(
             "products",
             product.id.toString(),

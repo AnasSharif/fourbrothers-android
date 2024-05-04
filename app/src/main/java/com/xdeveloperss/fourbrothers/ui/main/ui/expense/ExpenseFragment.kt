@@ -88,7 +88,6 @@ class ExpenseFragment: XBaseFragment<FragmentExpenseBinding>(FragmentExpenseBind
 
     override fun imagePick(bitmap: Bitmap, fileName: String, uri: Uri?) {
         super.imagePick(bitmap, fileName ,uri)
-        WaitDialog.show("Uploading...")
         expenseViewModel.storeFile(
             "expenses",
             expense.id.toString(),
@@ -102,7 +101,6 @@ class ExpenseFragment: XBaseFragment<FragmentExpenseBinding>(FragmentExpenseBind
     }
 
     private fun loadData(date: String){
-        WaitDialog.show("Load Data...")
         expenseViewModel.setData(date, listOf("expenses", "expenseType"))
         binding.textFieldExpenseDate.editText?.setText(date)
         Prefs.putString(this::class.java.name, date)

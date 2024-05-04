@@ -60,7 +60,6 @@ class PartyFragment : XBaseFragment<FragmentPartyBinding>(FragmentPartyBinding::
 
     }
     private fun loadData(){
-        WaitDialog.show("Load Data...")
         partyViewModel.setData(types = listOf("persons"))
     }
 

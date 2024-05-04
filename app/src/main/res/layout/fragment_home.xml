@@ -1,7 +1,112 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.ui.home.HomeFragment"/>
+    tools:context=".ui.main.ui.shop.ShopFragment">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/rates_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textFieldDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
+                app:endIconCheckable="true"
+                app:endIconDrawable="@drawable/baseline_calendar_today_24"
+                android:layout_weight="1"
+                android:hint="Select Date">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:text="Today Rates"
+                android:textSize="@dimen/_13ssp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/chickenRateField"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="false"
+                    android:layout_weight="1"
+                    android:hint="Chicke Rate">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:clickable="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="match_parent"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/zindaRateField"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="false"
+                    android:layout_weight="1"
+                    android:hint="Zinda Rate">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:clickable="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <TextView
+                android:text="Supplie Mandi Rate"
+                android:textSize="@dimen/_13ssp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/mandiRateField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
+                android:layout_weight="1"
+                android:hint="Mandi Rate">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

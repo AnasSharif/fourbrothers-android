@@ -20,6 +20,7 @@ class MainRepoImpl(private val api: ServerInterface): XBaseApiRepo(), MainRepo {
         date: String?,
         types: List<String>
     ): XNetworkResponse<BaseResponseRepo> {
+        WaitDialog.show("Loading Data...")
         return withContext(Dispatchers.IO){
             try {
                 val loginResponse = async {
@@ -54,6 +55,7 @@ class MainRepoImpl(private val api: ServerInterface): XBaseApiRepo(), MainRepo {
         fileName: String,
         files: List<File>
     ): XNetworkResponse<BaseResponseRepo> {
+        WaitDialog.show("Saving Data...")
         return withContext(Dispatchers.IO){
             try {
                 val servicesList = async {
@@ -87,10 +89,10 @@ class MainRepoImpl(private val api: ServerInterface): XBaseApiRepo(), MainRepo {
         stringType: String?,
         data: T
     ): XNetworkResponse<BaseResponseRepo> {
+        WaitDialog.show("Saving Data...")
         return withContext(Dispatchers.IO){
             try {
-
-                val servicesList = async {
+                val saveData = async {
                     val className = type?.simpleName?.lowercase() ?: stringType ?: ""
                     val response = safeApiCall {
                         val params =  mutableMapOf(
@@ -104,7 +106,7 @@ class MainRepoImpl(private val api: ServerInterface): XBaseApiRepo(), MainRepo {
                         XNetworkResponse.Failure(IOException(), "Enable connecting to server please try again!",2)
                     }
                 }
-                servicesList.await()
+                saveData.await()
             }catch (exception:Exception){
                 XNetworkResponse.Failure(exception, exception.message,1)
             }

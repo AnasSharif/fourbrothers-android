@@ -56,6 +56,10 @@ fun TextInputLayout.text(double: Double?){
     val stringValue = double ?: ""
     this.editText?.setText(stringValue.toString())
 }
+fun TextInputLayout.text(double: Long?){
+    val stringValue = double ?: ""
+    this.editText?.setText(stringValue.toString())
+}
 fun TextInputLayout.double(): Double{
     val char = editText?.text ?: "0"
     return char.toString().toDouble()

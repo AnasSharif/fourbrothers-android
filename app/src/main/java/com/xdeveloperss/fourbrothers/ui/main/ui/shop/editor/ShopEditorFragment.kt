@@ -72,13 +72,11 @@ class ShopEditorFragment : XBaseFragment<FragmentShopEditorBinding>(FragmentShop
             )
         }
         binding.saveBtn.setOnClickListener {
-            WaitDialog.show("Saving...")
             shopViewModel.saveData(null, typeString = itemData.modelType, itemData)
         }
     }
     override fun imagePick(bitmap: Bitmap, fileName: String, uri: Uri?) {
         super.imagePick(bitmap, fileName ,uri)
-        WaitDialog.show("Uploading...")
         itemData.let {
             shopViewModel.storeFile(
                 it.modelType,

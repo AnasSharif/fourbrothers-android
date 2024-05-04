@@ -56,7 +56,6 @@ class SupplyCustomerFragment : XBaseFragment<FragmentSupplyCustomerBinding>(Frag
 
     override fun imagePick(bitmap: Bitmap, fileName: String, uri: Uri?) {
         super.imagePick(bitmap, fileName ,uri)
-        WaitDialog.show("Uploading...")
         supplyViewModel.storeFile(
             "vendorSupplieItems",
             item.id.toString(),

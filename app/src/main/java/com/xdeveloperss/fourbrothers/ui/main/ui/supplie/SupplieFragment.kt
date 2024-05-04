@@ -67,7 +67,6 @@ class SupplieFragment : XBaseFragment<FragmentSupplieBinding>(FragmentSupplieBin
     }
     override fun imagePick(bitmap: Bitmap, fileName: String, uri: Uri?) {
         super.imagePick(bitmap, fileName ,uri)
-        WaitDialog.show("Uploading...")
         supplieViewModel.storeFile(
                 "vendorSupplie",
                 supply.vendorSupplie.id.toString(),
@@ -76,7 +75,6 @@ class SupplieFragment : XBaseFragment<FragmentSupplieBinding>(FragmentSupplieBin
         this.onViewCreated()
     }
     private fun loadData(date: String){
-        WaitDialog.show("Load Data...")
         supplieViewModel.setData(date, listOf("supplies"))
         binding.textFieldSaleDate.editText?.setText(date)
         Prefs.putString(this::class.java.name, date)

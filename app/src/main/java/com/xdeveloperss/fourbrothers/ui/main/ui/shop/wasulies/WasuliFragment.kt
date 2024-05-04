@@ -75,7 +75,6 @@ class WasuliFragment : XBaseFragment<FragmentWasuliBinding>(FragmentWasuliBindin
     }
     override fun imagePick(bitmap: Bitmap, fileName: String, uri: Uri?) {
         super.imagePick(bitmap, fileName ,uri)
-        WaitDialog.show("Uploading...")
         wasuliViewModel.storeFile(
             "vasuliItems",
             wasuli.id.toString(),

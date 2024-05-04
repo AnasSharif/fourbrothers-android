@@ -96,7 +96,6 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
 
     override fun imagePick(bitmap: Bitmap, fileName: String, uri: Uri?) {
         super.imagePick(bitmap, fileName ,uri)
-        WaitDialog.show("Uploading...")
         shopData.dailyRates?.let {
             shopViewModel.storeFile(
                 "dailyRates",
@@ -116,7 +115,6 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
 
     }
     private fun loadData(date: String){
-        WaitDialog.show("Load Data...")
         shopViewModel.setData(date, listOf("dailyRates","orderItems","stockItems","vasuliItems"))
         binding.textFieldSaleDate.editText?.setText(date)
         Prefs.putString("selectedDate", date)

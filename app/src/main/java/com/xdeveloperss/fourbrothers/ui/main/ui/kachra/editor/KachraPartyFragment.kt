@@ -110,7 +110,6 @@ class KachraPartyFragment : XBaseFragment<FragmentKachraPartyBinding>(FragmentKa
     }
     override fun imagePick(bitmap: Bitmap, fileName: String, uri: Uri?) {
         super.imagePick(bitmap, fileName ,uri)
-        WaitDialog.show("Uploading...")
         paymentViewModel.storeFile(
             "dailyKacharaPayment",
             payment.id.toString(),
