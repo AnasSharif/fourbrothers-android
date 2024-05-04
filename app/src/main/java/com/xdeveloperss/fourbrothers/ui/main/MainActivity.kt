@@ -48,6 +48,13 @@ class MainActivity : XBaseActivity<ActivityMainBinding>(ActivityMainBinding::inf
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        if (!Prefs.isAdmin()) {
+            navView.menu.findItem(R.id.nav_home).isVisible = false
+            val graph = navController.navInflater.inflate(R.navigation.mobile_navigation)
+            graph.setStartDestination(R.id.nav_shop)
+            navController.graph = graph
+        }
+
         navView.menu.findItem(R.id.logout).setOnMenuItemClickListener { _ ->
 
             MessageDialog.show(getString(R.string.warning),

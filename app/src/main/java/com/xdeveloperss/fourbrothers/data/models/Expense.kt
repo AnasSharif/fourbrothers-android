@@ -9,6 +9,8 @@ data class Expense(
     var amount: Double? = null,
     var desc: String? = null,
     val createdAt: String? = null,
+    @SerializedName("added_at")
+    var addedAt: String? = null,
     val type: ExpenseType ? = null,
     val media: MutableList<Media> = mutableListOf()
 )

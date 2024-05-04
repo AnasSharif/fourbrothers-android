@@ -7,6 +7,7 @@ import com.xdeveloperss.fourbrothers.data.models.Media
 import com.xdeveloperss.fourbrothers.data.models.Person
 import com.xdeveloperss.fourbrothers.data.models.PersonRate
 import com.xdeveloperss.fourbrothers.data.models.Product
+import com.xdeveloperss.fourbrothers.utils.format2
 import com.xdeveloperss.fourbrothers.utils.formattedDate
 import java.util.Date
 
@@ -45,10 +46,10 @@ data class VasuliItem (
     val usersID: Long? = null,
     @SerializedName("persons_id")
     var personsID: Long? = null,
-    val person: Person? = null,
+    var person: Person? = null,
     var amount: Long? = null,
     @SerializedName("created_at")
-    val createdAt: String = Date().formattedDate(),
+    val createdAt: String = Date().format2(),
     @SerializedName("added_at")
     val addedAt: String = Date().formattedDate(),
     var media: MutableList<Media> = mutableListOf(),

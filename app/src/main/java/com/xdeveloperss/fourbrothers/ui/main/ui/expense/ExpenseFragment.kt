@@ -46,9 +46,10 @@ class ExpenseFragment: XBaseFragment<FragmentExpenseBinding>(FragmentExpenseBind
             })
         }
         binding.addExpense.setOnClickListener {
-            XDialogBuilder(requireActivity(),Expense()).setData(type = XDialogType.EXPENSE, expenseTypes.map { it.name }) {
+            XDialogBuilder(requireActivity(),Expense()).setData(type = XDialogType.EXPENSE, expenseTypes.map { it.createdAt }) {
                 val newExp = it as Expense
                 newExp.expenseTypesID = expenseTypes[newExp.expenseTypesID.value()].id
+                newExp.addedAt = binding.textFieldExpenseDate.string()
                 expenseViewModel.saveData(null,"expenses", newExp)
                 binding.root.backWithDelay {
                     this.onViewCreated()

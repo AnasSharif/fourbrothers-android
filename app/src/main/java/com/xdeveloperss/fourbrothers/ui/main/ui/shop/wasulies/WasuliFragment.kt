@@ -29,36 +29,33 @@ import com.xdeveloperss.fourbrothers.utils.FileManager
 import com.xdeveloperss.fourbrothers.utils.K
 import com.xdeveloperss.fourbrothers.utils.value
 import com.xdeveloperss.fourbrothers.xbase.XBaseFragment
+import okhttp3.internal.filterList
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class WasuliFragment : XBaseFragment<FragmentWasuliBinding>(FragmentWasuliBinding::inflate) {
 
     private val wasuliViewModel: WasuliViewModel by sharedViewModel()
+    private val partyViewModel: PartyViewModel by sharedViewModel()
 
     private var selectedIndex: Int = 0
 
     private lateinit var wasuli: VasuliItem
 
-    private val partyViewModel: PartyViewModel by sharedViewModel()
+    private var items: MutableList<VasuliItem> = mutableListOf()
     override fun onViewCreated() {
 
         wasuliViewModel.wasulies.observe {
-            binding.wasliesRV.adapter = GenericAdapter(type = AdapterType.CASH_RECEIVING, it.sortedByDescending { it.createdAt })
-            { i, action, obj ->
-                selectedIndex = i
-                wasuli = obj
-                when(action){
-                    AdapterAction.SELECT -> { showAdvanceAlert(obj) }
-                    AdapterAction.PICKER -> {
-                        cropImage.launch(
-                            options{
-                                setGuidelines(CropImageView.Guidelines.ON)
-                                setOutputCompressFormat(Bitmap.CompressFormat.PNG)
-                            }
-                        )
-                    }
-                    else -> {}
-                }
+            items = it
+            setupAdapter(it)
+        }
+        wasuliViewModel.saveData.observe { resp->
+            resp.data?.vasuliItems?.first()?.let { item ->
+               if (items.any{it.id == item.id}){
+                   binding.wasliesRV.adapter?.notifyItemChanged(selectedIndex)
+               }else{
+                   wasuliViewModel.setAddItem(item)
+                   wasuliViewModel.setWasulies(wasuliViewModel.wasulies.value ?: mutableListOf())
+               }
             }
         }
         binding.addWassuli.setOnClickListener {
@@ -86,6 +83,25 @@ class WasuliFragment : XBaseFragment<FragmentWasuliBinding>(FragmentWasuliBindin
         }
         binding.wasliesRV.adapter?.notifyItemChanged(selectedIndex)
     }
+    private fun setupAdapter(list: MutableList<VasuliItem>){
+        binding.wasliesRV.adapter = GenericAdapter(type = AdapterType.CASH_RECEIVING, list.sortedByDescending { it.createdAt })
+        { i, action, obj ->
+            selectedIndex = i
+            wasuli = obj
+            when(action){
+                AdapterAction.SELECT -> { showAdvanceAlert(obj) }
+                AdapterAction.PICKER -> {
+                    cropImage.launch(
+                        options{
+                            setGuidelines(CropImageView.Guidelines.ON)
+                            setOutputCompressFormat(Bitmap.CompressFormat.PNG)
+                        }
+                    )
+                }
+                else -> {}
+            }
+        }
+    }
 
     private fun showAdvanceAlert(item: VasuliItem){
         InputDialog("Cash Wasuli", "", "Save", "Cancel", "Enter Amount")
@@ -102,11 +118,6 @@ class WasuliFragment : XBaseFragment<FragmentWasuliBinding>(FragmentWasuliBindin
             ).setOkButton { _, _, inputStr ->
                 item.amount = inputStr.toString().toDouble().toLong()
                 wasuliViewModel.saveData(null,"vasuliItems", item)
-                if (item.id == null){
-                    wasuliViewModel.setAddItem(item)
-                }else{
-                    binding.wasliesRV.adapter?.notifyItemChanged(selectedIndex)
-                }
                 partyViewModel.setSelectParty(null)
                 false
             }

@@ -9,25 +9,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <!-- Media -->
         <FrameLayout
             android:clickable="true"
             android:background="@drawable/side_nav_bar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_100ssp"
+            android:layout_width="@dimen/_80ssp"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:focusable="true">
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewPagerMain"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_100sdp"/>
+                android:layout_height="match_parent"/>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <ImageView
                 android:id="@+id/imagePicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_gravity="center"
                 android:foreground="?selectableItemBackground"
                 android:src="@drawable/add_image_24"
@@ -35,7 +35,7 @@
         </FrameLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">

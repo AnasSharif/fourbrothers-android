@@ -41,6 +41,10 @@ fun Date.formattedDate(format: String = "yyyy-MM-dd"):String{
     val dateFormat = SimpleDateFormat(format, Locale.getDefault())
     return dateFormat.format(this)
 }
+fun Date.format2(format: String = "yyyy-MM-dd HH:mm:ss"):String{
+    val dateFormat = SimpleDateFormat(format, Locale.getDefault())
+    return dateFormat.format(this)
+}
 fun Date.format1(format: String = "MMM d, yyyy"):String{
     val dateFormat = SimpleDateFormat(format, Locale.getDefault())
     return dateFormat.format(this)
