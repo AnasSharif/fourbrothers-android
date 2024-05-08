@@ -163,4 +163,9 @@
             android:id="@+id/action_wasuliFragment_to_nav_parties"
             app:destination="@id/nav_parties" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_employee"
+        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.employee.EmployeeFragment"
+        android:label="@string/employee"
+        tools:layout="@layout/fragment_employee" />
 </navigation>
