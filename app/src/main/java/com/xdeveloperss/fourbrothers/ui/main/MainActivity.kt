@@ -42,7 +42,7 @@ class MainActivity : XBaseActivity<ActivityMainBinding>(ActivityMainBinding::inf
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_shop, R.id.nav_supplies, R.id.nav_expenses,
-                R.id.nav_parties,  R.id.nav_kachra,  R.id.nav_products
+                R.id.nav_parties,  R.id.nav_kachra,  R.id.nav_products, R.id.nav_employee
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

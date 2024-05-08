@@ -15,6 +15,7 @@ data class Data(
     val stockItems: List<OrderItems> = listOf(),
     val vasuliItems: List<VasuliItem> = listOf(),
     val persons: List<Person> = listOf(),
+    val employees: List<Person> = listOf(),
     val supplies: List<Supply> = listOf(),
     val expenses: List<Expense> = listOf(),
     val expenseType: List<ExpenseType> = listOf(),

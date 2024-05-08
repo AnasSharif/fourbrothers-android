@@ -167,5 +167,18 @@
         android:id="@+id/nav_employee"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.employee.EmployeeFragment"
         android:label="@string/employee"
-        tools:layout="@layout/fragment_employee" />
+        tools:layout="@layout/fragment_employee" >
+        <action
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_in_pop"
+            app:popExitAnim="@anim/slide_out_pop"
+            android:id="@+id/action_nav_employee_to_employeeDetailFragment"
+            app:destination="@id/employeeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/employeeDetailFragment"
+        tools:layout="@layout/fragment_employee_detail"
+        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.employee.EmployeeDetailFragment"
+        android:label="EmployeeDetailFragment" />
 </navigation>

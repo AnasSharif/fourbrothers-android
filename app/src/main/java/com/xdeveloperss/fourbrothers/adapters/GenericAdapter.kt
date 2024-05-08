@@ -50,7 +50,7 @@ enum class AdapterType{
     EXPENSE,
     PRODUCT,
     KACHRA_PAYMENT,
-    CASH_RECEIVING
+    CASH_RECEIVING,
 }
 enum class AdapterAction(val id: Int, val image: Int){
     EDIT(R.string.edit, R.drawable.baseline_edit_24),

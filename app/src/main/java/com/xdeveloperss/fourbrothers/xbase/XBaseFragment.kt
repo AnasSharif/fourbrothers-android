@@ -33,9 +33,9 @@ abstract class XBaseFragment<B : ViewBinding>(val bindingFactory: (LayoutInflate
     lateinit var mInflater: LayoutInflater
     var adapter: PagerAdapter? = null
 
-    fun barTitle(text: String){
+    fun barTitle(text: String, subTitle: String? = null){
         (activity as AppCompatActivity?)?.supportActionBar?.title = text
-
+        (activity as AppCompatActivity?)?.supportActionBar?.subtitle = subTitle
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

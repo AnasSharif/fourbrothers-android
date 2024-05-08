@@ -6,6 +6,7 @@ import com.xdeveloperss.fourbrothers.ui.join.data.AuthViewModel
 import com.xdeveloperss.fourbrothers.ui.main.MainRepo
 import com.xdeveloperss.fourbrothers.ui.main.MainRepoImpl
 import com.xdeveloperss.fourbrothers.ui.main.MainViewModel
+import com.xdeveloperss.fourbrothers.ui.main.ui.employee.EmployeeViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.expense.ExpenseViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.kachra.KachraViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.parties.PartyViewModel
@@ -53,6 +54,9 @@ val vms = module {
     }
     viewModel {
         PartyViewModel(get())
+    }
+    viewModel {
+        EmployeeViewModel(get())
     }
 }
 val apiModule = module {
