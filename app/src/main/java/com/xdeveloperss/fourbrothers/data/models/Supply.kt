@@ -28,7 +28,7 @@ data class SupplieVan (
     val createdAt: String,
     val updatedAt: String,
     val van: Van? = null,
-    val driver: Employees? = null,
+    val driver: Employee? = null,
 )
 
 data class Supplier (
@@ -88,18 +88,6 @@ data class Van (
     val id: Int,
     val number: String? = null,
     val name: String? = null,
-    val createdAt: String,
-    val updatedAt: String
-)
-
-data class Employees (
-    val id: Long,
-    val personsID: Long,
-    val employeeTypesID: Long,
-    val employeeSalariesID: Long,
-    val name: String,
-    val phonenumber: String,
-    val address: Any? = null,
     val createdAt: String,
     val updatedAt: String
 )

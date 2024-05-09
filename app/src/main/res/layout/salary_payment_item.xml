@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card"
+    android:layout_marginBottom="@dimen/_5sdp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:weightSum="10"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_weight="1"
+            android:id="@+id/image_viewer"
+            android:clickable="true"
+            android:background="@drawable/side_nav_bar"
+            android:layout_width="@dimen/_60ssp"
+            android:layout_height="@dimen/_85ssp"
+            android:scaleType="centerCrop"
+            android:foreground="?selectableItemBackground"
+            android:focusable="true">
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPagerMain"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"/>
+
+            <ImageView
+                android:id="@+id/imagePicker"
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:layout_gravity="center"
+                android:foreground="?selectableItemBackground"
+                app:fabSize="auto"
+                android:src="@drawable/add_image_24" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_weight="8"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/_5sdp"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/payment_amount"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:text="@string/total_amount"
+
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:id="@+id/payment_type"
+                    android:text="----"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?android:attr/textColorSecondary" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/color_container"
+            android:layout_weight="1"
+            android:layout_width="@dimen/_10ssp"
+            android:layout_height="match_parent"
+            android:background="@color/md_theme_light_error"
+            android:scaleType="centerCrop"/>
+
+
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

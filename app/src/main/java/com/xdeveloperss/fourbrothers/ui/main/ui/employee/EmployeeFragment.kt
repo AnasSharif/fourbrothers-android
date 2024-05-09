@@ -24,7 +24,7 @@ class EmployeeFragment: XBaseFragment<FragmentEmployeeBinding>(FragmentEmployeeB
         employeeViewModel.getData.observe { resp ->
             resp.getValueFromResponse()?.data?.let {
                 val pp =  it.employees.sortedByDescending { it.createdAt }
-                binding.employeeRV.adapter = GenericAdapter(type = AdapterType.PERSON, pp)
+                binding.employeeRV.adapter = GenericAdapter(type = AdapterType.EMPLOYEE, pp)
                 { i, action, pro ->
                     when(action){
                         AdapterAction.EDIT -> {}

@@ -16,10 +16,12 @@ import com.kongzue.dialogx.dialogs.PopMenu
 import com.kongzue.dialogx.interfaces.OnIconChangeCallBack
 import com.xdeveloperss.fourbrothers.R
 import com.xdeveloperss.fourbrothers.XBaseApplication
+import com.xdeveloperss.fourbrothers.data.models.Employee
 import com.xdeveloperss.fourbrothers.data.models.Expense
 import com.xdeveloperss.fourbrothers.data.models.KachraPayment
 import com.xdeveloperss.fourbrothers.data.models.Person
 import com.xdeveloperss.fourbrothers.data.models.Product
+import com.xdeveloperss.fourbrothers.data.models.SalaryPayment
 import com.xdeveloperss.fourbrothers.data.models.Supply
 import com.xdeveloperss.fourbrothers.data.models.VendorSupplie
 import com.xdeveloperss.fourbrothers.data.models.VendorSupplieExpense
@@ -30,6 +32,7 @@ import com.xdeveloperss.fourbrothers.databinding.CashRecevingItemBinding
 import com.xdeveloperss.fourbrothers.databinding.ExpenseItemBinding
 import com.xdeveloperss.fourbrothers.databinding.KachraPaymentItemBinding
 import com.xdeveloperss.fourbrothers.databinding.ProductItemBinding
+import com.xdeveloperss.fourbrothers.databinding.SalaryPaymentItemBinding
 import com.xdeveloperss.fourbrothers.databinding.ShopItemBinding
 import com.xdeveloperss.fourbrothers.databinding.SupplieExpenseItemBinding
 import com.xdeveloperss.fourbrothers.databinding.SupplieItemBinding
@@ -51,6 +54,8 @@ enum class AdapterType{
     PRODUCT,
     KACHRA_PAYMENT,
     CASH_RECEIVING,
+    EMPLOYEE,
+    SALARY_PAYMENT
 }
 enum class AdapterAction(val id: Int, val image: Int){
     EDIT(R.string.edit, R.drawable.baseline_edit_24),
@@ -69,7 +74,7 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
         val inflater = LayoutInflater.from(parent.context)
         return when(type){
             AdapterType.SHOP -> { GenericViewHolder(ShopItemBinding.inflate(inflater, parent,false)) }
-            AdapterType.PERSON -> { GenericViewHolder(ShopItemBinding.inflate(inflater, parent,false))}
+            AdapterType.PERSON,AdapterType.EMPLOYEE -> { GenericViewHolder(ShopItemBinding.inflate(inflater, parent,false))}
             AdapterType.SUPPLY -> { GenericViewHolder(SupplieItemBinding.inflate(inflater, parent,false))}
             AdapterType.SUPPLY_PARTY -> { GenericViewHolder(SupplyPartyItemBinding.inflate(inflater, parent,false)) }
             AdapterType.SUPPLY_EXPENSE ->  { GenericViewHolder(SupplieExpenseItemBinding.inflate(inflater, parent,false)) }
@@ -77,6 +82,7 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
             AdapterType.PRODUCT -> { GenericViewHolder(ProductItemBinding.inflate(inflater, parent,false)) }
             AdapterType.KACHRA_PAYMENT ->  { GenericViewHolder(KachraPaymentItemBinding.inflate(inflater, parent,false)) }
             AdapterType.CASH_RECEIVING ->  { GenericViewHolder(CashRecevingItemBinding.inflate(inflater, parent,false)) }
+            AdapterType.SALARY_PAYMENT ->  { GenericViewHolder(SalaryPaymentItemBinding.inflate(inflater, parent,false)) }
         }
     }
 
@@ -90,11 +96,19 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
                 b.amount.text = data.total.toInt().toString() +" Rs"
 
             }
-            AdapterType.PERSON -> {
-                val data = lists[position] as Person
+            AdapterType.PERSON, AdapterType.EMPLOYEE -> {
                 val b =  holder.b as ShopItemBinding
-                b.personName.text = data.name
-                b.weight.text = data.phonenumber
+                if (lists[position] is Person){
+                    val person = lists[position] as Person
+                    b.personName.text = person.name
+                    b.weight.text = person.phonenumber
+                }
+                if (lists[position] is Employee){
+                    val employee = lists[position] as Employee
+                    b.personName.text = employee.name
+                    b.weight.text = employee.phonenumber
+                }
+
             }
 
             AdapterType.SUPPLY -> {
@@ -198,6 +212,16 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
                 data.media.let {
                     val adapter = PagerAdapter(XBaseApplication.xCon(), it.toMutableList())
                     b.viewPagerMain.adapter = adapter
+                }
+            }
+
+            AdapterType.SALARY_PAYMENT -> {
+                val data = lists[position] as SalaryPayment
+                val b =  holder.b as SalaryPaymentItemBinding
+                b.paymentAmount.text = getString(R.string.total, data.amount)
+                b.paymentType.text = getString(R.string.type, data.detail)
+                b.imagePicker.setOnClickListener {
+                    actions(position, AdapterAction.PICKER, lists[position])
                 }
             }
         }

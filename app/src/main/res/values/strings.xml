@@ -47,4 +47,9 @@
     <string name="payments">Payments</string>
     <string name="cash_wasuli">Cash Wasuli</string>
     <string name="employee">Employees</string>
+    <string name="current_salary">Current Salary: %1$d</string>
+    <string name="payable_salary">Payable Salary: %1$d</string>
+    <string name="type">Type: %1$s</string>
+    <string name="monthly_payments">Monthly Payments</string>
+    <string name="select_month">Select Month</string>
 </resources>
