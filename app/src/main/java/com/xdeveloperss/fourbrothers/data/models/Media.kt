@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import androidx.core.net.toUri
 import com.blankj.utilcode.util.ImageUtils
+import com.blankj.utilcode.util.ThreadUtils
 import com.xdeveloperss.fourbrothers.BuildConfig
 import com.xdeveloperss.fourbrothers.utils.AppExecutors
 import com.xdeveloperss.fourbrothers.utils.FileManager
@@ -18,7 +19,7 @@ class Media {
     var file_name: String? = null
     var original_url: String? = null
 
-    fun download() {
+    fun download(complete: (String) -> Unit) {
         AppExecutors().getInstance()?.diskIO()?.execute {
             try {
                 original_url?.let {
@@ -30,8 +31,11 @@ class Media {
                     val downloadedFile = File(FileManager.getDocuments(), file_name.toString())
                     val imageData = url.readBytes()
                     val bitmap = ImageUtils.bytes2Bitmap(imageData)
-                    ImageUtils.compressByScale(bitmap, bitmap.width/2, bitmap.height/2)
+                    ImageUtils.compressByScale(bitmap, bitmap.width / 2, bitmap.height / 2)
                     ImageUtils.save(bitmap, downloadedFile, Bitmap.CompressFormat.JPEG)
+                    ThreadUtils.runOnUiThread {
+                        complete(downloadedFile.path)
+                    }
                 }
             } catch (e: FileNotFoundException) {
                 println("File not found: ${e.message}")

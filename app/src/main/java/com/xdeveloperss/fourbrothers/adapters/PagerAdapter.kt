@@ -3,6 +3,7 @@ package com.xdeveloperss.fourbrothers.adapters
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,12 +36,14 @@ class PagerAdapter(private val context: Context, var images:MutableList<Media>) 
         if (FileUtils.isFileExists(FileManager.getFileForGlide(fileName)?.path)){
             binding.root.glideLoad(FileManager.getFileForGlide(fileName))
         }else{
-            images[position].download()
+            images[position].download(complete = {
+                binding.root.glideLoad(FileManager.getFileForGlide(fileName))
+            })
         }
         binding.root.setOnClickListener {
             val previewFiles = ArrayList<PreviewFile>()
             for (i in images){
-                previewFiles.add(PreviewFile(i.file_name.toString(), "$i Image Description"))
+                previewFiles.add(PreviewFile(i.file_name.toString(), "${i.name} Image Description", i.original_url))
             }
             val intent = Intent(context, ImagePreviewActivity::class.java)
             intent.putExtra(ImagePreviewActivity.IMAGE_LIST, previewFiles)
