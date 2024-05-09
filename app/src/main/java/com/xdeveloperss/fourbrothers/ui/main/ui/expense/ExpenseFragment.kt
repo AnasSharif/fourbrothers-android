@@ -46,7 +46,7 @@ class ExpenseFragment: XBaseFragment<FragmentExpenseBinding>(FragmentExpenseBind
             })
         }
         binding.addExpense.setOnClickListener {
-            XDialogBuilder(requireActivity(),Expense()).setData(type = XDialogType.EXPENSE, expenseTypes.map { it.createdAt }) {
+            XDialogBuilder(requireActivity(),Expense()).setData(type = XDialogType.EXPENSE, expenseTypes.map { it.name }) {
                 val newExp = it as Expense
                 newExp.expenseTypesID = expenseTypes[newExp.expenseTypesID.value()].id
                 newExp.addedAt = binding.textFieldExpenseDate.string()
@@ -60,7 +60,7 @@ class ExpenseFragment: XBaseFragment<FragmentExpenseBinding>(FragmentExpenseBind
         expenseViewModel.getData.observe { resp ->
             resp.getValueFromResponse()?.data?.let {
                 this.expenseTypes = it.expenseType
-                binding.expenseRV.adapter = GenericAdapter(type = AdapterType.EXPENSE, it.expenses)
+                binding.expenseRV.adapter = GenericAdapter(type = AdapterType.EXPENSE, it.expenses ?: listOf())
                 { i, action, exp ->
                     expense = exp
                     when(action){

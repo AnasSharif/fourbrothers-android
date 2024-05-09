@@ -19,6 +19,6 @@ data class ExpenseType (
     val id: Int,
     val name: String,
     val slug: String,
+    @SerializedName("created_at")
     val createdAt: String,
-    val updatedAt: String
 )

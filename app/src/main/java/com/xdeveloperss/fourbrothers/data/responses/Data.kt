@@ -18,7 +18,7 @@ data class Data(
     val persons: List<Person> = listOf(),
     val employees: List<Employee> = listOf(),
     val supplies: List<Supply> = listOf(),
-    val expenses: List<Expense> = listOf(),
+    val expenses: List<Expense>? = null,
     val expenseType: List<ExpenseType> = listOf(),
     val products: List<Product> = listOf(),
     val kachraBuyer: List<Person> = listOf(),
