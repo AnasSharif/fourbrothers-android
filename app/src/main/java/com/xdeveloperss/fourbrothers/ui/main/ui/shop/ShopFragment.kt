@@ -19,6 +19,7 @@ import com.xdeveloperss.fourbrothers.ui.join.data.AuthViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.shop.wasulies.WasuliViewModel
 import com.xdeveloperss.fourbrothers.utils.FileManager
 import com.xdeveloperss.fourbrothers.utils.Int
+import com.xdeveloperss.fourbrothers.utils.backWithDelay
 import com.xdeveloperss.fourbrothers.utils.dateMilliSec
 import com.xdeveloperss.fourbrothers.utils.formattedDate
 import com.xdeveloperss.fourbrothers.utils.glideLoad
@@ -40,7 +41,9 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
     private lateinit var shopData: Data
     override fun onViewCreated() {
 
-        this.loadData(Prefs.getString("selectedDate") ?: Date().formattedDate())
+        binding.root.backWithDelay {
+            this.loadData(Prefs.getString("selectedDate") ?: Date().formattedDate())
+        }
 
         binding.textFieldSaleDate.editText?.setOnClickListener {
             requireActivity().showDateDialogWithDate( binding.textFieldSaleDate.string().dateMilliSec(),completion = { string, date ->

@@ -40,9 +40,9 @@ class ShopEditorFragment : XBaseFragment<FragmentShopEditorBinding>(FragmentShop
             binding.textFieldSelectParty.editText?.setText(itemData.personName)
             binding.fieldAmount.editText?.setText(itemData.total.toString())
             binding.fieldWeight.editText?.setText(itemData.weight.toString())
-            binding.textFieldSelectPartyProduct.editText?.setText(itemData.product.name)
-            binding.textFieldRateType.editText?.setText(itemData.itemRate.type?.name)
-            binding.textFieldRates.editText?.setText(itemData.itemRate.amount.toString())
+            binding.textFieldSelectPartyProduct.editText?.setText(itemData.product?.name)
+            binding.textFieldRateType.editText?.setText(itemData.itemRate?.type?.name)
+            binding.textFieldRates.editText?.setText(itemData.itemRate?.amount.toString())
             this.productRate = itemData.itemRate
             itemData.person.products?.let { prods ->
                 this.loadPersonProduct(prods.map { it.product.name.toString() }.toList(), binding.textFieldSelectPartyProduct)

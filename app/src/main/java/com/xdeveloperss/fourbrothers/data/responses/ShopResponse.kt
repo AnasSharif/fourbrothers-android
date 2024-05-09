@@ -32,10 +32,10 @@ data class OrderItems(
     var total: Double = 0.0,
     @SerializedName("person_name")
     var personName: String,
-    val product: Product,
+    val product: Product? = null,
     val person: Person,
     @SerializedName("item_rate")
-    val itemRate: PersonRate,
+    val itemRate: PersonRate? = null,
     var media: List<Media>? = null,
     var modelType:String = "orderItems"
 )
