@@ -27,13 +27,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_100sdp"/>
 
-            <ImageView
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/imagePicker"
-                android:layout_width="@dimen/_28sdp"
-                android:layout_height="@dimen/_28sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:foreground="?selectableItemBackground"
-                app:fabSize="auto"
+                app:fabCustomSize="@dimen/_30sdp"
                 android:src="@drawable/add_image_24" />
         </FrameLayout>
 

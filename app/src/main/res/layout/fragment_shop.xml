@@ -38,8 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/add_image_24"
-                app:tint="@color/md_theme_light_primary" />
+                android:src="@drawable/add_image_24" />
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textFieldSaleDate"

@@ -31,8 +31,7 @@
                 android:layout_gravity="center"
                 android:foreground="?selectableItemBackground"
                 android:src="@drawable/add_image_24"
-                app:fabCustomSize="@dimen/_32sdp"
-                app:tint="@color/black90" />
+                app:fabCustomSize="@dimen/_32sdp" />
         </FrameLayout>
 
         <LinearLayout
