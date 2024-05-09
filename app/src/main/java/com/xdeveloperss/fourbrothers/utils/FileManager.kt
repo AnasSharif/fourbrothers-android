@@ -45,13 +45,13 @@ object FileManager {
         }
         val downloadedFile = File("${getDocuments()}/$fileName")
         FileUtils.createOrExistsFile(downloadedFile)
-        ImageUtils.save(bitmap, downloadedFile, Bitmap.CompressFormat.JPEG)
+        ImageUtils.save(bitmap, downloadedFile, Bitmap.CompressFormat.JPEG, 30)
         return fileName
     }
     fun createFileFromPath(uri:Uri,bitmap: Bitmap): File{
         val downloadedFile = File(uri.path ?: "${getDocuments()}/${TimeUtils.date2Millis(Date()).toString()+".jpg"}")
         FileUtils.createOrExistsFile(downloadedFile)
-        ImageUtils.save(bitmap, downloadedFile, Bitmap.CompressFormat.JPEG)
+        ImageUtils.save(bitmap, downloadedFile, Bitmap.CompressFormat.JPEG, 30)
         return downloadedFile
     }
     fun createFile(): Pair<Uri,String>{
