@@ -7,6 +7,8 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -16,6 +18,8 @@ import androidx.viewbinding.ViewBinding
 import androidx.viewpager.widget.ViewPager
 import com.blankj.utilcode.util.ThreadUtils.runOnUiThread
 import com.canhub.cropper.CropImageContract
+import com.google.android.material.textfield.TextInputLayout
+import com.xdeveloperss.fourbrothers.R
 import com.xdeveloperss.fourbrothers.adapters.PagerAdapter
 import com.xdeveloperss.fourbrothers.data.models.Media
 import com.xdeveloperss.fourbrothers.utils.AppExecutors
@@ -94,5 +98,15 @@ abstract class XBaseFragment<B : ViewBinding>(val bindingFactory: (LayoutInflate
     fun loadAdapter(list: List<Media>, pager: ViewPager){
         adapter = PagerAdapter(requireContext(), list.toMutableList())
         pager.adapter = adapter
+    }
+
+    fun loadPersonProduct(strings: List<String>, inputLayout: TextInputLayout, clickListener:((String, Int)->Unit)){
+        val adapter = ArrayAdapter(requireContext(), R.layout.drop_down_list_item, strings)
+        val specieMenu = inputLayout.editText as? AutoCompleteTextView
+        specieMenu?.setAdapter(adapter)
+        specieMenu?.setOnItemClickListener { _, _, i, _ ->
+            clickListener(strings[i], i)
+        }
+
     }
 }

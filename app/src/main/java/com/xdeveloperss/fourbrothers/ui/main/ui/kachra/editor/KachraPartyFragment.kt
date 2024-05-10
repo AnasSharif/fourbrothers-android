@@ -3,6 +3,7 @@ package com.xdeveloperss.fourbrothers.ui.main.ui.kachra.editor
 import android.graphics.Bitmap
 import android.net.Uri
 import android.text.InputType
+import androidx.navigation.fragment.findNavController
 import com.canhub.cropper.CropImageView
 import com.canhub.cropper.options
 import com.kongzue.dialogx.DialogX
@@ -24,6 +25,7 @@ import com.xdeveloperss.fourbrothers.utils.FileManager
 import com.xdeveloperss.fourbrothers.utils.formattedDate
 import com.xdeveloperss.fourbrothers.utils.value
 import com.xdeveloperss.fourbrothers.xbase.XBaseFragment
+import com.xdeveloperss.fourbrothers.xnetwork.config.response.getValueFromResponse
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.Date
 
@@ -33,19 +35,25 @@ class KachraPartyFragment : XBaseFragment<FragmentKachraPartyBinding>(FragmentKa
 
     private var selectedIndex: Int = 0
 
-    private lateinit var payment: KachraPayment
+    private var payment: KachraPayment? = null
 
     private lateinit var party: Person
 
     override fun onViewCreated() {
 
+        payment = null
         paymentViewModel.selectedParty.observe {
             this.party = it
             barTitle(it.name)
-            paymentAdapter(it.kachraPayments)
+            paymentAdapter(it.kachraPayments ?: mutableListOf())
         }
         binding.advanceBtn.setOnClickListener {
             this.showAdvanceAlert(KachraPayment())
+        }
+        binding.kachraBtn.setOnClickListener {
+            findNavController().navigate(KachraPartyFragmentDirections.actionKachraPartyFragmentToKachraEditorFragment())
+            paymentViewModel.setPayment(payment ?: KachraPayment(personsID = party.personsID, paymentType = "cash"))
+            paymentViewModel.setPersonProducts(this.party.products ?: listOf())
         }
     }
 
@@ -68,11 +76,11 @@ class KachraPartyFragment : XBaseFragment<FragmentKachraPartyBinding>(FragmentKa
                 payment.paymentType =  "advance"
                 paymentViewModel.saveData(null,"dailyKacharaPayment", payment)
                 if (payment.id == null){
-                    this.party.kachraPayments.add(payment)
+                    this.party.kachraPayments?.add(payment)
                 }else{
                     binding.paymentsRV.adapter?.notifyItemChanged(selectedIndex)
                 }
-                paymentAdapter(this.party.kachraPayments)
+                paymentAdapter(this.party.kachraPayments ?: mutableListOf())
 
                 false
             }
@@ -95,6 +103,8 @@ class KachraPartyFragment : XBaseFragment<FragmentKachraPartyBinding>(FragmentKa
                 AdapterAction.SELECT -> {
                     if (pro.paymentType == "advance"){
                         this.showAdvanceAlert(pro)
+                    }else{
+                        binding.kachraBtn.performClick()
                     }
                 }AdapterAction.PICKER->{
                 cropImage.launch(
@@ -112,12 +122,12 @@ class KachraPartyFragment : XBaseFragment<FragmentKachraPartyBinding>(FragmentKa
         super.imagePick(bitmap, fileName ,uri)
         paymentViewModel.storeFile(
             "dailyKacharaPayment",
-            payment.id.toString(),
+            payment?.id.toString(),
             fileName,
             FileManager.getFileWithName(fileName = fileName))
         Media().also {
             it.file_name = fileName
-            payment.media.add(it)
+            payment?.media?.add(it)
         }
         binding.paymentsRV.adapter?.notifyItemChanged(selectedIndex)
     }

@@ -52,4 +52,9 @@
     <string name="type">Type: %1$s</string>
     <string name="monthly_payments">Monthly Payments</string>
     <string name="select_month">Select Month</string>
+    <string name="save">Save</string>
+    <string name="rate_type">Rate Type</string>
+    <string name="select_shop">Select Shop</string>
+    <string name="select_product">Select Product</string>
+    <string name="rates">Rates</string>
 </resources>

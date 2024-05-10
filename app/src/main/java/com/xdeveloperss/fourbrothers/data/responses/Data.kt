@@ -22,4 +22,5 @@ data class Data(
     val expenseType: List<ExpenseType> = listOf(),
     val products: List<Product> = listOf(),
     val kachraBuyer: List<Person> = listOf(),
+    val shop: List<Person> = listOf(),
     )

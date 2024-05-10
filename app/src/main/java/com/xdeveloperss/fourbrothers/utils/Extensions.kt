@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
+import android.text.Editable
 import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.FragmentActivity
@@ -51,6 +52,9 @@ fun Date.format1(format: String = "MMM d, yyyy"):String{
 }
 fun TextInputLayout.text(text: String?){
     this.editText?.setText(text)
+}
+fun TextInputLayout.textOrEmpty(text: String?){
+    this.editText?.setText(text ?: "")
 }
 fun TextInputLayout.text(intValue: Int?){
     val stringValue = intValue ?: ""
@@ -114,6 +118,9 @@ fun String.removeSpecialChars(): Double {
 
 val Double.rounded : Double
     get() =  String.format("%.1f", this).toDouble()
+
+val Editable?.double : Double
+    get() = if (this.isNullOrEmpty()) 0.0 else this.toString().toDouble()
 
 fun Double.addPresent(present: Int = 4):Double{
     return this+this*present

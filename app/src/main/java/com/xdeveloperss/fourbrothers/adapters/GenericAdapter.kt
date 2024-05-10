@@ -1,5 +1,6 @@
 package com.xdeveloperss.fourbrothers.adapters
 
+import android.graphics.Color
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -188,9 +189,10 @@ class GenericAdapter<T>(val type: AdapterType = AdapterType.SHOP, private val li
                 val data = lists[position] as KachraPayment
                 val b =  holder.b as KachraPaymentItemBinding
                 b.kachraAmount.text = getString(R.string.total, data.amount.value().toLong())
-                b.kachraWeight.text = getString(R.string.total_weight, data.weight)
+                b.kachraWeight.text = getString(R.string.total_weight, data.weight ?: 0.0)
                 b.typeText.text = if (data.paymentType == "cash") "C" else "A"
-                b.productName.text = data.product?.name ?: "---"
+                b.typeBg.setBackgroundColor(if (data.paymentType == "cash") Color.RED else Color.GREEN)
+                b.productName.text = data.personProduct?.product?.name ?: "---"
                 b.shopName.text = data.person?.name ?: "---"
                 b.imagePicker.setOnClickListener {
                     actions(position, AdapterAction.PICKER, lists[position])

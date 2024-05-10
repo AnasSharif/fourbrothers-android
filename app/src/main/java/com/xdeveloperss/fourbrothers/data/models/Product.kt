@@ -3,7 +3,7 @@ package com.xdeveloperss.fourbrothers.data.models
 import com.google.gson.annotations.SerializedName
 
 data class Product(
-    val id: Int? = null,
+    val id: Long? = null,
     var name: String? = null,
     var slug: String? = null,
     val category: String = "chicken",

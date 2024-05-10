@@ -24,7 +24,7 @@ data class OrderItems(
     @SerializedName("daily_rate")
     var dailyRate: DailyRates,
     @SerializedName("products_id")
-    var productsId: Int? = null,
+    var productsId: Long? = null,
     var personsId: Int? = null,
     @SerializedName("person_rates_id")
     var personRatesId: Int? = null,

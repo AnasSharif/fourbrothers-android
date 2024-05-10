@@ -5,6 +5,7 @@ import com.kongzue.dialogx.dialogs.WaitDialog
 import com.xdeveloperss.fourbrothers.data.BaseResponseRepo
 import com.xdeveloperss.fourbrothers.xnetwork.config.repository.XBaseApiRepo
 import com.xdeveloperss.fourbrothers.xnetwork.config.response.XNetworkResponse
+import com.xdeveloperss.fourbrothers.xnetwork.config.response.getValueFromResponse
 import com.xdeveloperss.fourbrothers.xnetwork.config.server.ServerInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -34,7 +35,7 @@ class MainRepoImpl(private val api: ServerInterface): XBaseApiRepo(), MainRepo {
                             apiCall.value
                         }
                     }else{
-                        BaseResponseRepo()
+                        BaseResponseRepo(message=(apiCall as XNetworkResponse.Failure).message.toString())
                     }
                 }
                 val response = loginResponse.await()
@@ -73,7 +74,8 @@ class MainRepoImpl(private val api: ServerInterface): XBaseApiRepo(), MainRepo {
                     if (response is XNetworkResponse.Success && response.value.success){
                         XNetworkResponse.Success(response.value)
                     }else{
-                        XNetworkResponse.Failure(IOException(), "Enable connecting to server please try again!",2)
+                        val fail = response as XNetworkResponse.Failure
+                        XNetworkResponse.Failure(IOException(), fail.message, fail.code)
                     }
                 }
                 val list = servicesList.await()
@@ -100,10 +102,15 @@ class MainRepoImpl(private val api: ServerInterface): XBaseApiRepo(), MainRepo {
                             className to Gson().toJson(data))
                         api.saveData(params)
                     }
-                    if (response is XNetworkResponse.Success && response.value.success){
-                        XNetworkResponse.Success(response.value)
+                    if (response is XNetworkResponse.Success){
+                        if (response.value.success){
+                            XNetworkResponse.Success(response.value)
+                        }else{
+                            XNetworkResponse.Failure(null,message = response.value.message, null)
+                        }
                     }else{
-                        XNetworkResponse.Failure(IOException(), "Enable connecting to server please try again!",2)
+                        val fail = response as XNetworkResponse.Failure
+                        XNetworkResponse.Failure(IOException(), fail.message, fail.code)
                     }
                 }
                 saveData.await()

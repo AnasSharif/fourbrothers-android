@@ -149,7 +149,15 @@
         android:id="@+id/kachraPartyFragment"
         tools:layout="@layout/fragment_kachra_party"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.kachra.editor.KachraPartyFragment"
-        android:label="Party Detail" />
+        android:label="Party Detail" >
+        <action
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_in_pop"
+            app:popExitAnim="@anim/slide_out_pop"
+            android:id="@+id/action_kachraPartyFragment_to_kachraEditorFragment"
+            app:destination="@id/kachraEditorFragment" />
+    </fragment>
     <fragment
         android:id="@+id/wasuliFragment"
         tools:layout="@layout/fragment_wasuli"
@@ -181,4 +189,8 @@
         tools:layout="@layout/fragment_employee_detail"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.employee.EmployeeDetailFragment"
         android:label="EmployeeDetailFragment" />
+    <fragment
+        android:id="@+id/kachraEditorFragment"
+        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.kachra.editor.KachraEditorFragment"
+        android:label="Add Kachra" />
 </navigation>

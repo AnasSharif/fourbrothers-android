@@ -93,6 +93,7 @@
             android:layout_width="@dimen/_10ssp"
             android:layout_height="match_parent"
             android:background="@color/md_theme_light_error"
+            android:id="@+id/type_bg"
             android:scaleType="centerCrop">
             <TextView
                 android:id="@+id/type_text"

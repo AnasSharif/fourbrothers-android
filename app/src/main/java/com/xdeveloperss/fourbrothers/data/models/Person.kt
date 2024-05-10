@@ -18,11 +18,11 @@ data class Person (
     val products: List<PersonProduct>? = null,
     val payments: List<Payment>?= null,
     @SerializedName("kachra_payments")
-    val kachraPayments:  MutableList<KachraPayment> = mutableListOf()
+    val kachraPayments:  MutableList<KachraPayment>?= null,
 )
 
 class PersonProduct(
-    val id: Int,
+    val id: Long,
     val product: Product,
     val rate: PersonRate
 )
@@ -55,9 +55,9 @@ data class KachraPayment (
     @SerializedName("persons_id")
     var personsID: Long? = null,
     @SerializedName("shop_id")
-    val shopID: Int? = null,
+    var shopID: Long? = null,
     @SerializedName("person_products_id")
-    val personProductsID: Any? = null,
+    var personProductsID: Long? = null,
     var weight: Double? = null,
     var amount: Double? = null,
     @SerializedName("payment_type")
@@ -65,7 +65,8 @@ data class KachraPayment (
     val desc: String? = null,
     @SerializedName("created_at")
     val createdAt: String? = Date().formattedDate(),
-    val product: Product? = null,
+    @SerializedName("person_product")
+    var personProduct: PersonProduct? = null,
     //This is shop
     val person: Person? = null,
     val media: MutableList<Media> = mutableListOf()

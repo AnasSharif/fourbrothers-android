@@ -87,16 +87,6 @@ class ShopEditorFragment : XBaseFragment<FragmentShopEditorBinding>(FragmentShop
             adapter?.addItem(fileName)
         }
     }
-    private fun loadPersonProduct(strings: List<String>, inputLayout: TextInputLayout, clickListener:((String,Int)->Unit)){
-        val adapter = ArrayAdapter(requireContext(), R.layout.drop_down_list_item, strings)
-        val specieMenu = inputLayout.editText as? AutoCompleteTextView
-        specieMenu?.setAdapter(adapter)
-        specieMenu?.setOnItemClickListener { _, _, i, _ ->
-            clickListener(strings[i], i)
-        }
-
-    }
-
     private fun updatedDataItemWeight(rate:PersonRate, weight: Double= binding.fieldWeight.double())
     {
         var total = 0.0
