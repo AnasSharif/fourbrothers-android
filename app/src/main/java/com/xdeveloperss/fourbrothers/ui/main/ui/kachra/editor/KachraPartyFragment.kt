@@ -8,8 +8,8 @@ import com.canhub.cropper.CropImageView
 import com.canhub.cropper.options
 import com.kongzue.dialogx.DialogX
 import com.kongzue.dialogx.dialogs.InputDialog
-import com.kongzue.dialogx.dialogs.PopTip
-import com.kongzue.dialogx.dialogs.WaitDialog
+import com.kongzue.dialogx.dialogs.PopMenu
+import com.kongzue.dialogx.interfaces.OnMenuItemClickListener
 import com.kongzue.dialogx.style.MaterialStyle
 import com.kongzue.dialogx.util.InputInfo
 import com.xdeveloperss.fourbrothers.R
@@ -22,16 +22,20 @@ import com.xdeveloperss.fourbrothers.data.models.Person
 import com.xdeveloperss.fourbrothers.databinding.FragmentKachraPartyBinding
 import com.xdeveloperss.fourbrothers.ui.main.ui.kachra.KachraViewModel
 import com.xdeveloperss.fourbrothers.utils.FileManager
-import com.xdeveloperss.fourbrothers.utils.formattedDate
+import com.xdeveloperss.fourbrothers.utils.backWithDelay
+import com.xdeveloperss.fourbrothers.utils.getCurrentMonthAndYear
 import com.xdeveloperss.fourbrothers.utils.value
 import com.xdeveloperss.fourbrothers.xbase.XBaseFragment
 import com.xdeveloperss.fourbrothers.xnetwork.config.response.getValueFromResponse
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.Date
 
+
 class KachraPartyFragment : XBaseFragment<FragmentKachraPartyBinding>(FragmentKachraPartyBinding::inflate) {
 
     private val paymentViewModel: KachraViewModel by sharedViewModel()
+    
+    private val paymentPartyViewModel: KachraPartyViewModel by sharedViewModel()
 
     private var selectedIndex: Int = 0
 
@@ -54,6 +58,42 @@ class KachraPartyFragment : XBaseFragment<FragmentKachraPartyBinding>(FragmentKa
             findNavController().navigate(KachraPartyFragmentDirections.actionKachraPartyFragmentToKachraEditorFragment())
             paymentViewModel.setPayment(payment ?: KachraPayment(personsID = party.personsID, paymentType = "cash"))
             paymentViewModel.setPersonProducts(this.party.products ?: listOf())
+        }
+        val yearMonth = Date().getCurrentMonthAndYear()
+        binding.selectedMonth.text = yearMonth.first
+        binding.selectedYear.text = yearMonth.second.toString()
+        loadPayments()
+
+        paymentPartyViewModel.getData.observe {
+            it.getValueFromResponse()?.data?.let {
+                paymentAdapter(it.dailyKacharaPayment ?:  listOf())
+            }
+        }
+        binding.monthsPicker.setOnClickListener {
+            val months = resources.getStringArray(R.array.months_array)
+            PopMenu.show(it, months).onMenuItemClickListener =
+                OnMenuItemClickListener { _, text, index ->
+                    binding.selectedMonth.text = text
+                    this.loadPayments()
+                    false
+                }
+        }
+        binding.yearPicker.setOnClickListener {
+            val years = resources.getStringArray(R.array.years_array)
+            PopMenu.show(it, years).onMenuItemClickListener =
+                OnMenuItemClickListener { _, text, index ->
+                    binding.selectedYear.text = text
+                    this.loadPayments()
+                    false
+                }
+        }
+    }
+
+    private fun loadPayments(){
+        binding.root.backWithDelay {
+            paymentPartyViewModel.setData(
+                mapOf("month" to binding.selectedMonth.text.toString(), "year" to binding.selectedYear.text.toString()),
+                listOf("dailyKacharaPayment"))
         }
     }
 

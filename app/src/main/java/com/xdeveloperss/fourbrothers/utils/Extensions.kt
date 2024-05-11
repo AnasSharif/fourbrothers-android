@@ -21,12 +21,14 @@ import java.net.URL
 import java.text.Normalizer
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
 
-fun FragmentActivity.showDateDialogWithDate(withSelection: Long = MaterialDatePicker.todayInUtcMilliseconds(), completion:(Date:String, date: Date)->Unit){
+fun FragmentActivity.showDateDialogWithDate(withSelection: Long = MaterialDatePicker.todayInUtcMilliseconds(),
+                                            completion:(stringDate:String, date: Date)->Unit){
     val datePicker =
         MaterialDatePicker.Builder.datePicker()
             .setTitleText("Select date")
@@ -49,6 +51,14 @@ fun Date.format2(format: String = "yyyy-MM-dd HH:mm:ss"):String{
 fun Date.format1(format: String = "MMM d, yyyy"):String{
     val dateFormat = SimpleDateFormat(format, Locale.getDefault())
     return dateFormat.format(this)
+}
+fun Date.getCurrentMonthAndYear(): Pair<String, Int> {
+    val calendar = Calendar.getInstance()
+    val monthDateFormat = SimpleDateFormat("MMMM", Locale.getDefault())
+    val yearDateFormat = SimpleDateFormat("yyyy", Locale.getDefault())
+    val monthName = monthDateFormat.format(calendar.time)
+    val year = yearDateFormat.format(calendar.time).toInt()
+    return Pair(monthName, year)
 }
 fun TextInputLayout.text(text: String?){
     this.editText?.setText(text)

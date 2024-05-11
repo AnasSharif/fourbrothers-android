@@ -19,7 +19,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,7 +44,28 @@
 
 
             </LinearLayout>
-
+            <!-- Buttons -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:id="@+id/advance_btn"
+                    android:text="@string/add_advance"
+                    style="?attr/borderlessButtonStyle"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:id="@+id/kachra_btn"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_kachra_charbhi"
+                    style="?attr/borderlessButtonStyle"
+                    />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -61,46 +81,66 @@
         app:layout_constraintTop_toBottomOf="@+id/materialCardView"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <Button
-            android:id="@+id/advance_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/add_advance" />
-
-        <Space
-            android:layout_width="@dimen/_5sdp"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/kachra_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/add_kachra_charbhi"
-            tools:layout_editor_absoluteX="5dp" />
     </LinearLayout>
-
-
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_5sdp"
-        android:background="@color/md_theme_light_primary"
         android:orientation="horizontal"
         android:padding="@dimen/_1sdp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:layout_editor_absoluteX="6dp">
+        android:weightSum="2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_5sdp"
-            android:text="@string/payments"
-            android:textAppearance="?attr/textAppearanceTitleMedium"
-            android:textColor="@color/white" />
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/months_picker"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Month:"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textColor="?android:attr/textColorSecondary" />
+
+            <TextView
+                android:text="May"
+                android:id="@+id/selected_month"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/year_picker"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Year:"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textColor="?android:attr/textColorSecondary" />
+
+            <TextView
+                android:text="2024"
+                android:id="@+id/selected_year"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

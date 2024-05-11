@@ -3,6 +3,7 @@ package com.xdeveloperss.fourbrothers.data.responses
 import com.xdeveloperss.fourbrothers.data.models.Employee
 import com.xdeveloperss.fourbrothers.data.models.Expense
 import com.xdeveloperss.fourbrothers.data.models.ExpenseType
+import com.xdeveloperss.fourbrothers.data.models.KachraPayment
 import com.xdeveloperss.fourbrothers.data.models.MandiRate
 import com.xdeveloperss.fourbrothers.data.models.Person
 import com.xdeveloperss.fourbrothers.data.models.Product
@@ -23,4 +24,5 @@ data class Data(
     val products: List<Product> = listOf(),
     val kachraBuyer: List<Person> = listOf(),
     val shop: List<Person> = listOf(),
+    val dailyKacharaPayment: List<KachraPayment>? = null,
     )

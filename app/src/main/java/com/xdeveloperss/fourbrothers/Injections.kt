@@ -9,6 +9,7 @@ import com.xdeveloperss.fourbrothers.ui.main.MainViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.employee.EmployeeViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.expense.ExpenseViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.kachra.KachraViewModel
+import com.xdeveloperss.fourbrothers.ui.main.ui.kachra.editor.KachraPartyViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.parties.PartyViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.product.ProductViewModel
 import com.xdeveloperss.fourbrothers.ui.main.ui.shop.ShopViewModel
@@ -57,6 +58,9 @@ val vms = module {
     }
     viewModel {
         EmployeeViewModel(get())
+    }
+    viewModel {
+        KachraPartyViewModel(get())
     }
 }
 val apiModule = module {
