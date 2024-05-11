@@ -10,6 +10,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.kongzue.dialogx.dialogs.WaitDialog
 import com.xdeveloperss.fourbrothers.R
 import com.xdeveloperss.fourbrothers.adapters.AdapterAction
@@ -30,6 +31,7 @@ class PartyFragment : XBaseFragment<FragmentPartyBinding>(FragmentPartyBinding::
     private var parties: List<Person> = listOf()
     override fun onViewCreated() {
 
+        barTitle(getString(R.string.parties), null)
         partyViewModel.getData.observe { response->
             response.getValueFromResponse()?.data?.let {
                 parties = it.persons
@@ -52,6 +54,8 @@ class PartyFragment : XBaseFragment<FragmentPartyBinding>(FragmentPartyBinding::
                         this.backPressed()
                         return@GenericAdapter
                     }
+                    findNavController().navigate(PartyFragmentDirections.actionNavPartiesToPartyDetailFragment())
+                    partyViewModel.setDetailParty(person)
                 }
                 else -> {}
             }

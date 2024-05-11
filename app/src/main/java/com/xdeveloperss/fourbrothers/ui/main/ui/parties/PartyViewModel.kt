@@ -20,4 +20,15 @@ class PartyViewModel(private val repository: MainRepo): MainViewModel(repository
     fun setSelectParty(item: Person? = null) = viewModelScope.launch {
         _selectedParty.value = item
     }
+
+    private val _detailParty: MutableLiveData<Person> by lazy {
+        MutableLiveData()
+    }
+
+    val detailParty: LiveData<Person>
+        get() = _detailParty
+
+    fun setDetailParty(item: Person) = viewModelScope.launch {
+        _detailParty.value = item
+    }
 }

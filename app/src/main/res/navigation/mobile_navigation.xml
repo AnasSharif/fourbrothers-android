@@ -91,7 +91,15 @@
         android:id="@+id/nav_parties"
         tools:layout="@layout/fragment_party"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.parties.PartyFragment"
-        android:label="@string/parties" />
+        android:label="@string/parties" >
+        <action
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_in_pop"
+            app:popExitAnim="@anim/slide_out_pop"
+            android:id="@+id/action_nav_parties_to_partyDetailFragment"
+            app:destination="@id/partyDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/supplyDetailFragment"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.supplie.SupplyDetailFragment"
@@ -191,6 +199,12 @@
         android:label="EmployeeDetailFragment" />
     <fragment
         android:id="@+id/kachraEditorFragment"
+        tools:layout="@layout/fragment_kachra_editor"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.kachra.editor.KachraEditorFragment"
         android:label="Add Kachra" />
+    <fragment
+        android:id="@+id/partyDetailFragment"
+        tools:layout="@layout/fragment_party_detail"
+        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.parties.detail.PartyDetailFragment"
+        android:label="PartyDetailFragment" />
 </navigation>
