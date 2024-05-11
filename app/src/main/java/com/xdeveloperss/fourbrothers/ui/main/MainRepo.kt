@@ -12,4 +12,6 @@ interface MainRepo {
 
     suspend fun<T> saveData(type: Class<T>?= null, stringType:String? = null, data: T): XNetworkResponse<BaseResponseRepo>
 
+    suspend fun getData(queryParams: Map<String, String>, types: List<String>): XNetworkResponse<BaseResponseRepo>
+
 }

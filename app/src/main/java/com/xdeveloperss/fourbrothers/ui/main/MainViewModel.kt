@@ -32,6 +32,11 @@ open class MainViewModel(private val repository: MainRepo): ViewModel() {
         _getData.value = repository.getData(date, types)
     }
 
+
+    fun setData(params: Map<String, String>, types: List<String>) = viewModelScope.launch {
+        _getData.value = repository.getData(params, types)
+    }
+
     private val _storeFile: MutableLiveData<BaseResponseRepo> by lazy {
         MutableLiveData()
     }

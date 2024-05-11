@@ -39,7 +39,9 @@ interface ServerInterface {
     suspend fun store(@Part("type")type: RequestBody,
                       @Part("itemId")itemId: RequestBody,
                       @Part part: Array<MultipartBody.Part> ):BaseResponseRepo
-
+    @GET("/api/getData")
+    suspend fun getData(@QueryMap queryParams: Map<String, String>,
+                        @Query("type[]") types: List<String>): BaseResponseRepo
 
     companion object {
         val gson: Gson = GsonBuilder()

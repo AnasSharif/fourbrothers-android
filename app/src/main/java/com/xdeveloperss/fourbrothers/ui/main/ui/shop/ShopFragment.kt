@@ -118,7 +118,9 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
 
     }
     private fun loadData(date: String){
-        shopViewModel.setData(date, listOf("dailyRates","orderItems","stockItems","vasuliItems"))
+        val queryParams = mutableMapOf<String, String>()
+        queryParams["added_at"] = date // Add the "added_at" parameter if needed
+        shopViewModel.setData(queryParams, listOf("dailyRates","orderItems","stockItems","vasuliItems"))
         binding.textFieldSaleDate.editText?.setText(date)
         Prefs.putString("selectedDate", date)
     }

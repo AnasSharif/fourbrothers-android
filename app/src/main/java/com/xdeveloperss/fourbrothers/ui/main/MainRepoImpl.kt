@@ -50,6 +50,36 @@ class MainRepoImpl(private val api: ServerInterface): XBaseApiRepo(), MainRepo {
         }
     }
 
+    override suspend fun getData(queryParams: Map<String, String>,  types: List<String>): XNetworkResponse<BaseResponseRepo> {
+        WaitDialog.show("Loading Data...")
+        return withContext(Dispatchers.IO){
+            try {
+                val loginResponse = async {
+                    val apiCall = safeApiCall {
+                        api.getData(queryParams,types)
+                    }
+                    if (apiCall is XNetworkResponse.Success){
+                        if (!apiCall.value.success){
+                            BaseResponseRepo(message = apiCall.value.message)
+                        }else{
+                            apiCall.value
+                        }
+                    }else{
+                        BaseResponseRepo(message=(apiCall as XNetworkResponse.Failure).message.toString())
+                    }
+                }
+                val response = loginResponse.await()
+                if (!response.success){
+                    XNetworkResponse.Failure(Exception(), response.message, response.errorCode)
+                }else{
+                    XNetworkResponse.Success(response)
+                }
+            }catch (exception:Exception){
+                XNetworkResponse.Failure(exception, exception.message,null)
+            }
+        }
+    }
+
     override suspend fun store(
         type: String,
         itemId: String,
