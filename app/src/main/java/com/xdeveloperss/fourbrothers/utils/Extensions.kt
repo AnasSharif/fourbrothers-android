@@ -52,6 +52,10 @@ fun Date.format1(format: String = "MMM d, yyyy"):String{
     val dateFormat = SimpleDateFormat(format, Locale.getDefault())
     return dateFormat.format(this)
 }
+fun Date.formattedServer(format: String = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"):String{
+    val dateFormat = SimpleDateFormat(format, Locale.getDefault())
+    return dateFormat.format(this)
+}
 fun Date.getCurrentMonthAndYear(): Pair<String, Int> {
     val calendar = Calendar.getInstance()
     val monthDateFormat = SimpleDateFormat("MMMM", Locale.getDefault())

@@ -1,9 +1,8 @@
 package com.xdeveloperss.fourbrothers.data.models
 
 import com.google.gson.annotations.SerializedName
-import com.xdeveloperss.fourbrothers.utils.formattedDate
+import com.xdeveloperss.fourbrothers.utils.formattedServer
 import java.util.Date
-import java.util.function.DoubleUnaryOperator
 
 data class Person (
     val id: Long,
@@ -64,10 +63,10 @@ data class KachraPayment (
     var paymentType: String? = null,
     val desc: String? = null,
     @SerializedName("created_at")
-    val createdAt: String? = Date().formattedDate(),
+    val createdAt: String? = Date().formattedServer(),
     @SerializedName("person_product")
     var personProduct: PersonProduct? = null,
     //This is shop
-    val person: Person? = null,
+    var person: Person? = null,
     val media: MutableList<Media> = mutableListOf()
 )

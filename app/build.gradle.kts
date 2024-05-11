@@ -87,4 +87,6 @@ dependencies {
     annotationProcessor (libs.glide.compiler)
     implementation (libs.cropper)
     implementation(libs.onesignal)
+    implementation(libs.kotlin.reflect)
+
 }

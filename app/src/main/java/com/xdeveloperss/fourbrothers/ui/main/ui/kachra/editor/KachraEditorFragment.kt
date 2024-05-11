@@ -46,6 +46,7 @@ class KachraEditorFragment : XBaseFragment<FragmentKachraEditorBinding>(Fragment
                 this.loadPersonProduct(it.map { it.name }.toList(), binding.textFieldSelectParty)
                 { s, i ->
                     payment?.shopID = it[i].id
+                    payment?.person = it[i]
                 }
             }
         }
@@ -53,6 +54,7 @@ class KachraEditorFragment : XBaseFragment<FragmentKachraEditorBinding>(Fragment
             this.loadPersonProduct(it.map { it.product.name.toString() }, binding.textFieldProducts)
             { s, j ->
                 payment?.personProductsID = it[j].id
+                payment?.personProduct =  it[j]
                 selectRate = it[j].rate
                 binding.textFieldRateType.text(selectRate?.type?.name)
                 binding.textFieldRates.text(selectRate?.amount?.toInt())
@@ -82,6 +84,9 @@ class KachraEditorFragment : XBaseFragment<FragmentKachraEditorBinding>(Fragment
             }
             binding.textFieldProducts.error = null
             kachraViewModel.saveData(null, typeString = "dailyKacharaPayment", payment)
+            if (payment?.id == null){
+                kachraViewModel.selectedParty.value?.kachraPayments?.add(payment!!)
+            }
             findNavController().popBackStack()
         }
 

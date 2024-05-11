@@ -22,20 +22,22 @@ import com.xdeveloperss.fourbrothers.data.models.Person
 import com.xdeveloperss.fourbrothers.databinding.FragmentKachraPartyBinding
 import com.xdeveloperss.fourbrothers.ui.main.ui.kachra.KachraViewModel
 import com.xdeveloperss.fourbrothers.utils.FileManager
+import com.xdeveloperss.fourbrothers.utils.ListSorter
 import com.xdeveloperss.fourbrothers.utils.backWithDelay
 import com.xdeveloperss.fourbrothers.utils.getCurrentMonthAndYear
 import com.xdeveloperss.fourbrothers.utils.value
 import com.xdeveloperss.fourbrothers.xbase.XBaseFragment
 import com.xdeveloperss.fourbrothers.xnetwork.config.response.getValueFromResponse
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 
 class KachraPartyFragment : XBaseFragment<FragmentKachraPartyBinding>(FragmentKachraPartyBinding::inflate) {
 
     private val paymentViewModel: KachraViewModel by sharedViewModel()
-    
-    private val paymentPartyViewModel: KachraPartyViewModel by sharedViewModel()
 
     private var selectedIndex: Int = 0
 
@@ -45,11 +47,15 @@ class KachraPartyFragment : XBaseFragment<FragmentKachraPartyBinding>(FragmentKa
 
     override fun onViewCreated() {
 
+        val yearMonth = Date().getCurrentMonthAndYear()
+        binding.selectedMonth.text = yearMonth.first
+        binding.selectedYear.text = yearMonth.second.toString()
+
         payment = null
         paymentViewModel.selectedParty.observe {
             this.party = it
             barTitle(it.name)
-            paymentAdapter(it.kachraPayments ?: mutableListOf())
+            this.paymentAdapter()
         }
         binding.advanceBtn.setOnClickListener {
             this.showAdvanceAlert(KachraPayment())
@@ -59,22 +65,13 @@ class KachraPartyFragment : XBaseFragment<FragmentKachraPartyBinding>(FragmentKa
             paymentViewModel.setPayment(payment ?: KachraPayment(personsID = party.personsID, paymentType = "cash"))
             paymentViewModel.setPersonProducts(this.party.products ?: listOf())
         }
-        val yearMonth = Date().getCurrentMonthAndYear()
-        binding.selectedMonth.text = yearMonth.first
-        binding.selectedYear.text = yearMonth.second.toString()
-        loadPayments()
 
-        paymentPartyViewModel.getData.observe {
-            it.getValueFromResponse()?.data?.let {
-                paymentAdapter(it.dailyKacharaPayment ?:  listOf())
-            }
-        }
         binding.monthsPicker.setOnClickListener {
             val months = resources.getStringArray(R.array.months_array)
             PopMenu.show(it, months).onMenuItemClickListener =
                 OnMenuItemClickListener { _, text, index ->
                     binding.selectedMonth.text = text
-                    this.loadPayments()
+                    this.paymentAdapter()
                     false
                 }
         }
@@ -83,20 +80,11 @@ class KachraPartyFragment : XBaseFragment<FragmentKachraPartyBinding>(FragmentKa
             PopMenu.show(it, years).onMenuItemClickListener =
                 OnMenuItemClickListener { _, text, index ->
                     binding.selectedYear.text = text
-                    this.loadPayments()
+                    this.paymentAdapter()
                     false
                 }
         }
     }
-
-    private fun loadPayments(){
-        binding.root.backWithDelay {
-            paymentPartyViewModel.setData(
-                mapOf("month" to binding.selectedMonth.text.toString(), "year" to binding.selectedYear.text.toString()),
-                listOf("dailyKacharaPayment"))
-        }
-    }
-
     private fun showAdvanceAlert(payment: KachraPayment){
         InputDialog("Advance Payment", "", "Save", "Cancel", "Enter Amount")
             .setInputText( (payment.amount ?:"").toString() )
@@ -120,22 +108,25 @@ class KachraPartyFragment : XBaseFragment<FragmentKachraPartyBinding>(FragmentKa
                 }else{
                     binding.paymentsRV.adapter?.notifyItemChanged(selectedIndex)
                 }
-                paymentAdapter(this.party.kachraPayments ?: mutableListOf())
+                this.paymentAdapter()
 
                 false
             }
             .show()
     }
 
-    private fun paymentAdapter(payments: List<KachraPayment>){
+    private fun paymentAdapter(){
+        val payments = this.party.kachraPayments ?: mutableListOf()
         val advance = payments.let {
             it.filter { it.paymentType=="advance" }.sumOf { it.amount.value() }
         }
-        val cash = payments.let {
+        val filterPayments = ListSorter.filterObjectsByMonth(objects = this.party.kachraPayments ?: mutableListOf(),
+            targetMonth=binding.selectedMonth.text.toString(), targetYear = binding.selectedYear.text.toString())
+        val cash = filterPayments.let {
             it.filter { it.paymentType=="cash" }.sumOf { it.amount.value() }
         }
         binding.balanceAmount.text = getString(R.string.total, (advance-cash).toLong())
-        binding.paymentsRV.adapter = GenericAdapter(type = AdapterType.KACHRA_PAYMENT, payments.sortedByDescending { it.createdAt })
+        binding.paymentsRV.adapter = GenericAdapter(type = AdapterType.KACHRA_PAYMENT, filterPayments.sortedByDescending { it.createdAt })
         { i, action, pro ->
             payment = pro
             selectedIndex = i
