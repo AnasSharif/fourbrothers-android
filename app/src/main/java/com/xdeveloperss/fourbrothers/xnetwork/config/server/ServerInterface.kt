@@ -8,6 +8,9 @@ import com.xdeveloperss.fourbrothers.data.BaseResponseRepo
 import com.xdeveloperss.fourbrothers.xnetwork.config.models.AuthResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.http.Field
+import retrofit2.http.FieldMap
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -24,7 +27,8 @@ import retrofit2.http.QueryMap
 interface ServerInterface {
 
     @POST("/api/auth/login")
-    suspend fun login(@Query("username") email: String, @Query("password") pas:String):AuthResponse
+    @FormUrlEncoded
+    suspend fun login(@Field("username") email: String, @Field("password") pas:String):AuthResponse
 
     @POST("/api/auth/logout")
     suspend fun logout(): Boolean
@@ -33,7 +37,9 @@ interface ServerInterface {
     suspend fun getData(@Query("added_at") date: String?=null,
                         @Query("type[]") types: List<String>):BaseResponseRepo
     @POST("/api/saveData")
-    suspend fun saveData(@QueryMap params: Map<String, String>):BaseResponseRepo
+    @FormUrlEncoded
+    suspend fun saveData(@FieldMap params: Map<String, String>):BaseResponseRepo
+
     @Multipart
     @POST("/api/store")
     suspend fun store(@Part("type")type: RequestBody,

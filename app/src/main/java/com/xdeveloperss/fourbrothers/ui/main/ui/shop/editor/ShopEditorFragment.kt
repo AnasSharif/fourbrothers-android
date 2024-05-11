@@ -6,6 +6,7 @@ import android.provider.MediaStore
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.core.widget.addTextChangedListener
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageView
@@ -73,6 +74,7 @@ class ShopEditorFragment : XBaseFragment<FragmentShopEditorBinding>(FragmentShop
         }
         binding.saveBtn.setOnClickListener {
             shopViewModel.saveData(null, typeString = itemData.modelType, itemData)
+            findNavController().popBackStack()
         }
     }
     override fun imagePick(bitmap: Bitmap, fileName: String, uri: Uri?) {
