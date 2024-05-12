@@ -42,7 +42,7 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
     override fun onViewCreated() {
 
         binding.root.backWithDelay {
-            this.loadData(Prefs.getString("selectedDate") ?: Date().formattedDate())
+            this.loadData(Prefs.getString(this::class.java.name) ?: Date().formattedDate())
         }
 
         binding.textFieldSaleDate.editText?.setOnClickListener {
@@ -112,16 +112,20 @@ class ShopFragment : XBaseFragment<FragmentShopBinding>(FragmentShopBinding::inf
 
     private fun showRateAlert(){
         XDialogBuilder(requireActivity(),shopData.dailyRates ?: DailyRates()).setData {
-            shopViewModel.saveData(DailyRates::class.java, null, it as DailyRates)
-            this.loadData(date = Prefs.getString("selectedDate") ?: Date().formattedDate())
+            shopViewModel.saveData(null, "dailyRates", it as DailyRates)
         }.show()
-
+        shopViewModel.saveData.observe {resp ->
+            resp.data?.dailyRates?.let {
+                binding.chickenRateField.text(it.chickenrate)
+                binding.zindaRateField.text(it.zindarate)
+            }
+        }
     }
     private fun loadData(date: String){
         val queryParams = mutableMapOf<String, String>()
         queryParams["added_at"] = date // Add the "added_at" parameter if needed
         shopViewModel.setData(queryParams, listOf("dailyRates","orderItems","stockItems","vasuliItems"))
         binding.textFieldSaleDate.editText?.setText(date)
-        Prefs.putString("selectedDate", date)
+        Prefs.putString(this::class.java.name, date)
     }
 }
