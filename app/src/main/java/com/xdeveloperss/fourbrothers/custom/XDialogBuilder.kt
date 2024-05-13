@@ -1,9 +1,11 @@
 package com.xdeveloperss.fourbrothers.custom
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -95,7 +97,7 @@ class XDialogBuilder<T>(private var context: FragmentActivity, private val model
         return this
     }
 
-    fun show(positiveTitle: String = "Ok", negativeTitle: String = "Cancel",){
+    fun show(positiveTitle: String = "Ok", negativeTitle: String = "Cancel"){
         materialAlertDialogBuilder
             .setPositiveButton(positiveTitle) { dialog, _ ->
                 when(dialogType){
@@ -177,10 +179,8 @@ class XDialogBuilder<T>(private var context: FragmentActivity, private val model
                 }
             }
             .setNegativeButton(negativeTitle) { dialog, _ ->
-
             dialog.dismiss()
-        }
-            .show()
+        }.show()
     }
 
     private fun loadSelection(context: Context, strings: List<String>, inputLayout: TextInputLayout, clickListener:((String, Int)->Unit)){

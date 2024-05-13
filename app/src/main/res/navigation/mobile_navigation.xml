@@ -134,7 +134,15 @@
         android:id="@+id/nav_expenses"
         tools:layout="@layout/fragment_expense"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.expense.ExpenseFragment"
-        android:label="Expenses" />
+        android:label="Expenses" >
+        <action
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_in_pop"
+            app:popExitAnim="@anim/slide_out_pop"
+            android:id="@+id/action_nav_expenses_to_expenseEditorFragment"
+            app:destination="@id/expenseEditorFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_kachra"
         tools:layout="@layout/fragment_kachra"
@@ -207,4 +215,9 @@
         tools:layout="@layout/fragment_party_detail"
         android:name="com.xdeveloperss.fourbrothers.ui.main.ui.parties.detail.PartyDetailFragment"
         android:label="PartyDetailFragment" />
+    <fragment
+        android:id="@+id/expenseEditorFragment"
+        tools:layout="@layout/fragment_expense_editor"
+        android:name="com.xdeveloperss.fourbrothers.ui.main.ui.expense.ExpenseEditorFragment"
+        android:label="ExpenseEditor" />
 </navigation>
